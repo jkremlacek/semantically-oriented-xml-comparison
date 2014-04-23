@@ -1,4 +1,4 @@
-Zadání projektu:
+=Zadání projektu:=
 
 Cílem tohoto projektu je vytvořit Java knihovnu pro porovnávání XML souborů. Výstupem programu je buďto tvrzení, že xml soubory jsou podobné, anebo rozdílné spolu s výpisem rozdílů. To co se považuje za podobná XML je vaším úkolem definovat. Podobnost xml je zcela jistě relace ekvivalence (xml soubor je sám sobě podobný, jeli podobný , B a B, C musí být i A, C). O některých XML souborech lze s jistotou říci že jsou si podobné, například:
 
@@ -12,3 +12,12 @@ Na druhou stranu existuje mnoho případů, kdy není zcela jasné jestli jsou d
     Bílé znaky navíc v obsahu elementu
 
 Pro tyto případy musí mít knihovna nastavení, kde lze dodefinovat jestli uživatel považuje takové dokumenty za podobné. Součástí řešení musí být jasná dokumentace relace "podobná xml". Je vhodné aby si nejdříve řešitelé prošly existující metody a nástroje na porovnávání XML a v z nich si vypsali, co daný nástroj považuje za podobnost. V rámci implementace využijte pouze JDK. Projekt musí být jednotkově testován.
+
+=Vývojáři:=
+    Jakub Kremláček, učo 410131, FI B-IN PSZD [sem 4, roč 2]
+
+    Matej Minárik, učo 396546, FI B-IN PSK [sem 6, roč 3]
+
+    Ondrej Mosnáček, učo 409879, FI B-IN PSZD [sem 4, roč 2]
+
+    Ondřej Sobočík, učo 359502, FI B-AP BcAP [sem 4, roč 2]
