@@ -20,19 +20,15 @@ import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
 /**
- * A dummy {@link DiffConsumer} that produces a human-readable HTML view of the
+ * A dummy {@link GeneralDiffConsumer} that produces a human-readable HTML view of the
  * differences between two XML documents.
  * 
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class HtmlDiffConsumer implements DiffConsumer {
+public class HtmlDiffConsumer implements GeneralDiffConsumer {
     
-    private final String leftClass;
-    private final String rightClass;
-    private final Writer writer;
-    private final Stack<Element> elStack = new Stack<>();
+    private final HtmlDiffWriter writer;
     //private int padding = 0;
-    private boolean entityRef = false;
     
     /**
      * Creates a new instance.
@@ -41,39 +37,9 @@ public class HtmlDiffConsumer implements DiffConsumer {
      * @param rightCssClass the CSS class to use for the right document contents
      */
     public HtmlDiffConsumer(Writer writer, String leftCssClass, String rightCssClass) {
-        this.writer = writer;
-        this.leftClass = leftCssClass;
-        this.rightClass = rightCssClass;
+        this.writer = new HtmlDiffWriter(writer, leftCssClass, rightCssClass);
     }
     
-    private void colorBegin(DocumentSide side) throws IOException {
-        String cssClass;
-        switch(side) {
-            case LEFT_DOCUMENT:
-                cssClass = leftClass;
-                break;
-            case RIGHT_DOCUMENT:
-                cssClass = rightClass;
-                break;
-            default:
-                writer.write("<span>");
-                return;
-        }
-        writer.write("<span class=\"" + cssClass + "\">");
-    }
-    
-    private void colorEnd() throws IOException {
-        writer.write("</span>");
-    }
-    
-    private String escape(String text) {
-        return text
-                .replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace("\"", "&quot;");
-    }
-
     @Override
     public void begin() {
         try {
@@ -94,24 +60,18 @@ public class HtmlDiffConsumer implements DiffConsumer {
     
     @Override
     public void beginChildren() {
-        if(entityRef)
-            return;
         //padding += 1;
     }
 
     @Override
     public void endChildren() {
-        if(entityRef)
-            return;
         //padding -= 1;
     }
 
     @Override
     public void beginElement(DocumentSide side, Element el) {
-        if(entityRef)
-            return;
         try {
-            colorBegin(side);
+            writer.colorBegin(side);
             
             writer.write("&lt;");
             
@@ -119,20 +79,14 @@ public class HtmlDiffConsumer implements DiffConsumer {
             if(prefix != null)
                 writer.write(prefix + ":");
             writer.write(el.getNodeName());
-            
-            elStack.push(el);
         } catch (IOException ex) {
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void endElement() {
-        if(entityRef)
-            return;
+    public void endElement(DocumentSide side, Element el) {
         try {
-            Element el = elStack.pop();
-            
             writer.write("&lt;/");
             
             String prefix = el.getPrefix();
@@ -142,7 +96,7 @@ public class HtmlDiffConsumer implements DiffConsumer {
             
             writer.write("&gt;");
             
-            colorEnd();
+            writer.colorEnd(side);
         } catch (IOException ex) {
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -153,10 +107,8 @@ public class HtmlDiffConsumer implements DiffConsumer {
 
     @Override
     public void beginAttribute(DocumentSide side, Attr attr) {
-        if(entityRef)
-            return;
         try {
-            colorBegin(side);
+            writer.colorBegin(side);
             writer.write(" ");
             writer.write(attr.getNodeName());
             writer.write("=\"");
@@ -166,12 +118,10 @@ public class HtmlDiffConsumer implements DiffConsumer {
     }
 
     @Override
-    public void endAttribute() {
-        if(entityRef)
-            return;
+    public void endAttribute(DocumentSide side, Attr attr) {
         try {
             writer.write("\"");
-            colorEnd();
+            writer.colorEnd(side);
         } catch (IOException ex) {
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -179,8 +129,6 @@ public class HtmlDiffConsumer implements DiffConsumer {
 
     @Override
     public void endAttributes() {
-        if(entityRef)
-            return;
         try {
             writer.write("&gt;");
         } catch (IOException ex) {
@@ -189,8 +137,7 @@ public class HtmlDiffConsumer implements DiffConsumer {
     }
 
     @Override
-    public void beginEntityReference(DocumentSide side, EntityReference ref) {
-        entityRef = true;
+    public void entityReference(DocumentSide side, EntityReference ref) {
         try {
             writer.write("&amp;");
             writer.write(ref.getNodeName());
@@ -201,16 +148,9 @@ public class HtmlDiffConsumer implements DiffConsumer {
     }
 
     @Override
-    public void endEntityReference() {
-        entityRef = false;
-    }
-
-    @Override
     public void beginText(DocumentSide side, Text text) {
-        if(entityRef)
-            return;
         try {
-            colorBegin(side);
+            writer.colorBegin(side);
         } catch (IOException ex) {
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -218,25 +158,21 @@ public class HtmlDiffConsumer implements DiffConsumer {
 
     @Override
     public void textValue(DocumentSide side, String value) {
-        if(entityRef)
-            return;
         try {
-            colorBegin(side);
+            writer.colorBegin(side);
             
-            writer.write(escape(value));
+            writer.writeEscaped(value);
             
-            colorEnd();
+            writer.colorEnd(side);
         } catch (IOException ex) {
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void endText() {
-        if(entityRef)
-            return;
+    public void endText(DocumentSide side, Text text) {
         try {
-            colorEnd();
+            writer.colorEnd(side);
         } catch (IOException ex) {
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -244,10 +180,8 @@ public class HtmlDiffConsumer implements DiffConsumer {
 
     @Override
     public void beginCDATASection(DocumentSide side, CDATASection cdata) {
-        if(entityRef)
-            return;
         try {
-            colorBegin(side);
+            writer.colorBegin(side);
             
             writer.write("&lt;![CDATA[");
         } catch (IOException ex) {
@@ -257,38 +191,32 @@ public class HtmlDiffConsumer implements DiffConsumer {
 
     @Override
     public void CDATASectionData(DocumentSide side, String data) {
-        if(entityRef)
-            return;
         try {
-            colorBegin(side);
+            writer.colorBegin(side);
             
-            writer.write(escape(data));
+            writer.writeEscaped(data);
             
-            colorEnd();
+            writer.colorEnd(side);
         } catch (IOException ex) {
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void endCDATASection() {
-        if(entityRef)
-            return;
+    public void endCDATASection(DocumentSide side, CDATASection cdata) {
         try {
             writer.write("]]&gt;");
             
-            colorEnd();
+            writer.colorEnd(side);
         } catch (IOException ex) {
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void beginComment(DocumentSide side, Comment cdata) {
-        if(entityRef)
-            return;
+    public void beginComment(DocumentSide side, Comment comment) {
         try {
-            colorBegin(side);
+            writer.colorBegin(side);
             
             writer.write("&lt;!--");
         } catch (IOException ex) {
@@ -298,27 +226,23 @@ public class HtmlDiffConsumer implements DiffConsumer {
 
     @Override
     public void commentData(DocumentSide side, String data) {
-        if(entityRef)
-            return;
         try {
-            colorBegin(side);
+            writer.colorBegin(side);
             
-            writer.write(escape(data));
+            writer.writeEscaped(data);
             
-            colorEnd();
+            writer.colorEnd(side);
         } catch (IOException ex) {
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void endComment() {
-        if(entityRef)
-            return;
+    public void endComment(DocumentSide side, Comment comment) {
         try {
             writer.write("--&gt;");
             
-            colorEnd();
+            writer.colorEnd(side);
         } catch (IOException ex) {
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -326,10 +250,8 @@ public class HtmlDiffConsumer implements DiffConsumer {
 
     @Override
     public void beginProcessingInstruction(DocumentSide side, ProcessingInstruction pi) {
-        if(entityRef)
-            return;
         try {
-            colorBegin(side);
+            writer.colorBegin(side);
             
             writer.write("&lt;?");
             writer.write(pi.getTarget());
@@ -341,27 +263,23 @@ public class HtmlDiffConsumer implements DiffConsumer {
 
     @Override
     public void processingInstructionData(DocumentSide side, String data) {
-        if(entityRef)
-            return;
         try {
-            colorBegin(side);
+            writer.colorBegin(side);
             
-            writer.write(escape(data));
+            writer.writeEscaped(data);
             
-            colorEnd();
+            writer.colorEnd(side);
         } catch (IOException ex) {
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void endProcessingInstruction() {
-        if(entityRef)
-            return;
+    public void endProcessingInstruction(DocumentSide side, ProcessingInstruction pi) {
         try {
             writer.write("?&gt;");
             
-            colorEnd();
+            writer.colorEnd(side);
         } catch (IOException ex) {
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }

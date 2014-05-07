@@ -28,7 +28,7 @@ import org.w3c.dom.Text;
  * 
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public interface DiffConsumer {
+public interface GeneralDiffConsumer {
     
     /**
      * Called when the diff stream begins.
@@ -58,8 +58,12 @@ public interface DiffConsumer {
     public void beginElement(DocumentSide side, Element el);
     /**
      * Marks the end of an element.
+     * @param side  the document in which the node appears
+     * @param el    the element (if {@code side} is {@link DocumentSide#BOTH},
+     *              only the properties defining similarity are guaranteed to
+     *              be valid)
      */
-    public void endElement();
+    public void endElement(DocumentSide side, Element el);
     
     /**
      * Marks the beginning of the attribute list of the current node.
@@ -75,8 +79,12 @@ public interface DiffConsumer {
     public void beginAttribute(DocumentSide side, Attr attr);
     /**
      * Marks the end of an attribute.
+     * @param side  the document in which the node appears
+     * @param attr  the attribute (if {@code side} is {@link DocumentSide#BOTH},
+     *              only the properties defining similarity are guaranteed to
+     *              be valid)
      */
-    public void endAttribute();
+    public void endAttribute(DocumentSide side, Attr attr);
     /**
      * Marks the end of the attribute list of the current node.
      */
@@ -89,11 +97,7 @@ public interface DiffConsumer {
      *              DocumentSide#BOTH}, only the properties defining similarity
      *              are guaranteed to be valid)
      */
-    public void beginEntityReference(DocumentSide side, EntityReference ref);
-    /**
-     * Marks the end of an entity reference.
-     */
-    public void endEntityReference();
+    public void entityReference(DocumentSide side, EntityReference ref);
     
     /**
      * Marks the beginning of a text node.
@@ -111,8 +115,12 @@ public interface DiffConsumer {
     public void textValue(DocumentSide side, String value);
     /**
      * Marks the end of a text node.
+     * @param side  the document in which the node appears
+     * @param text  the text node (if {@code side} is {@link DocumentSide#BOTH},
+     *              only the properties defining similarity are guaranteed to be
+     *              valid)
      */
-    public void endText();
+    public void endText(DocumentSide side, Text text);
     
     /**
      * Marks the beginning of a CDATA section.
@@ -130,8 +138,12 @@ public interface DiffConsumer {
     public void CDATASectionData(DocumentSide side, String data);
     /**
      * Marks the end of a CDATA section.
+     * @param side  the document in which the node appears
+     * @param cdata the CDATA section node (if {@code side} is {@link DocumentSide#BOTH},
+     *              only the properties defining similarity are guaranteed to be
+     *              valid)
      */
-    public void endCDATASection();
+    public void endCDATASection(DocumentSide side, CDATASection cdata);
     
     /**
      * Marks the beginning of a comment.
@@ -142,15 +154,19 @@ public interface DiffConsumer {
      */
     public void beginComment(DocumentSide side, Comment comment);
     /**
-     * Reports the value of a text node.
+     * Reports the data in a comment node.
      * @param side  the document in which the value appears
-     * @param text  the text of the current comment node
+     * @param data  the text of the current comment node
      */
-    public void commentData(DocumentSide side, String text);
+    public void commentData(DocumentSide side, String data);
     /**
      * Marks the end of a comment.
+     * @param side      the document in which the node appears
+     * @param comment   the comment node (if {@code side} is {@link
+     *                  DocumentSide#BOTH}, only the properties defining similarity
+     *                  are guaranteed to be valid)
      */
-    public void endComment();
+    public void endComment(DocumentSide side, Comment comment);
     
     /**
      * Marks the beginning of a processing instruction.
@@ -168,8 +184,12 @@ public interface DiffConsumer {
     public void processingInstructionData(DocumentSide side, String data);
     /**
      * Marks the end of a processing instruction.
+     * @param side  the document in which the node appears
+     * @param pi    the processing instruction (if {@code side} is {@link
+     *              DocumentSide#BOTH}, only the properties defining similarity
+     *              are guaranteed to be valid)
      */
-    public void endProcessingInstruction();
+    public void endProcessingInstruction(DocumentSide side, ProcessingInstruction pi);
     
     // TODO add more methods
 }

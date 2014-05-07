@@ -34,7 +34,7 @@ public class Soxc {
      * @param options
      * @param diffConsumer 
      */
-    private static void reportNode(Node node, DocumentSide side, Options options, DiffConsumer diffConsumer) {
+    private static void reportNode(Node node, DocumentSide side, Options options, GeneralDiffConsumer diffConsumer) {
         switch(node.getNodeType()) {
             case Node.ELEMENT_NODE: {
                 diffConsumer.beginElement(side, (Element)node);
@@ -51,7 +51,7 @@ public class Soxc {
                     reportNode(child, side, options, diffConsumer);
                 diffConsumer.endChildren();
                 
-                diffConsumer.endElement();
+                diffConsumer.endElement(side, (Element)node);
                 break;
             }
             case Node.ATTRIBUTE_NODE: {
@@ -63,19 +63,11 @@ public class Soxc {
                     reportNode(child, side, options, diffConsumer);
                 diffConsumer.endChildren();
 
-                diffConsumer.endAttribute();
+                diffConsumer.endAttribute(side, (Attr)node);
                 break;
             }
             case Node.ENTITY_REFERENCE_NODE: {
-                diffConsumer.beginEntityReference(side, (EntityReference)node);
-                
-                diffConsumer.beginChildren();
-                List<Node> children = Utils.asList(node.getAttributes());
-                for(Node child : children)
-                    reportNode(child, side, options, diffConsumer);
-                diffConsumer.endChildren();
-
-                diffConsumer.endEntityReference();
+                diffConsumer.entityReference(side, (EntityReference)node);
                 break;
             }
             case Node.TEXT_NODE: {
@@ -83,7 +75,7 @@ public class Soxc {
                 
                 diffConsumer.textValue(side, node.getNodeValue());
                 
-                diffConsumer.endText();
+                diffConsumer.endText(side, (Text)node);
                 break;
             }
             case Node.CDATA_SECTION_NODE: {
@@ -91,7 +83,7 @@ public class Soxc {
                 
                 diffConsumer.CDATASectionData(side, node.getNodeValue());
                 
-                diffConsumer.endCDATASection();
+                diffConsumer.endCDATASection(side, (CDATASection)node);
                 break;
             }
             case Node.COMMENT_NODE: {
@@ -99,7 +91,7 @@ public class Soxc {
                 
                 diffConsumer.commentData(side, node.getNodeValue());
                 
-                diffConsumer.endComment();
+                diffConsumer.endComment(side, (Comment)node);
                 break;
             }
             case Node.PROCESSING_INSTRUCTION_NODE: {
@@ -107,7 +99,7 @@ public class Soxc {
                 
                 diffConsumer.processingInstructionData(side, node.getNodeValue());
                 
-                diffConsumer.endProcessingInstruction();
+                diffConsumer.endProcessingInstruction(side, (ProcessingInstruction)node);
                 break;
             }
             default:
@@ -124,7 +116,7 @@ public class Soxc {
      * @param diffConsumer
      * @return 
      */
-    private static boolean diffNodeList(List<Node> nodesLeft, List<Node> nodesRight, Options options, DiffConsumer diffConsumer) {
+    private static boolean diffNodeList(List<Node> nodesLeft, List<Node> nodesRight, Options options, GeneralDiffConsumer diffConsumer) {
         boolean equal = true;
         
         // this would look nicer in a separate functions, but stupid Java doesn't
@@ -242,7 +234,7 @@ public class Soxc {
      * @param diffConsumer
      * @return 
      */
-    private static boolean diffSimilarNodes(Node nodeLeft, Node nodeRight, Options options, DiffConsumer diffConsumer) {
+    private static boolean diffSimilarNodes(Node nodeLeft, Node nodeRight, Options options, GeneralDiffConsumer diffConsumer) {
         boolean equal = true;
         switch(nodeLeft.getNodeType()) {
             case Node.ELEMENT_NODE: {
@@ -262,7 +254,7 @@ public class Soxc {
                     equal = false;
                 diffConsumer.endChildren();
                 
-                diffConsumer.endElement();
+                diffConsumer.endElement(DocumentSide.BOTH, (Element)nodeLeft);
                 break;
             }
             case Node.ATTRIBUTE_NODE: {
@@ -275,20 +267,11 @@ public class Soxc {
                     equal = false;
                 diffConsumer.endChildren();
 
-                diffConsumer.endAttribute();
+                diffConsumer.endAttribute(DocumentSide.BOTH, (Attr)nodeLeft);
                 break;
             }
             case Node.ENTITY_REFERENCE_NODE: {
-                diffConsumer.beginEntityReference(DocumentSide.BOTH, (EntityReference)nodeLeft);
-                
-                diffConsumer.beginChildren();
-                List<Node> childrenLeft = Utils.asList(nodeLeft.getChildNodes());
-                List<Node> childrenRight = Utils.asList(nodeRight.getChildNodes());
-                if(!diffNodeList(childrenLeft, childrenRight, options, diffConsumer))
-                    equal = false;
-                diffConsumer.endChildren();
-
-                diffConsumer.endEntityReference();
+                diffConsumer.entityReference(DocumentSide.BOTH, (EntityReference)nodeLeft);
                 break;
             }
             case Node.TEXT_NODE: {
@@ -304,7 +287,7 @@ public class Soxc {
                     equal = false;
                 }
                 
-                diffConsumer.endText();
+                diffConsumer.endText(DocumentSide.BOTH, (Text)nodeLeft);
                 break;
             }
             case Node.CDATA_SECTION_NODE: {
@@ -320,7 +303,7 @@ public class Soxc {
                     equal = false;
                 }
                 
-                diffConsumer.endCDATASection();
+                diffConsumer.endCDATASection(DocumentSide.BOTH, (CDATASection)nodeLeft);
                 break;
             }
             case Node.COMMENT_NODE: {
@@ -336,7 +319,7 @@ public class Soxc {
                     equal = false;
                 }
                 
-                diffConsumer.endComment();
+                diffConsumer.endComment(DocumentSide.BOTH, (Comment)nodeLeft);
                 break;
             }
             case Node.PROCESSING_INSTRUCTION_NODE: {
@@ -352,7 +335,7 @@ public class Soxc {
                     equal = false;
                 }
                 
-                diffConsumer.endProcessingInstruction();
+                diffConsumer.endProcessingInstruction(DocumentSide.BOTH, (ProcessingInstruction)nodeLeft);
                 break;
             }
             default:
@@ -369,7 +352,7 @@ public class Soxc {
      * @param diffConsumer  the listener that wil consume the diff information
      * @return {@code true} if the nodes are equal, otherwise {@code false}
      */
-    public static boolean diffNodes(Node nodeLeft, Node nodeRight, Options options, DiffConsumer diffConsumer) {
+    public static boolean diffNodes(Node nodeLeft, Node nodeRight, Options options, GeneralDiffConsumer diffConsumer) {
         NodeSimilarityWrapper wrapperLeft = new NodeSimilarityWrapper(nodeLeft, options);
         NodeSimilarityWrapper wrapperRight = new NodeSimilarityWrapper(nodeRight, options);
         

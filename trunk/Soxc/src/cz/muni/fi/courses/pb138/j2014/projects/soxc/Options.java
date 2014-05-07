@@ -7,7 +7,7 @@
 package cz.muni.fi.courses.pb138.j2014.projects.soxc;
 
 /**
- * Represents options for XML comparison.
+ * Represents options for XML comparison. This is an immutable class.
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
 public final class Options {
