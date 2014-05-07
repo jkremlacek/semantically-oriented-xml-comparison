@@ -6,7 +6,7 @@
 
 package cz.muni.fi.courses.pb138.j2014.projects.soxc.xmldiff;
 
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.DiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.GeneralDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
@@ -17,10 +17,10 @@ import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
 /**
- * A {@link DiffConsumer} that outputs the differences to the console.
+ * A {@link GeneralDiffConsumer} that outputs the differences to the console.
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class ConsoleOutputDiffConsumer implements DiffConsumer {
+public class ConsoleOutputDiffConsumer implements GeneralDiffConsumer {
 
     /* HINT: we can use ANSI color escapes (https://en.wikipedia.org/wiki/ANSI_escape_code)
      * on Unix OSes to highlight the differences, on Windows we are screwed unless
@@ -53,7 +53,7 @@ public class ConsoleOutputDiffConsumer implements DiffConsumer {
     }
 
     @Override
-    public void endElement() {
+    public void endElement(DocumentSide side, Element el) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -68,7 +68,7 @@ public class ConsoleOutputDiffConsumer implements DiffConsumer {
     }
 
     @Override
-    public void endAttribute() {
+    public void endAttribute(DocumentSide side, Attr attr) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -78,12 +78,7 @@ public class ConsoleOutputDiffConsumer implements DiffConsumer {
     }
 
     @Override
-    public void beginEntityReference(DocumentSide side, EntityReference ref) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void endEntityReference() {
+    public void entityReference(DocumentSide side, EntityReference ref) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -98,7 +93,7 @@ public class ConsoleOutputDiffConsumer implements DiffConsumer {
     }
 
     @Override
-    public void endText() {
+    public void endText(DocumentSide side, Text text) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -113,7 +108,7 @@ public class ConsoleOutputDiffConsumer implements DiffConsumer {
     }
 
     @Override
-    public void endCDATASection() {
+    public void endCDATASection(DocumentSide side, CDATASection cdata) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -128,7 +123,7 @@ public class ConsoleOutputDiffConsumer implements DiffConsumer {
     }
 
     @Override
-    public void endComment() {
+    public void endComment(DocumentSide side, Comment comment) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -143,7 +138,7 @@ public class ConsoleOutputDiffConsumer implements DiffConsumer {
     }
 
     @Override
-    public void endProcessingInstruction() {
+    public void endProcessingInstruction(DocumentSide side, ProcessingInstruction pi) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

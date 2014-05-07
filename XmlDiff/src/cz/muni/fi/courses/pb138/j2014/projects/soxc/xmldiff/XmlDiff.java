@@ -6,7 +6,7 @@
 
 package cz.muni.fi.courses.pb138.j2014.projects.soxc.xmldiff;
 
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.DiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.GeneralDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.Soxc;
 import java.io.IOException;
@@ -41,7 +41,7 @@ public class XmlDiff {
         
         String documentLeftURI;
         String documentRightURI;
-        DiffConsumer consumer;
+        GeneralDiffConsumer consumer;
         
         Options.Builder optBuilder = new Options.Builder();
         
