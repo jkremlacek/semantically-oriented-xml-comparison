@@ -6,21 +6,23 @@
 
 package cz.muni.fi.courses.pb138.j2014.projects.soxc.xmldiff;
 
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.GeneralDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.GeneralDocumentDiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.EntityReference;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
 /**
- * A {@link GeneralDiffConsumer} that outputs the differences to the console.
+ * A {@link GeneralDocumentDiffConsumer} that outputs the differences to the console.
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class ConsoleOutputDiffConsumer implements GeneralDiffConsumer {
+public class ConsoleOutputDiffConsumer implements GeneralDocumentDiffConsumer {
 
     /* HINT: we can use ANSI color escapes (https://en.wikipedia.org/wiki/ANSI_escape_code)
      * on Unix OSes to highlight the differences, on Windows we are screwed unless
@@ -28,7 +30,7 @@ public class ConsoleOutputDiffConsumer implements GeneralDiffConsumer {
      */
 
     @Override
-    public void begin() {
+    public void begin(Document docLeft, Document docRight, Options options) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

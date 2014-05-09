@@ -8,14 +8,15 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.EntityReference;
+import org.w3c.dom.Node;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
@@ -25,7 +26,7 @@ import org.w3c.dom.Text;
  * 
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class HtmlDiffConsumer implements GeneralDiffConsumer {
+public class HtmlDiffConsumer implements GeneralDocumentDiffConsumer, GeneralSingleNodeDiffConsumer {
     
     private final HtmlDiffWriter writer;
     //private int padding = 0;
@@ -41,7 +42,16 @@ public class HtmlDiffConsumer implements GeneralDiffConsumer {
     }
     
     @Override
-    public void begin() {
+    public void begin(Document docLeft, Document docRight, Options options) {
+        try {
+            writer.write("<pre>");
+        } catch (IOException ex) {
+            Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void begin(Node nodeLeft, Node nodeRight, Options options) {
         try {
             writer.write("<pre>");
         } catch (IOException ex) {

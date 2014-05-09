@@ -15,6 +15,7 @@ import java.util.Map;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.EntityReference;
 import org.w3c.dom.Node;
@@ -345,20 +346,20 @@ public class Soxc {
     }
     
     /**
-     * Finds hierarchical differences between two nodes.
+     * Finds hierarchical differences between two DOM nodes.
      * @param nodeLeft      the 'left' node
      * @param nodeRight     the 'right' node
      * @param options       comparison options
      * @param diffConsumer  the listener that wil consume the diff information
      * @return {@code true} if the nodes are equal, otherwise {@code false}
      */
-    public static boolean diffNodes(Node nodeLeft, Node nodeRight, Options options, GeneralDiffConsumer diffConsumer) {
-        NodeSimilarityWrapper wrapperLeft = new NodeSimilarityWrapper(nodeLeft, options);
-        NodeSimilarityWrapper wrapperRight = new NodeSimilarityWrapper(nodeRight, options);
-        
+    public static boolean diffNodes(Node nodeLeft, Node nodeRight, Options options, GeneralSingleNodeDiffConsumer diffConsumer) {
         boolean equal;
         
-        diffConsumer.begin();
+        diffConsumer.begin(nodeLeft, nodeRight, options);
+        
+        NodeSimilarityWrapper wrapperLeft = new NodeSimilarityWrapper(nodeLeft, options);
+        NodeSimilarityWrapper wrapperRight = new NodeSimilarityWrapper(nodeRight, options);
         
         if(!wrapperLeft.equals(wrapperRight)) {
             reportNode(nodeLeft, DocumentSide.LEFT_DOCUMENT, options, diffConsumer);
@@ -367,6 +368,27 @@ public class Soxc {
         }
         else
             equal = diffSimilarNodes(nodeLeft, nodeRight, options, diffConsumer);
+
+        diffConsumer.end();
+        
+        return equal;
+    }
+
+    /**
+     * Finds hierarchical differences between two DOM documents.
+     * @param docLeft      the 'left' node
+     * @param docRight     the 'right' node
+     * @param options       comparison options
+     * @param diffConsumer  the listener that wil consume the diff information
+     * @return {@code true} if the nodes are equal, otherwise {@code false}
+     */
+    public static boolean diffDocuments(Document docLeft, Document docRight, Options options, GeneralDocumentDiffConsumer diffConsumer) {
+        boolean equal;
+        
+        diffConsumer.begin(docLeft, docRight, options);
+        
+        // TODO
+        equal = false;
 
         diffConsumer.end();
         
