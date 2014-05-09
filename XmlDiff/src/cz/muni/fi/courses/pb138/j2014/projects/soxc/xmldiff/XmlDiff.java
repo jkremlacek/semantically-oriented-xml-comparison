@@ -45,9 +45,10 @@ public class XmlDiff {
         
         Options.Builder optBuilder = new Options.Builder();
         
-        // TODO parse the command-line arguments
-        documentLeftURI = null;
-        documentRightURI = null;
+        
+        String[] tmp = parseCommandLine(args, optBuilder);
+        documentLeftURI = tmp[0];
+        documentRightURI = tmp[1];
         /*
             according to the options the consumer will be either a ConsoleOutputDiffConsumer
             or an XmlOutputDiffConsumer (linked to a user-specified output file)
@@ -96,4 +97,88 @@ public class XmlDiff {
         System.exit(result ? 0 : 1);
     }
     
+    
+    
+    /**
+     * The function for parsing command-line arguments
+     * @param args the command line arguments
+     * @param optBuilder the optBuilder to set otions
+     * @return 2 Strings, left and right documents URI
+     */
+    private static String[] parseCommandLine(String[] args, Options.Builder optBuilder){
+        String[] retval = new String[]{"",""};
+        int i=1;
+        String arg;
+        char flag;
+        while(i < args.length && args[i].startsWith("-")){
+            arg = args[i++];
+            //full arguments
+            switch (arg) {
+                case "-ignorePrefix":
+                    optBuilder.setIgnorePrefix(true);
+                    break;
+                case "-useprefix":
+                    optBuilder.setIgnorePrefix(false);
+                    break;
+                case "-ignoreNamespaceURI":
+                    optBuilder.setIgnoreNamespaceURI(true);
+                    break;
+                case "-useNamespaceURI":
+                    optBuilder.setIgnoreNamespaceURI(false);
+                    break;
+                case "-ignoreElementOrder":
+                    optBuilder.setIgnoreElementOrder(true);
+                    break;
+                case "-useElementOrder":
+                    optBuilder.setIgnoreElementOrder(false);
+                    break;
+                case "-ignoreAttributesInSimilarity":
+                    optBuilder.setIgnoreAttributesInSimilarity(true);
+                    break;
+                case "-useAttributesInSimilarity":
+                    optBuilder.setIgnoreAttributesInSimilarity(false);
+                    break;
+                case "-ignoreAttributeOrder":
+                    optBuilder.setIgnoreAttributeOrder(true);
+                    break;
+                case "-useAttributeOrder":
+                    optBuilder.setIgnoreAttributeOrder(false);
+                    break;
+                default:
+                    //flags argumensts
+                    for (int j = 1; j < arg.length(); j++) {
+                        flag = arg.charAt(j);
+                        switch (flag) {
+                            case 'p':
+                                optBuilder.setIgnorePrefix(true);
+                                break;
+                            case 'u':
+                                optBuilder.setIgnoreNamespaceURI(true);
+                                break;
+                            default:
+                                System.err.println("illegal option " + flag);
+                                break;
+                        }
+                    }  
+                break;
+            }
+        } 
+        if(i == args.length){
+            System.err.println("ERROR: missing left document URI");
+        }else{
+            i++;
+            retval[0] = args[i];
+        }
+        if(i == args.length){
+            System.err.println("ERROR: missing right document URI");
+        }else{
+            i++;
+            retval[1] = args[i];
+        }
+        return retval;
+    }
+    
+    
 }
+
+
