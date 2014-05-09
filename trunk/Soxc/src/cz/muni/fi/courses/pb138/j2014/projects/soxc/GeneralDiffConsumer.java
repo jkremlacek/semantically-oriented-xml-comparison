@@ -31,15 +31,6 @@ import org.w3c.dom.Text;
 public interface GeneralDiffConsumer {
     
     /**
-     * Called when the diff stream begins.
-     */
-    public void begin();
-    /**
-     * Called when the diff stream ends.
-     */
-    public void end();
-    
-    /**
      * Marks the beginning of the child nodes of the current node.
      */
     public void beginChildren();
