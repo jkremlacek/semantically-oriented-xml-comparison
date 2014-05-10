@@ -7,7 +7,7 @@
 package cz.muni.fi.courses.pb138.j2014.projects.soxc.xmldiff;
 
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.GeneralDocumentDiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.FlatJustDocumentDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
 import java.io.Writer;
 import org.w3c.dom.Attr;
@@ -20,10 +20,10 @@ import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
 /**
- * A {@link GeneralDocumentDiffConsumer} that outputs the differences in an XML format.
+ * A {@link FlatJustDocumentDiffConsumer} that outputs the differences in an XML format.
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class XmlOutputDiffConsumer implements GeneralDocumentDiffConsumer {
+public class XmlOutputDiffConsumer implements FlatJustDocumentDiffConsumer {
     
     private final Writer writer;
     
@@ -48,6 +48,16 @@ public class XmlOutputDiffConsumer implements GeneralDocumentDiffConsumer {
 
     @Override
     public void endChildren() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void beginDocument(DocumentSide side, Document doc) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void endDocument(DocumentSide side, Document doc) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

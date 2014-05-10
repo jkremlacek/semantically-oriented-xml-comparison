@@ -4,20 +4,22 @@
  * and open the template in the editor.
  */
 
-package cz.muni.fi.courses.pb138.j2014.projects.soxc;
+package cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers;
 
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
 import org.w3c.dom.Node;
 
 /**
- * A consumer for XML node diff stream.
+ * A "flat" consumer for XML node diff stream. The "flat" versions recieve all messages
+ * via a single interface, which may be easier to implement in some cases.
  * 
- * @see GeneralDiffConsumer
+ * @see FlatDiffConsumer
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public interface GeneralSingleNodeDiffConsumer extends GeneralDiffConsumer {
+public interface FlatSingleNodeDiffConsumer extends FlatDiffConsumer {
     
     /**
-     * Called when the diff stream begins.
+     * Called when the diff stream has begun.
      * @param nodeLeft  the left node being compared
      * @param nodeRight the right node being compared
      * @param options   the comparison options that will be used
@@ -25,7 +27,7 @@ public interface GeneralSingleNodeDiffConsumer extends GeneralDiffConsumer {
     public void begin(Node nodeLeft, Node nodeRight, Options options);
     
     /**
-     * Called when the diff stream ends.
+     * Called when the diff stream has ended.
      */
     public void end();
 }

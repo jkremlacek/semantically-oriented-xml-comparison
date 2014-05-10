@@ -6,9 +6,10 @@
 
 package cz.muni.fi.courses.pb138.j2014.projects.soxc.xmldiff;
 
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.GeneralDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.Soxc;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.FlatConsumers;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.FlatJustDocumentDiffConsumer;
 import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,7 +42,7 @@ public class XmlDiff {
         
         String documentLeftURI;
         String documentRightURI;
-        GeneralDiffConsumer consumer;
+        FlatJustDocumentDiffConsumer consumer;
         
         Options.Builder optBuilder = new Options.Builder();
         
@@ -92,7 +93,7 @@ public class XmlDiff {
         }
         
         // Compare the documents:
-        boolean result = Soxc.diffNodes(docL, docR, options, null);
+        boolean result = Soxc.diffDocuments(docL, docR, options, FlatConsumers.toGeneral(consumer));
         
         System.exit(result ? 0 : 1);
     }
@@ -117,7 +118,7 @@ public class XmlDiff {
                 case "-ignorePrefix":
                     optBuilder.setIgnorePrefix(true);
                     break;
-                case "-useprefix":
+                case "-usePrefix":
                     optBuilder.setIgnorePrefix(false);
                     break;
                 case "-ignoreNamespaceURI":
@@ -165,13 +166,13 @@ public class XmlDiff {
         } 
         if(i == args.length){
             System.err.println("ERROR: missing left document URI");
-        }else{
+        } else {
             i++;
             retval[0] = args[i];
         }
         if(i == args.length){
             System.err.println("ERROR: missing right document URI");
-        }else{
+        } else {
             i++;
             retval[1] = args[i];
         }
