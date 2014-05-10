@@ -6,6 +6,16 @@
 
 package cz.muni.fi.courses.pb138.j2014.projects.soxc;
 
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.AttributeDiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.CDATASectionDiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.CommentDiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.DocumentDiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.ElementDiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.JustDocumentDiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.NodeListDiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.ProcessingInstructionDiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.SingleNodeDiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.TextNodeDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.util.Utils;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,36 +45,48 @@ public class Soxc {
      * @param options
      * @param diffConsumer 
      */
-    private static void reportNode(Node node, DocumentSide side, Options options, GeneralDiffConsumer diffConsumer) {
+    private static void reportNode(Node node, DocumentSide side, Options options, NodeListDiffConsumer diffConsumer) {
         switch(node.getNodeType()) {
-            case Node.ELEMENT_NODE: {
-                diffConsumer.beginElement(side, (Element)node);
-                
-                diffConsumer.beginAttributes();
-                List<Node> attrs = Utils.asList(node.getAttributes());
-                for(Node attr : attrs)
-                    reportNode(attr, side, options, diffConsumer);
-                diffConsumer.endAttributes();
-                
-                diffConsumer.beginChildren();
+            case Node.DOCUMENT_NODE: {
+                DocumentDiffConsumer docConsumer = diffConsumer.beginDocument(side, (Document)node);
+
+                NodeListDiffConsumer childrenConsumer = docConsumer.beginChildren();
                 List<Node> children = Utils.asList(node.getAttributes());
                 for(Node child : children)
-                    reportNode(child, side, options, diffConsumer);
-                diffConsumer.endChildren();
+                    reportNode(child, side, options, childrenConsumer);
+                childrenConsumer.end();
                 
-                diffConsumer.endElement(side, (Element)node);
+                docConsumer.end();
+                break;
+            }
+            case Node.ELEMENT_NODE: {
+                ElementDiffConsumer elementConsumer = diffConsumer.beginElement(side, (Element)node);
+                
+                NodeListDiffConsumer attrsConsumer = elementConsumer.beginAttributes();
+                List<Node> attrs = Utils.asList(node.getAttributes());
+                for(Node attr : attrs)
+                    reportNode(attr, side, options, attrsConsumer);
+                attrsConsumer.end();
+                
+                NodeListDiffConsumer childrenConsumer = elementConsumer.beginChildren();
+                List<Node> children = Utils.asList(node.getAttributes());
+                for(Node child : children)
+                    reportNode(child, side, options, childrenConsumer);
+                childrenConsumer.end();
+                
+                elementConsumer.end();
                 break;
             }
             case Node.ATTRIBUTE_NODE: {
-                diffConsumer.beginAttribute(side, (Attr)node);
+                AttributeDiffConsumer attrConsumer = diffConsumer.beginAttribute(side, (Attr)node);
                 
-                diffConsumer.beginChildren();
+                NodeListDiffConsumer childrenConsumer = attrConsumer.beginChildren();
                 List<Node> children = Utils.asList(node.getAttributes());
                 for(Node child : children)
-                    reportNode(child, side, options, diffConsumer);
-                diffConsumer.endChildren();
+                    reportNode(child, side, options, childrenConsumer);
+                childrenConsumer.end();
 
-                diffConsumer.endAttribute(side, (Attr)node);
+                attrConsumer.end();
                 break;
             }
             case Node.ENTITY_REFERENCE_NODE: {
@@ -72,35 +94,35 @@ public class Soxc {
                 break;
             }
             case Node.TEXT_NODE: {
-                diffConsumer.beginText(side, (Text)node);
+                TextNodeDiffConsumer textConsumer =  diffConsumer.beginText(side, (Text)node);
                 
-                diffConsumer.textValue(side, node.getNodeValue());
+                textConsumer.textValue(side, node.getNodeValue());
                 
-                diffConsumer.endText(side, (Text)node);
+                textConsumer.end();
                 break;
             }
             case Node.CDATA_SECTION_NODE: {
-                diffConsumer.beginCDATASection(side, (CDATASection)node);
+                CDATASectionDiffConsumer CDATAConsumer = diffConsumer.beginCDATASection(side, (CDATASection)node);
                 
-                diffConsumer.CDATASectionData(side, node.getNodeValue());
+                CDATAConsumer.data(side, node.getNodeValue());
                 
-                diffConsumer.endCDATASection(side, (CDATASection)node);
+                CDATAConsumer.end();
                 break;
             }
             case Node.COMMENT_NODE: {
-                diffConsumer.beginComment(side, (Comment)node);
+                CommentDiffConsumer commentConsumer = diffConsumer.beginComment(side, (Comment)node);
                 
-                diffConsumer.commentData(side, node.getNodeValue());
+                commentConsumer.data(side, node.getNodeValue());
                 
-                diffConsumer.endComment(side, (Comment)node);
+                commentConsumer.end();
                 break;
             }
             case Node.PROCESSING_INSTRUCTION_NODE: {
-                diffConsumer.beginProcessingInstruction(side, (ProcessingInstruction)node);
+                ProcessingInstructionDiffConsumer piConsumer = diffConsumer.beginProcessingInstruction(side, (ProcessingInstruction)node);
                 
-                diffConsumer.processingInstructionData(side, node.getNodeValue());
+                piConsumer.data(side, node.getNodeValue());
                 
-                diffConsumer.endProcessingInstruction(side, (ProcessingInstruction)node);
+                piConsumer.end();
                 break;
             }
             default:
@@ -117,7 +139,7 @@ public class Soxc {
      * @param diffConsumer
      * @return 
      */
-    private static boolean diffNodeList(List<Node> nodesLeft, List<Node> nodesRight, Options options, GeneralDiffConsumer diffConsumer) {
+    private static boolean diffNodeList(List<Node> nodesLeft, List<Node> nodesRight, Options options, NodeListDiffConsumer diffConsumer) {
         boolean equal = true;
         
         // this would look nicer in a separate functions, but stupid Java doesn't
@@ -235,40 +257,53 @@ public class Soxc {
      * @param diffConsumer
      * @return 
      */
-    private static boolean diffSimilarNodes(Node nodeLeft, Node nodeRight, Options options, GeneralDiffConsumer diffConsumer) {
+    private static boolean diffSimilarNodes(Node nodeLeft, Node nodeRight, Options options, NodeListDiffConsumer diffConsumer) {
         boolean equal = true;
         switch(nodeLeft.getNodeType()) {
-            case Node.ELEMENT_NODE: {
-                diffConsumer.beginElement(DocumentSide.BOTH, (Element)nodeLeft);
-                
-                diffConsumer.beginAttributes();
-                List<Node> attrsLeft = Utils.asList(nodeLeft.getAttributes());
-                List<Node> attrsRight = Utils.asList(nodeRight.getAttributes());
-                if(!diffNodeList(attrsLeft, attrsRight, options, diffConsumer))
-                    equal = false;
-                diffConsumer.endAttributes();
-                
-                diffConsumer.beginChildren();
+            case Node.DOCUMENT_NODE: {
+                DocumentDiffConsumer docConsumer = diffConsumer.beginDocument(DocumentSide.BOTH, (Document)nodeLeft);
+
+                NodeListDiffConsumer childrenConsumer = docConsumer.beginChildren();
                 List<Node> childrenLeft = Utils.asList(nodeLeft.getChildNodes());
                 List<Node> childrenRight = Utils.asList(nodeRight.getChildNodes());
-                if(!diffNodeList(childrenLeft, childrenRight, options, diffConsumer))
+                if(!diffNodeList(childrenLeft, childrenRight, options, childrenConsumer))
                     equal = false;
-                diffConsumer.endChildren();
+                childrenConsumer.end();
                 
-                diffConsumer.endElement(DocumentSide.BOTH, (Element)nodeLeft);
+                docConsumer.end();
+                break;
+            }
+            case Node.ELEMENT_NODE: {
+                ElementDiffConsumer elementConsumer = diffConsumer.beginElement(DocumentSide.BOTH, (Element)nodeLeft);
+                
+                NodeListDiffConsumer attrsConsumer = elementConsumer.beginAttributes();
+                List<Node> attrsLeft = Utils.asList(nodeLeft.getAttributes());
+                List<Node> attrsRight = Utils.asList(nodeRight.getAttributes());
+                if(!diffNodeList(attrsLeft, attrsRight, options, attrsConsumer))
+                    equal = false;
+                attrsConsumer.end();
+                
+                NodeListDiffConsumer childrenConsumer = elementConsumer.beginChildren();
+                List<Node> childrenLeft = Utils.asList(nodeLeft.getChildNodes());
+                List<Node> childrenRight = Utils.asList(nodeRight.getChildNodes());
+                if(!diffNodeList(childrenLeft, childrenRight, options, childrenConsumer))
+                    equal = false;
+                childrenConsumer.end();
+                
+                elementConsumer.end();
                 break;
             }
             case Node.ATTRIBUTE_NODE: {
-                diffConsumer.beginAttribute(DocumentSide.BOTH, (Attr)nodeLeft);
+                AttributeDiffConsumer attrConsumer = diffConsumer.beginAttribute(DocumentSide.BOTH, (Attr)nodeLeft);
                 
-                diffConsumer.beginChildren();
+                NodeListDiffConsumer childrenConsumer = attrConsumer.beginChildren();
                 List<Node> childrenLeft = Utils.asList(nodeLeft.getChildNodes());
                 List<Node> childrenRight = Utils.asList(nodeRight.getChildNodes());
-                if(!diffNodeList(childrenLeft, childrenRight, options, diffConsumer))
+                if(!diffNodeList(childrenLeft, childrenRight, options, childrenConsumer))
                     equal = false;
-                diffConsumer.endChildren();
+                childrenConsumer.end();
 
-                diffConsumer.endAttribute(DocumentSide.BOTH, (Attr)nodeLeft);
+                attrConsumer.end();
                 break;
             }
             case Node.ENTITY_REFERENCE_NODE: {
@@ -276,67 +311,67 @@ public class Soxc {
                 break;
             }
             case Node.TEXT_NODE: {
-                diffConsumer.beginText(DocumentSide.BOTH, (Text)nodeLeft);
+                TextNodeDiffConsumer textConsumer = diffConsumer.beginText(DocumentSide.BOTH, (Text)nodeLeft);
                 
                 String valueLeft = nodeLeft.getNodeValue();
                 String valueRight = nodeRight.getNodeValue();
                 if(valueLeft.equals(valueRight))
-                    diffConsumer.textValue(DocumentSide.BOTH, valueLeft);
+                    textConsumer.textValue(DocumentSide.BOTH, valueLeft);
                 else {
-                    diffConsumer.textValue(DocumentSide.LEFT_DOCUMENT, valueLeft);
-                    diffConsumer.textValue(DocumentSide.RIGHT_DOCUMENT, valueRight);
+                    textConsumer.textValue(DocumentSide.LEFT_DOCUMENT, valueLeft);
+                    textConsumer.textValue(DocumentSide.RIGHT_DOCUMENT, valueRight);
                     equal = false;
                 }
                 
-                diffConsumer.endText(DocumentSide.BOTH, (Text)nodeLeft);
+                textConsumer.end();
                 break;
             }
             case Node.CDATA_SECTION_NODE: {
-                diffConsumer.beginCDATASection(DocumentSide.BOTH, (CDATASection)nodeLeft);
+                CDATASectionDiffConsumer CDATAConsumer = diffConsumer.beginCDATASection(DocumentSide.BOTH, (CDATASection)nodeLeft);
                 
                 String valueLeft = nodeLeft.getNodeValue();
                 String valueRight = nodeRight.getNodeValue();
                 if(valueLeft.equals(valueRight))
-                    diffConsumer.CDATASectionData(DocumentSide.BOTH, valueLeft);
+                    CDATAConsumer.data(DocumentSide.BOTH, valueLeft);
                 else {
-                    diffConsumer.CDATASectionData(DocumentSide.LEFT_DOCUMENT, valueLeft);
-                    diffConsumer.CDATASectionData(DocumentSide.RIGHT_DOCUMENT, valueRight);
+                    CDATAConsumer.data(DocumentSide.LEFT_DOCUMENT, valueLeft);
+                    CDATAConsumer.data(DocumentSide.RIGHT_DOCUMENT, valueRight);
                     equal = false;
                 }
                 
-                diffConsumer.endCDATASection(DocumentSide.BOTH, (CDATASection)nodeLeft);
+                CDATAConsumer.end();
                 break;
             }
             case Node.COMMENT_NODE: {
-                diffConsumer.beginComment(DocumentSide.BOTH, (Comment)nodeLeft);
+                CommentDiffConsumer commentConsumer = diffConsumer.beginComment(DocumentSide.BOTH, (Comment)nodeLeft);
                 
                 String valueLeft = nodeLeft.getNodeValue();
                 String valueRight = nodeRight.getNodeValue();
                 if(valueLeft.equals(valueRight))
-                    diffConsumer.commentData(DocumentSide.BOTH, valueLeft);
+                    commentConsumer.data(DocumentSide.BOTH, valueLeft);
                 else {
-                    diffConsumer.commentData(DocumentSide.LEFT_DOCUMENT, valueLeft);
-                    diffConsumer.commentData(DocumentSide.RIGHT_DOCUMENT, valueRight);
+                    commentConsumer.data(DocumentSide.LEFT_DOCUMENT, valueLeft);
+                    commentConsumer.data(DocumentSide.RIGHT_DOCUMENT, valueRight);
                     equal = false;
                 }
                 
-                diffConsumer.endComment(DocumentSide.BOTH, (Comment)nodeLeft);
+                commentConsumer.end();
                 break;
             }
             case Node.PROCESSING_INSTRUCTION_NODE: {
-                diffConsumer.beginProcessingInstruction(DocumentSide.BOTH, (ProcessingInstruction)nodeLeft);
+                ProcessingInstructionDiffConsumer piConsumer = diffConsumer.beginProcessingInstruction(DocumentSide.BOTH, (ProcessingInstruction)nodeLeft);
                 
                 String valueLeft = nodeLeft.getNodeValue();
                 String valueRight = nodeRight.getNodeValue();
                 if(valueLeft.equals(valueRight))
-                    diffConsumer.processingInstructionData(DocumentSide.BOTH, valueLeft);
+                    piConsumer.data(DocumentSide.BOTH, valueLeft);
                 else {
-                    diffConsumer.processingInstructionData(DocumentSide.LEFT_DOCUMENT, valueLeft);
-                    diffConsumer.processingInstructionData(DocumentSide.RIGHT_DOCUMENT, valueRight);
+                    piConsumer.data(DocumentSide.LEFT_DOCUMENT, valueLeft);
+                    piConsumer.data(DocumentSide.RIGHT_DOCUMENT, valueRight);
                     equal = false;
                 }
                 
-                diffConsumer.endProcessingInstruction(DocumentSide.BOTH, (ProcessingInstruction)nodeLeft);
+                piConsumer.end();
                 break;
             }
             default:
@@ -353,22 +388,24 @@ public class Soxc {
      * @param diffConsumer  the listener that wil consume the diff information
      * @return {@code true} if the nodes are equal, otherwise {@code false}
      */
-    public static boolean diffNodes(Node nodeLeft, Node nodeRight, Options options, GeneralSingleNodeDiffConsumer diffConsumer) {
+    public static boolean diffNodes(Node nodeLeft, Node nodeRight, Options options, SingleNodeDiffConsumer diffConsumer) {
         boolean equal;
         
-        diffConsumer.begin(nodeLeft, nodeRight, options);
+        NodeListDiffConsumer nodeConsumer = diffConsumer.begin(nodeLeft, nodeRight, options);
         
         NodeSimilarityWrapper wrapperLeft = new NodeSimilarityWrapper(nodeLeft, options);
         NodeSimilarityWrapper wrapperRight = new NodeSimilarityWrapper(nodeRight, options);
         
         if(!wrapperLeft.equals(wrapperRight)) {
-            reportNode(nodeLeft, DocumentSide.LEFT_DOCUMENT, options, diffConsumer);
-            reportNode(nodeRight, DocumentSide.RIGHT_DOCUMENT, options, diffConsumer);
+            reportNode(nodeLeft, DocumentSide.LEFT_DOCUMENT, options, nodeConsumer);
+            reportNode(nodeRight, DocumentSide.RIGHT_DOCUMENT, options, nodeConsumer);
             equal = false;
         }
         else
-            equal = diffSimilarNodes(nodeLeft, nodeRight, options, diffConsumer);
+            equal = diffSimilarNodes(nodeLeft, nodeRight, options, nodeConsumer);
 
+        nodeConsumer.end();
+        
         diffConsumer.end();
         
         return equal;
@@ -382,7 +419,7 @@ public class Soxc {
      * @param diffConsumer  the listener that wil consume the diff information
      * @return {@code true} if the nodes are equal, otherwise {@code false}
      */
-    public static boolean diffDocuments(Document docLeft, Document docRight, Options options, GeneralDocumentDiffConsumer diffConsumer) {
+    public static boolean diffDocuments(Document docLeft, Document docRight, Options options, JustDocumentDiffConsumer diffConsumer) {
         boolean equal;
         
         diffConsumer.begin(docLeft, docRight, options);

@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 
-package cz.muni.fi.courses.pb138.j2014.projects.soxc;
+package cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.htmloutput;
 
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.FlatJustDocumentDiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.FlatSingleNodeDiffConsumer;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.logging.Level;
@@ -26,7 +30,7 @@ import org.w3c.dom.Text;
  * 
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class HtmlDiffConsumer implements GeneralDocumentDiffConsumer, GeneralSingleNodeDiffConsumer {
+public class HtmlDiffConsumer implements FlatJustDocumentDiffConsumer, FlatSingleNodeDiffConsumer {
     
     private final HtmlDiffWriter writer;
     //private int padding = 0;
@@ -76,6 +80,24 @@ public class HtmlDiffConsumer implements GeneralDocumentDiffConsumer, GeneralSin
     @Override
     public void endChildren() {
         //padding -= 1;
+    }
+
+    @Override
+    public void beginDocument(DocumentSide side, Document doc) {
+        try {
+            writer.colorBegin(side);
+        } catch (IOException ex) {
+            Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void endDocument(DocumentSide side, Document doc) {
+        try {
+            writer.colorEnd(side);
+        } catch (IOException ex) {
+            Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

@@ -7,7 +7,7 @@
 package cz.muni.fi.courses.pb138.j2014.projects.soxc.xmldiff;
 
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.GeneralDocumentDiffConsumer;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.FlatJustDocumentDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
@@ -19,10 +19,10 @@ import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
 /**
- * A {@link GeneralDocumentDiffConsumer} that outputs the differences to the console.
+ * A {@link FlatJustDocumentDiffConsumer} that outputs the differences to the console.
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class ConsoleOutputDiffConsumer implements GeneralDocumentDiffConsumer {
+public class ConsoleOutputDiffConsumer implements FlatJustDocumentDiffConsumer {
 
     /* HINT: we can use ANSI color escapes (https://en.wikipedia.org/wiki/ANSI_escape_code)
      * on Unix OSes to highlight the differences, on Windows we are screwed unless
@@ -46,6 +46,16 @@ public class ConsoleOutputDiffConsumer implements GeneralDocumentDiffConsumer {
 
     @Override
     public void endChildren() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void beginDocument(DocumentSide side, Document doc) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void endDocument(DocumentSide side, Document doc) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -4,31 +4,42 @@
  * and open the template in the editor.
  */
 
-package cz.muni.fi.courses.pb138.j2014.projects.soxc;
+package cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers;
 
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.EntityReference;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
 /**
- * A consumer for XML diff stream.
- * 
- * <p>
- * The methods on this interface are called by the comparing function. For each
- * node (element, comment, ...) or property (comment text, PI data, ...) the
- * corresponding method is called either with {@code side} = {@link DocumentSide#BOTH}
- * (the nodes are "similar" on both sides or the property values are equal) or with
- * {@code side} = {@link DocumentSide#LEFT_DOCUMENT}, resp. {@link DocumentSide#RIGHT_DOCUMENT},
- * (the node/property value is specific for the left, resp. right, document).
- * </p>
+ * A "flat" consumer for XML diff sub-stream. The "flat" versions recieve all messages
+ * via a single interface, which may be easier to implement in some cases.
  * 
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public interface GeneralDiffConsumer {
+public interface FlatDiffConsumer {
+    
+    /**
+     * Marks the beginning of a document.
+     * @param side  the document in which the node appears
+     * @param doc   the document (if {@code side} is {@link DocumentSide#BOTH},
+     *              only the properties defining similarity are guaranteed to
+     *              be valid for both sides)
+     */
+    public void beginDocument(DocumentSide side, Document doc);
+    /**
+     * Marks the end of a document.
+     * @param side  the document in which the node appears
+     * @param doc   the document (if {@code side} is {@link DocumentSide#BOTH},
+     *              only the properties defining similarity are guaranteed to
+     *              be valid for both sides)
+     */
+    public void endDocument(DocumentSide side, Document doc);
     
     /**
      * Marks the beginning of the child nodes of the current node.
@@ -44,7 +55,7 @@ public interface GeneralDiffConsumer {
      * @param side  the document in which the node appears
      * @param el    the element (if {@code side} is {@link DocumentSide#BOTH},
      *              only the properties defining similarity are guaranteed to
-     *              be valid)
+     *              be valid for both sides)
      */
     public void beginElement(DocumentSide side, Element el);
     /**
@@ -52,7 +63,7 @@ public interface GeneralDiffConsumer {
      * @param side  the document in which the node appears
      * @param el    the element (if {@code side} is {@link DocumentSide#BOTH},
      *              only the properties defining similarity are guaranteed to
-     *              be valid)
+     *              be valid for both sides)
      */
     public void endElement(DocumentSide side, Element el);
     
@@ -65,7 +76,7 @@ public interface GeneralDiffConsumer {
      * @param side  the document in which the node appears
      * @param attr  the attribute (if {@code side} is {@link DocumentSide#BOTH},
      *              only the properties defining similarity are guaranteed to
-     *              be valid)
+     *              be valid for both sides)
      */
     public void beginAttribute(DocumentSide side, Attr attr);
     /**
@@ -73,7 +84,7 @@ public interface GeneralDiffConsumer {
      * @param side  the document in which the node appears
      * @param attr  the attribute (if {@code side} is {@link DocumentSide#BOTH},
      *              only the properties defining similarity are guaranteed to
-     *              be valid)
+     *              be valid for both sides)
      */
     public void endAttribute(DocumentSide side, Attr attr);
     /**
@@ -86,7 +97,7 @@ public interface GeneralDiffConsumer {
      * @param side  the document in which the node appears
      * @param ref   the entity reference (if {@code side} is {@link
      *              DocumentSide#BOTH}, only the properties defining similarity
-     *              are guaranteed to be valid)
+     *              are guaranteed to be valid for both sides)
      */
     public void entityReference(DocumentSide side, EntityReference ref);
     
@@ -141,7 +152,7 @@ public interface GeneralDiffConsumer {
      * @param side      the document in which the node appears
      * @param comment   the comment node (if {@code side} is {@link
      *                  DocumentSide#BOTH}, only the properties defining similarity
-     *                  are guaranteed to be valid)
+     *                  are guaranteed to be valid for both sides)
      */
     public void beginComment(DocumentSide side, Comment comment);
     /**
@@ -155,7 +166,7 @@ public interface GeneralDiffConsumer {
      * @param side      the document in which the node appears
      * @param comment   the comment node (if {@code side} is {@link
      *                  DocumentSide#BOTH}, only the properties defining similarity
-     *                  are guaranteed to be valid)
+     *                  are guaranteed to be valid for both sides)
      */
     public void endComment(DocumentSide side, Comment comment);
     
@@ -164,7 +175,7 @@ public interface GeneralDiffConsumer {
      * @param side  the document in which the node appears
      * @param pi    the processing instruction (if {@code side} is {@link
      *              DocumentSide#BOTH}, only the properties defining similarity
-     *              are guaranteed to be valid)
+     *              are guaranteed to be valid for both sides)
      */
     public void beginProcessingInstruction(DocumentSide side, ProcessingInstruction pi);
     /**
@@ -178,7 +189,7 @@ public interface GeneralDiffConsumer {
      * @param side  the document in which the node appears
      * @param pi    the processing instruction (if {@code side} is {@link
      *              DocumentSide#BOTH}, only the properties defining similarity
-     *              are guaranteed to be valid)
+     *              are guaranteed to be valid for both sides)
      */
     public void endProcessingInstruction(DocumentSide side, ProcessingInstruction pi);
     

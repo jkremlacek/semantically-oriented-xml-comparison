@@ -4,14 +4,15 @@
  * and open the template in the editor.
  */
 
-package cz.muni.fi.courses.pb138.j2014.projects.soxc;
+package cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.htmloutput;
 
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import java.io.IOException;
 import java.io.Writer;
 
 /**
- *
+ * A helper class for {@link HtmlDiffConsumer}.
+ * 
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
 class HtmlDiffWriter {
