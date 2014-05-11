@@ -18,3 +18,8 @@ Pro tyto případy musí mít knihovna nastavení, kde lze dodefinovat jestli u�
     * Matej Minárik, učo 396546, 
     * Ondrej Mosnáček, učo 409879, 
     * Ondřej Sobočík, učo 359502, 
+
+
+=Aplikace/knihovna:=
+
+Knihovna je založena na postupném procházení a porovnávání obou xml souborů, které se jí, spolu s nastavením, zadávají na vstup. Knihovna bere názvy elementů jako jednoznačné identifikátory uzlu, díky tomu dokáže poznat i zpřeházené pořadí uzlů v child-nodech. Vstup bude řešen buď přímou implementací do aplikací pomocí "include", nebo řízen z příkazové řádky, a nebo z GUI, který po zadání vstupních souborů zpracuje XML soubory do struktury JTree s označením těch uzlů v kterých došlo ke kolizi/rozdílu.
