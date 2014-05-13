@@ -18,10 +18,8 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.SingleNodeDiffCons
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.TextNodeDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.util.Utils;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
@@ -128,7 +126,21 @@ public class Soxc {
             default:
                 throw new UnsupportedOperationException("Node type #" + node.getNodeType() + " not supported!");
         }
-     }
+    }
+    
+    private static void splitNodeList(List<Node> nodes, List<NodeSimilarityWrapper> unordered, List<NodeSimilarityWrapper> ordered, Options options) {
+        for(Node node : nodes) {
+            NodeSimilarityWrapper wrapper = new NodeSimilarityWrapper(node, options);
+            // find out if the order is to be ignored for this node:
+            if((node.getNodeType() == Node.ELEMENT_NODE && options.ignoreElementOrder()) ||
+                    (node.getNodeType() == Node.ATTRIBUTE_NODE && options.ignoreAttributeOrder())) {
+                unordered.add(wrapper);
+            }
+            else {
+                ordered.add(wrapper);
+            }
+        }
+    }
     
     /**
      * Compare two node lists.
@@ -142,51 +154,45 @@ public class Soxc {
     private static boolean diffNodeList(List<Node> nodesLeft, List<Node> nodesRight, Options options, NodeListDiffConsumer diffConsumer) {
         boolean equal = true;
         
-        // this would look nicer in a separate functions, but stupid Java doesn't
-        // support passing variables by reference >:-(
-        Map<NodeSimilarityWrapper, Integer> elsOrAttrsLeft = new HashMap<>(nodesLeft.size());
-        List<NodeSimilarityWrapper> otherNodesLeft = new ArrayList<>(nodesLeft.size());
-        for(Node node : nodesLeft) {
-            NodeSimilarityWrapper wrapper = new NodeSimilarityWrapper(node, options);
-            // find out if the order is to be ignored for this node:
-            if((node.getNodeType() == Node.ELEMENT_NODE && options.ignoreElementOrder()) ||
-                    (node.getNodeType() == Node.ATTRIBUTE_NODE && options.ignoreAttributeOrder())) {
-                // add into the "multiset":
-                Integer count = elsOrAttrsLeft.get(wrapper);
-                if(count == null)
-                    elsOrAttrsLeft.put(wrapper, 1);
-                else
-                    elsOrAttrsLeft.put(wrapper, count + 1);
-            }
-            else
-                otherNodesLeft.add(wrapper);
-        }
+        List<NodeSimilarityWrapper> unorderedLeft = new ArrayList<>(nodesLeft.size());
+        List<NodeSimilarityWrapper> orderedLeft = new ArrayList<>(nodesLeft.size());
+        splitNodeList(nodesLeft, unorderedLeft, orderedLeft, options);
         
-        Map<NodeSimilarityWrapper, Integer> elsOrAttrsRight = new HashMap<>(nodesRight.size());
-        List<NodeSimilarityWrapper> otherNodesRight = new ArrayList<>(nodesRight.size());
-        for(Node node : nodesRight) {
-            NodeSimilarityWrapper wrapper = new NodeSimilarityWrapper(node, options);
-            // find out if the order is to be ignored for this node:
-            if((node.getNodeType() == Node.ELEMENT_NODE && options.ignoreElementOrder()) ||
-                    (node.getNodeType() == Node.ATTRIBUTE_NODE && options.ignoreAttributeOrder())) {
-                // add into the "multiset":
-                Integer count = elsOrAttrsRight.get(wrapper);
-                if(count == null)
-                    elsOrAttrsRight.put(wrapper, 1);
-                else
-                    elsOrAttrsRight.put(wrapper, count + 1);
-            }
-            else
-                otherNodesRight.add(wrapper);
-        }
+        List<NodeSimilarityWrapper> unorderedRight = new ArrayList<>(nodesRight.size());
+        List<NodeSimilarityWrapper> orderedRight = new ArrayList<>(nodesRight.size());
+        splitNodeList(nodesRight, unorderedRight, orderedRight, options);
         
         // COMPARE UNORDERED:
-        // TODO: compare the unordered stuff here
+        // Take one node at a time from the left side,
+        // try to find a similar node on the other side.
+        // If similar node was found, remove both from the lists
+        // and diff them. Otherwise keep them in the lists - they
+        // will be reported later.
+        for(int i = 0; i < unorderedLeft.size(); i++) {
+            NodeSimilarityWrapper left = unorderedLeft.get(i);
+            
+            for(int k = 0; k < unorderedRight.size(); k++) {
+                NodeSimilarityWrapper right = unorderedRight.get(k);
+                
+                if(left.equals(right)) {
+                    diffSimilarNodes(left.getNode(), right.getNode(), options, diffConsumer);
+                    unorderedLeft.remove(i);
+                    unorderedRight.remove(k);
+                    i--;
+                    break;
+                }
+            }
+        }
+        // report the unmatched nodes:
+        for(NodeSimilarityWrapper wrapper : unorderedLeft)
+            reportNode(wrapper.getNode(), DocumentSide.LEFT_DOCUMENT, options, diffConsumer);
+        for(NodeSimilarityWrapper wrapper : unorderedRight)
+            reportNode(wrapper.getNode(), DocumentSide.RIGHT_DOCUMENT, options, diffConsumer);
 
         // COMPARE ORDERED:
         // a very simple linear diff algorithm (to be improved):
-        Iterator<NodeSimilarityWrapper> itLeft = otherNodesLeft.iterator();
-        Iterator<NodeSimilarityWrapper> itRight = otherNodesRight.iterator();
+        Iterator<NodeSimilarityWrapper> itLeft = orderedLeft.iterator();
+        Iterator<NodeSimilarityWrapper> itRight = orderedRight.iterator();
         List<NodeSimilarityWrapper> leftBuffer = new ArrayList<>();
         List<NodeSimilarityWrapper> rightBuffer = new ArrayList<>();
 
