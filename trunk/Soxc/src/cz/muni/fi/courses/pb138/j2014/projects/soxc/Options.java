@@ -13,7 +13,6 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc;
 public final class Options {
     
     private final boolean ignoreElementOrder;
-    private final boolean ignoreAttributeOrder;
     private final boolean ignoreAttributesInSimilarity;
     private final boolean ignoreNamespaceURI;
     private final boolean ignorePrefix;
@@ -26,14 +25,6 @@ public final class Options {
         return ignoreElementOrder;
     }
 
-    /**
-     * Wheter to ignore attribute order. Default: {@code true}.
-     * @return
-     */
-    public final boolean ignoreAttributeOrder() {
-        return ignoreAttributeOrder;
-    }
-    
     /**
      * Wheter to ignore attributes when comparing similarity. Default: {@code true}.
      * @return
@@ -79,24 +70,21 @@ public final class Options {
      * Contructs default options.
      */
     public Options() {
-        this(false, true, true, false, false);
+        this(false, true, false, false);
     }
 
     /**
      * Constructs new options.
      * @param ignoreElementOrder
-     * @param ignoreAttributeOrder
      * @param ignoreAttributesInSimilarity
      * @param ignoreNamespaceURI
      * @param ignorePrefix 
      */
     public Options(boolean ignoreElementOrder,
-            boolean ignoreAttributeOrder,
             boolean ignoreAttributesInSimilarity,
             boolean ignoreNamespaceURI,
             boolean ignorePrefix) {
         this.ignoreElementOrder = ignoreElementOrder;
-        this.ignoreAttributeOrder = ignoreAttributeOrder;
         this.ignoreAttributesInSimilarity = ignoreAttributesInSimilarity;
         this.ignoreNamespaceURI = ignoreNamespaceURI;
         this.ignorePrefix = ignorePrefix;
@@ -108,7 +96,7 @@ public final class Options {
     public static class Builder {
         
         private final boolean[] flags = new boolean[] {
-            false, true, true, false, false
+            false, true, false, false
         };
         
         /**
@@ -130,30 +118,12 @@ public final class Options {
         }
 
         /**
-         * Gets a value indicating wheter to ignore attribute order.
-         * Default: {@code true}.
-         * @return
-         */
-        public final boolean getIgnoreAttributeOrder() {
-            return flags[1];
-        }
-
-        /**
-         * Sets a value indicating wheter to ignore attribute order.
-         * Default: {@code false}.
-         * @param value the new value
-         */
-        public final void setIgnoreAttributeOrder(boolean value) {
-            flags[1] = value;
-        }
-
-        /**
          * Gets a value indicating wheter to ignore attributes when comparing similarity.
          * Default: {@code true}.
          * @return
          */
         public final boolean getIgnoreAttributesInSimilarity() {
-            return flags[2];
+            return flags[1];
         }
 
         /**
@@ -162,7 +132,7 @@ public final class Options {
          * @param value the new value
          */
         public final void setIgnoreAttributesInSimilarity(boolean value) {
-            flags[2] = value;
+            flags[1] = value;
         }
 
         /**
@@ -171,7 +141,7 @@ public final class Options {
          * @return
          */
         public final boolean getIgnoreNamespaceURI() {
-            return flags[3];
+            return flags[2];
         }
 
         /**
@@ -180,7 +150,7 @@ public final class Options {
          * @param value the new value
          */
         public final void setIgnoreNamespaceURI(boolean value) {
-            flags[3] = value;
+            flags[2] = value;
         }
 
         /**
@@ -189,7 +159,7 @@ public final class Options {
          * @return
          */
         public final boolean getIgnorePrefix() {
-            return flags[4];
+            return flags[3];
         }
 
         /**
@@ -198,11 +168,11 @@ public final class Options {
          * @param value the new value
          */
         public final void setIgnorePrefix(boolean value) {
-            flags[4] = value;
+            flags[3] = value;
         }
         
         public final Options buildOptions() {
-            return new Options(flags[0], flags[1], flags[2], flags[3], flags[4]);
+            return new Options(flags[0], flags[1], flags[2], flags[3]);
         }
     }
 }

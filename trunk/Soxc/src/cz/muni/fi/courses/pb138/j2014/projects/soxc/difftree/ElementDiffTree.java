@@ -19,6 +19,8 @@ import org.w3c.dom.Element;
 public class ElementDiffTree extends HierarchicalNodeDiffTree {
     
     private final Element node;
+    private final NamespaceUriDiffTree nsUriTree;
+    private final PrefixDiffTree prefixTree;
     private final List<AttributeDiffTree> attributes;
     
     @Override
@@ -30,9 +32,19 @@ public class ElementDiffTree extends HierarchicalNodeDiffTree {
         return attributes;
     }
 
-    public ElementDiffTree(Element node, DocumentSide side, List<NodeDiffTree> children, List<AttributeDiffTree> attributes) {
+    public NamespaceUriDiffTree getNamespaceUriTree() {
+        return nsUriTree;
+    }
+
+    public PrefixDiffTree getPrefixTree() {
+        return prefixTree;
+    }
+    
+    public ElementDiffTree(DocumentSide side, Element node, NamespaceUriDiffTree nsUriTree, PrefixDiffTree prefixTree, List<NodeDiffTree> children, List<AttributeDiffTree> attributes) {
         super(side, children);
         this.node = node;
+        this.nsUriTree = nsUriTree;
+        this.prefixTree = prefixTree;
         this.attributes = attributes;
     }
 

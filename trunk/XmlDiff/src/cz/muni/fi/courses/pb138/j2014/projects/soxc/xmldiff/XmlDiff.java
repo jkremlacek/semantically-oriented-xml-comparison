@@ -62,6 +62,9 @@ public class XmlDiff {
         // Create the document builder factory:
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         
+        // Turn on namespace awareness:
+        factory.setNamespaceAware(true);
+        
         // Get the DocumentBuilder instance from the factory:
         DocumentBuilder builder;
         try {
@@ -138,12 +141,6 @@ public class XmlDiff {
                     break;
                 case "-useAttributesInSimilarity":
                     optBuilder.setIgnoreAttributesInSimilarity(false);
-                    break;
-                case "-ignoreAttributeOrder":
-                    optBuilder.setIgnoreAttributeOrder(true);
-                    break;
-                case "-useAttributeOrder":
-                    optBuilder.setIgnoreAttributeOrder(false);
                     break;
                 default:
                     //flags argumensts

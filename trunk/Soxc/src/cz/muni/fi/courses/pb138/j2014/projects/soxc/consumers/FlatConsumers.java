@@ -73,6 +73,16 @@ public class FlatConsumers {
                 }
 
                 @Override
+                public void namespaceURI(DocumentSide side, String uri) {
+                    inner.namespaceURI(side, uri);
+                }
+
+                @Override
+                public void prefix(DocumentSide side, String prefix) {
+                    inner.prefix(side, prefix);
+                }
+
+                @Override
                 public void end() {
                     inner.endElement(side, element);
                 }
@@ -87,6 +97,16 @@ public class FlatConsumers {
                 @Override
                 public NodeListDiffConsumer beginChildren() {
                     return new ChildrenFlatAsGeneral(inner);
+                }
+
+                @Override
+                public void namespaceURI(DocumentSide side, String uri) {
+                    inner.namespaceURI(side, uri);
+                }
+
+                @Override
+                public void prefix(DocumentSide side, String prefix) {
+                    inner.prefix(side, prefix);
                 }
 
                 @Override

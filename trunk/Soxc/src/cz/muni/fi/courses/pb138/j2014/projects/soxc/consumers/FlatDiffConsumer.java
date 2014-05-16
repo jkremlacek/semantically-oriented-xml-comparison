@@ -42,6 +42,20 @@ public interface FlatDiffConsumer {
     public void endDocument(DocumentSide side, Document doc);
     
     /**
+     * Reports the namespace URI of the current node.
+     * @param side  the side on which the node has the given NS URI
+     * @param uri   the namespace URI of the current node
+     */
+    public void namespaceURI(DocumentSide side, String uri);
+
+    /**
+     * Reports the prefix of the current node.
+     * @param side      the side on which the node has the given prefix
+     * @param prefix    the prefix of the current node
+     */
+    public void prefix(DocumentSide side, String prefix);
+
+    /**
      * Marks the beginning of the child nodes of the current node.
      */
     public void beginChildren();
