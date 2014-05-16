@@ -22,7 +22,7 @@ public class SingleNodeDiffTreeConsumer implements SingleNodeDiffConsumer {
     private Node nodeLeft = null;
     private Node nodeRight = null;
     private Options options = null;
-    private NodeDiffTree nodeTree = null;
+    private List<NodeDiffTree> nodeTree = null;
 
     public final Node getLeftNode() {
         return nodeLeft;
@@ -36,17 +36,20 @@ public class SingleNodeDiffTreeConsumer implements SingleNodeDiffConsumer {
         return options;
     }
 
-    public final NodeDiffTree getNodeDiffTree() {
+    public final List<NodeDiffTree> getNodeDiffTree() {
         return nodeTree;
     }
 
     @Override
     public final NodeListDiffConsumer begin(Node nodeLeft, Node nodeRight, Options options) {
+        this.nodeLeft = nodeLeft;
+        this.nodeRight = nodeRight;
+        this.options = options;
         return new NodeListDiffTreeConsumer(new NodeListDiffTreeConsumer.Listener() {
 
             @Override
             public void onEnd(List<NodeDiffTree> result) {
-                nodeTree = result.get(0);
+                nodeTree = result;
             }
         });
     }

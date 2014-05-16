@@ -14,7 +14,7 @@ import org.w3c.dom.EntityReference;
  *
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class EntityReferenceDiffTree extends NodeDiffTree {
+public final class EntityReferenceDiffTree extends NodeDiffTree {
     
     private final EntityReference node;
 
@@ -30,7 +30,7 @@ public class EntityReferenceDiffTree extends NodeDiffTree {
     }
 
     @Override
-    public void replay(NodeListDiffConsumer consumer) {
+    public final void replay(NodeListDiffConsumer consumer) {
         consumer.entityReference(getSide(), node);
     }
 }

@@ -13,7 +13,7 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.CDATASectionDiffCo
  *
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class CDATASectionDataDiffTree extends DiffTree {
+public final class CDATASectionDataDiffTree extends DiffTree {
     
     private final String data;
 

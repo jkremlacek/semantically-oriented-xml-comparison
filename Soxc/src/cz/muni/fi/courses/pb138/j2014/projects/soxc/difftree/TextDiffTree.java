@@ -9,37 +9,41 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.NodeListDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.TextNodeDiffConsumer;
+import java.util.Collections;
+import java.util.List;
 import org.w3c.dom.Text;
 
 /**
  *
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class TextDiffTree extends NodeDiffTree {
+public final class TextDiffTree extends NodeDiffTree {
     
     private final Text node;
-    private final TextValueDiffTree value;
+    private final List<TextValueDiffTree> value;
 
     @Override
-    public Text getNode() {
+    public final Text getNode() {
         return node;
     }
 
-    public TextValueDiffTree getValue() {
+    public final List<TextValueDiffTree> getValue() {
         return value;
     }
 
-    public TextDiffTree(Text node, DocumentSide side, TextValueDiffTree value) {
+    public TextDiffTree(Text node, DocumentSide side, List<TextValueDiffTree> value) {
         super(side);
+        
         this.node = node;
-        this.value = value;
+        this.value = Collections.unmodifiableList(value);
     }
 
     @Override
-    public void replay(NodeListDiffConsumer consumer) {
+    public final void replay(NodeListDiffConsumer consumer) {
         TextNodeDiffConsumer textConsumer = consumer.beginText(getSide(), node);
         
-        value.replay(textConsumer);
+        for(TextValueDiffTree valueTree : value)
+            valueTree.replay(textConsumer);
         
         textConsumer.end();
     }

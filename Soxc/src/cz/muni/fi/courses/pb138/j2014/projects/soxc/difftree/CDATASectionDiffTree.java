@@ -9,38 +9,41 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.CDATASectionDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.NodeListDiffConsumer;
+import java.util.Collections;
+import java.util.List;
 import org.w3c.dom.CDATASection;
 
 /**
  *
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class CDATASectionDiffTree extends NodeDiffTree {
+public final class CDATASectionDiffTree extends NodeDiffTree {
     
     private final CDATASection node;
-    private final CDATASectionDataDiffTree data;
+    private final List<CDATASectionDataDiffTree> data;
 
     @Override
     public final CDATASection getNode() {
         return node;
     }
 
-    public CDATASectionDataDiffTree getData() {
+    public final List<CDATASectionDataDiffTree> getData() {
         return data;
     }
 
-    public CDATASectionDiffTree(DocumentSide side, CDATASection node, CDATASectionDataDiffTree data) {
+    public CDATASectionDiffTree(DocumentSide side, CDATASection node, List<CDATASectionDataDiffTree> data) {
         super(side);
         
         this.node = node;
-        this.data = data;
+        this.data = Collections.unmodifiableList(data);
     }
 
     @Override
-    public void replay(NodeListDiffConsumer consumer) {
+    public final void replay(NodeListDiffConsumer consumer) {
         CDATASectionDiffConsumer CDATAConsumer = consumer.beginCDATASection(getSide(), node);
         
-        data.replay(CDATAConsumer);
+        for(CDATASectionDataDiffTree dataTree : data)
+            dataTree.replay(CDATAConsumer);
         
         CDATAConsumer.end();
     }

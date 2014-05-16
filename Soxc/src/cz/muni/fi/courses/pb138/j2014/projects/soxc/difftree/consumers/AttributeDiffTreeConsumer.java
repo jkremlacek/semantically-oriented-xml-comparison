@@ -11,6 +11,8 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.AttributeDiffConsu
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.AttributeDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.NamespaceUriDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.PrefixDiffTree;
+import java.util.ArrayList;
+import java.util.List;
 import org.w3c.dom.Attr;
 
 /**
@@ -28,8 +30,8 @@ public final class AttributeDiffTreeConsumer
     private final DocumentSide side;
     private final Attr attr;
     private final Listener listener;
-    private NamespaceUriDiffTree nsUriTree = null;
-    private PrefixDiffTree prefixTree = null;
+    private final List<NamespaceUriDiffTree> nsUriTree = new ArrayList<>();
+    private final List<PrefixDiffTree> prefixTree = new ArrayList<>();
 
     public AttributeDiffTreeConsumer(DocumentSide side, Attr attr, Listener listener) {
         this.side = side;
@@ -38,13 +40,13 @@ public final class AttributeDiffTreeConsumer
     }
     
     @Override
-    public void namespaceURI(DocumentSide side, String uri) {
-        nsUriTree = new NamespaceUriDiffTree(side, uri);
+    public final void namespaceURI(DocumentSide side, String uri) {
+        nsUriTree.add(new NamespaceUriDiffTree(side, uri));
     }
 
     @Override
-    public void prefix(DocumentSide side, String prefix) {
-        prefixTree = new PrefixDiffTree(side, prefix);
+    public final void prefix(DocumentSide side, String prefix) {
+        prefixTree.add(new PrefixDiffTree(side, prefix));
     }
     
     @Override

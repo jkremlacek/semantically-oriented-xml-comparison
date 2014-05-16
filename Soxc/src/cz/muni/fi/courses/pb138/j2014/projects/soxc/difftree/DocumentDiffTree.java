@@ -16,12 +16,12 @@ import org.w3c.dom.Document;
  *
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class DocumentDiffTree extends HierarchicalNodeDiffTree {
+public final class DocumentDiffTree extends HierarchicalNodeDiffTree {
     
     private final Document node;
 
     @Override
-    public Document getNode() {
+    public final Document getNode() {
         return node;
     }
 
@@ -32,7 +32,7 @@ public class DocumentDiffTree extends HierarchicalNodeDiffTree {
     }
 
     @Override
-    public void replay(NodeListDiffConsumer consumer) {
+    public final void replay(NodeListDiffConsumer consumer) {
         DocumentDiffConsumer docConsumer = consumer.beginDocument(getSide(), node);
         
         replayChildren(docConsumer);
