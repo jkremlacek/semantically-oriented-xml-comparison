@@ -38,11 +38,10 @@ Furthermore, the equality of two *node lists* (attribute lists or lists of child
 
 Let _O,,l,,_ (_O,,r,,_) be the collection of nodes from the left (right) list (in the same order as they appear in the document) for which one of the following is true:
   * the node is an element and the *ignoreElementOrder* option is set to `false`
-  * the node is an attribute and the *ignoreAttributeOrder* option is set to `false`
-  * the node is neither an element nor an attribute
+  * the node is neither element nor attribute
 Next, let _U,,l,,_ (_U,,r,,_) be the collection of nodes from the left (right) list for which one of the following is true:
   * the node is an element and the *ignoreElementOrder* option is set to `true`
-  * the node is an attribute and the *ignoreAttributeOrder* option is set to `true`
+  * the node is an attribute
 Then the two node lists are equal IFF _O,,l,,_ is sequentially equal to _O,,r,,_ (both have the same size and the nodes at each index are equal) and for each node in the set union of _U,,l,,_ and _U,,r,,_ (with equality of two nodes as defined above) the number of occurrences in both _U,,l,,_ and _U,,r,,_ is the same.
 
 == Reporting differences ==
