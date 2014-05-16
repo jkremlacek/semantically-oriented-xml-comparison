@@ -19,16 +19,28 @@ import org.w3c.dom.Attr;
 public class AttributeDiffTree extends HierarchicalNodeDiffTree {
     
     private final Attr node;
+    private final NamespaceUriDiffTree nsUriTree;
+    private final PrefixDiffTree prefixTree;
 
     @Override
     public final Attr getNode() {
         return node;
     }
+
+    public NamespaceUriDiffTree getNamespaceUriTree() {
+        return nsUriTree;
+    }
+
+    public PrefixDiffTree getPrefixTree() {
+        return prefixTree;
+    }
     
-    public AttributeDiffTree(Attr node, DocumentSide side, List<NodeDiffTree> children) {
+    public AttributeDiffTree(DocumentSide side, Attr node, NamespaceUriDiffTree nsUriTree, PrefixDiffTree prefixTree, List<NodeDiffTree> children) {
         super(side, children);
         
         this.node = node;
+        this.nsUriTree = nsUriTree;
+        this.prefixTree = prefixTree;
     }
 
     @Override

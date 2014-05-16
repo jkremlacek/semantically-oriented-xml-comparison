@@ -107,9 +107,6 @@ public class HtmlDiffConsumer implements FlatJustDocumentDiffConsumer, FlatSingl
             
             writer.write("&lt;");
             
-            String prefix = el.getPrefix();
-            if(prefix != null)
-                writer.write(prefix + ":");
             writer.write(el.getNodeName());
         } catch (IOException ex) {
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
@@ -121,9 +118,6 @@ public class HtmlDiffConsumer implements FlatJustDocumentDiffConsumer, FlatSingl
         try {
             writer.write("&lt;/");
             
-            String prefix = el.getPrefix();
-            if(prefix != null)
-                writer.write(prefix + ":");
             writer.write(el.getNodeName());
             
             writer.write("&gt;");
@@ -316,4 +310,10 @@ public class HtmlDiffConsumer implements FlatJustDocumentDiffConsumer, FlatSingl
             Logger.getLogger(HtmlDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public void namespaceURI(DocumentSide side, String uri) { }
+
+    @Override
+    public void prefix(DocumentSide side, String prefix) { }
 }

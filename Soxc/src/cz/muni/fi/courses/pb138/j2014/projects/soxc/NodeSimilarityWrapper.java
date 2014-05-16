@@ -52,11 +52,18 @@ public final class NodeSimilarityWrapper {
 
     private int getNodeNameHashCode(Node node) {
         int hash = 3;
-        hash = 83 * hash + node.getNodeName().hashCode();
-        if(!options.ignoreNamespaceURI())
-            hash = 83 * hash + Utils.getHashCode(node.getNamespaceURI());
-        if(!options.ignorePrefix())
-            hash = 83 * hash + Utils.getHashCode(node.getPrefix());
+        // if local name is null, just compare node names,
+        // otherwise do a NS aware comparison:
+        if(node.getLocalName() == null) {
+            hash = 83 * hash + node.getNodeName().hashCode();
+        }
+        else {
+            hash = 83 * hash + node.getLocalName().hashCode();
+            if(!options.ignoreNamespaceURI())
+                hash = 83 * hash + Utils.getHashCode(node.getNamespaceURI());
+            if(!options.ignorePrefix())
+                hash = 83 * hash + Utils.getHashCode(node.getPrefix());
+        }
         return hash;
     }
     
@@ -66,12 +73,20 @@ public final class NodeSimilarityWrapper {
      * @param b second node
      */
     private boolean nodeNameEquals(Node a, Node b) {
-        if(!a.getNodeName().equals(b.getNodeName()))
-            return false;
-        if(!options.ignoreNamespaceURI() && !Utils.equal(a.getNamespaceURI(), b.getNamespaceURI()))
-            return false;
-        if(!options.ignorePrefix() && !Utils.equal(a.getPrefix(), b.getPrefix()))
-            return false;
+        // if local name is null, just compare node names,
+        // otherwise do a NS aware comparison:
+        if(a.getLocalName() == null) {
+            if(!a.getNodeName().equals(b.getNodeName()))
+                return false;
+        }
+        else {
+            if(!a.getLocalName().equals(b.getLocalName()))
+                return false;
+            if(!options.ignoreNamespaceURI() && !Utils.equal(a.getNamespaceURI(), b.getNamespaceURI()))
+                return false;
+            if(!options.ignorePrefix() && !Utils.equal(a.getPrefix(), b.getPrefix()))
+                return false;
+        }
         return true;
     }
     

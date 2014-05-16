@@ -60,6 +60,9 @@ public class Soxc {
             case Node.ELEMENT_NODE: {
                 ElementDiffConsumer elementConsumer = diffConsumer.beginElement(side, (Element)node);
                 
+                elementConsumer.namespaceURI(side, node.getNamespaceURI());
+                elementConsumer.prefix(side, node.getPrefix());
+                
                 NodeListDiffConsumer attrsConsumer = elementConsumer.beginAttributes();
                 List<Node> attrs = Utils.asList(node.getAttributes());
                 for(Node attr : attrs)
@@ -78,8 +81,11 @@ public class Soxc {
             case Node.ATTRIBUTE_NODE: {
                 AttributeDiffConsumer attrConsumer = diffConsumer.beginAttribute(side, (Attr)node);
                 
+                attrConsumer.namespaceURI(side, node.getNamespaceURI());
+                attrConsumer.prefix(side, node.getPrefix());
+                
                 NodeListDiffConsumer childrenConsumer = attrConsumer.beginChildren();
-                List<Node> children = Utils.asList(node.getAttributes());
+                List<Node> children = Utils.asList(node.getChildNodes());
                 for(Node child : children)
                     reportNode(child, side, options, childrenConsumer);
                 childrenConsumer.end();
@@ -132,8 +138,7 @@ public class Soxc {
         for(Node node : nodes) {
             NodeSimilarityWrapper wrapper = new NodeSimilarityWrapper(node, options);
             // find out if the order is to be ignored for this node:
-            if((node.getNodeType() == Node.ELEMENT_NODE && options.ignoreElementOrder()) ||
-                    (node.getNodeType() == Node.ATTRIBUTE_NODE && options.ignoreAttributeOrder())) {
+            if(node.getNodeType() == Node.ELEMENT_NODE && options.ignoreElementOrder()) {
                 unordered.add(wrapper);
             }
             else {
@@ -146,7 +151,6 @@ public class Soxc {
      * Compare two node lists.
      * @param nodesLeft
      * @param nodesRight
-     * @param ignoreOrder
      * @param options
      * @param diffConsumer
      * @return 

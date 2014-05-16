@@ -30,6 +30,7 @@ public class NodeWrappersTests {
     @Before
     public void setUp() throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
         docBuilder = factory.newDocumentBuilder();
     }
     
@@ -55,10 +56,11 @@ public class NodeWrappersTests {
             Assert.assertFalse(sim1.equals(sim2));
     }
     
-    private static final Options OPTS_DEFAULT = new Options(false, true, true, false, false);
-    private static final Options OPTS_SIM_ATT = new Options(false, true, false, false, false);
-    private static final Options OPTS_EL_NO_ORDER = new Options(true, true, true, false, false);
-    private static final Options OPTS_ATT_ORDER = new Options(false, false, true, false, false);
+    private static final Options OPTS_DEFAULT = new Options(false, true, false, false);
+    private static final Options OPTS_SIM_ATT = new Options(false, false, false, false);
+    private static final Options OPTS_EL_NO_ORDER = new Options(true, true, false, false);
+    private static final Options OPTS_IGNORE_PREFIX = new Options(false, true, false, true);
+    private static final Options OPTS_IGNORE_PREFIX_AND_NS = new Options(false, true, true, true);
     
     @Test
     public void testEmptyElementVariants() throws Exception {
@@ -112,5 +114,12 @@ public class NodeWrappersTests {
         doTest("<root><a/>x<b/>y</root>", "<root><a/>x<b/>y</root>", OPTS_EL_NO_ORDER, true, true);
         doTest("<root><a/>x<b/>y</root>", "<root><b/>x<a/>y</root>", OPTS_EL_NO_ORDER, true, true);
         doTest("<root><a/>x<b/>y</root>", "<root><b/>y<a/>x</root>", OPTS_EL_NO_ORDER, true, false);
+    }
+    
+    @Test
+    public void testPrefixAndNamespace() throws Exception {
+        doTest("<x:root xmlns:x=\"somenamespace\" />", "<y:root xmlns:y=\"somenamespace\" />", OPTS_DEFAULT, false, false);
+        doTest("<x:root xmlns:x=\"somenamespace\" />", "<y:root xmlns:y=\"somenamespace\" />", OPTS_IGNORE_PREFIX, true, false);
+        doTest("<x:root xmlns:x=\"somenamespace\" />", "<y:root xmlns:y=\"othernamespace\" />", OPTS_IGNORE_PREFIX_AND_NS, true, false);
     }
 }

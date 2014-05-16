@@ -7,8 +7,8 @@
 package cz.muni.fi.courses.pb138.j2014.projects.soxc.xmldiff;
 
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.FlatJustDocumentDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.FlatJustDocumentDiffConsumer;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
@@ -151,6 +151,16 @@ public class ConsoleOutputDiffConsumer implements FlatJustDocumentDiffConsumer {
 
     @Override
     public void endProcessingInstruction(DocumentSide side, ProcessingInstruction pi) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void namespaceURI(DocumentSide side, String uri) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void prefix(DocumentSide side, String prefix) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

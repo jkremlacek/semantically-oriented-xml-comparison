@@ -52,8 +52,7 @@ public final class NodeListEqualityWrapper {
             NodeEqualityWrapper wrapper = new NodeEqualityWrapper(node, options);
             
             // find out if the order is to be ignored for this node:
-            if((node.getNodeType() == Node.ELEMENT_NODE && options.ignoreElementOrder()) ||
-                    (node.getNodeType() == Node.ATTRIBUTE_NODE && options.ignoreAttributeOrder())) {
+            if(node.getNodeType() == Node.ELEMENT_NODE && options.ignoreElementOrder()) {
                 // add into the "multiset":
                 Integer count = elsOrAttrs.get(wrapper);
                 if(count == null)

@@ -9,6 +9,8 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.consumers;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.AttributeDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.AttributeDiffTree;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.NamespaceUriDiffTree;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.PrefixDiffTree;
 import org.w3c.dom.Attr;
 
 /**
@@ -18,7 +20,7 @@ import org.w3c.dom.Attr;
 public final class AttributeDiffTreeConsumer
         extends HierarchicalNodeDiffTreeConsumer
         implements AttributeDiffConsumer {
-    
+
     public interface Listener {
         public void onEnd(AttributeDiffTree attrTree);
     }
@@ -26,6 +28,8 @@ public final class AttributeDiffTreeConsumer
     private final DocumentSide side;
     private final Attr attr;
     private final Listener listener;
+    private NamespaceUriDiffTree nsUriTree = null;
+    private PrefixDiffTree prefixTree = null;
 
     public AttributeDiffTreeConsumer(DocumentSide side, Attr attr, Listener listener) {
         this.side = side;
@@ -34,7 +38,17 @@ public final class AttributeDiffTreeConsumer
     }
     
     @Override
+    public void namespaceURI(DocumentSide side, String uri) {
+        nsUriTree = new NamespaceUriDiffTree(side, uri);
+    }
+
+    @Override
+    public void prefix(DocumentSide side, String prefix) {
+        prefixTree = new PrefixDiffTree(side, prefix);
+    }
+    
+    @Override
     public final void end() {
-        listener.onEnd(new AttributeDiffTree(attr, side, getChildren()));
+        listener.onEnd(new AttributeDiffTree(side, attr, nsUriTree, prefixTree, getChildren()));
     }
 }
