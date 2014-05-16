@@ -138,7 +138,8 @@ public class Soxc {
         for(Node node : nodes) {
             NodeSimilarityWrapper wrapper = new NodeSimilarityWrapper(node, options);
             // find out if the order is to be ignored for this node:
-            if(node.getNodeType() == Node.ELEMENT_NODE && options.ignoreElementOrder()) {
+            if((node.getNodeType() == Node.ELEMENT_NODE && options.ignoreElementOrder()) ||
+                    node.getNodeType() == Node.ATTRIBUTE_NODE) {
                 unordered.add(wrapper);
             }
             else {
