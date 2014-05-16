@@ -26,6 +26,7 @@ public abstract class HierarchicalNodeDiffTree extends NodeDiffTree {
 
     protected HierarchicalNodeDiffTree(DocumentSide side, List<NodeDiffTree> children) {
         super(side);
+        
         this.children = Collections.unmodifiableList(children);
     }
     

@@ -13,7 +13,7 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.TextNodeDiffConsum
  *
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class TextValueDiffTree extends DiffTree {
+public final class TextValueDiffTree extends DiffTree {
     
     private final String value;
     

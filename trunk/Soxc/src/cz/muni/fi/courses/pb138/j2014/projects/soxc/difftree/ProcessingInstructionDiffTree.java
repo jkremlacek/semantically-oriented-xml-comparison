@@ -9,28 +9,34 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.NodeListDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.ProcessingInstructionDiffConsumer;
+import java.util.Collections;
+import java.util.List;
 import org.w3c.dom.ProcessingInstruction;
 
 /**
  *
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class ProcessingInstructionDiffTree extends NodeDiffTree {
+public final class ProcessingInstructionDiffTree extends NodeDiffTree {
     
     private final ProcessingInstruction node;
-    private final ProcessingInstructionDataDiffTree data;
+    private final List<ProcessingInstructionDataDiffTree> data;
 
     @Override
     public final ProcessingInstruction getNode() {
         return node;
     }
 
+    public final List<ProcessingInstructionDataDiffTree> getData() {
+        return data;
+    }
+
     public ProcessingInstructionDiffTree(DocumentSide side, ProcessingInstruction node,
-            ProcessingInstructionDataDiffTree data) {
+            List<ProcessingInstructionDataDiffTree> data) {
         super(side);
         
         this.node = node;
-        this.data = data;
+        this.data = Collections.unmodifiableList(data);
     }
 
     @Override
@@ -38,7 +44,8 @@ public class ProcessingInstructionDiffTree extends NodeDiffTree {
         ProcessingInstructionDiffConsumer piConsumer =
                 consumer.beginProcessingInstruction(getSide(), node);
         
-        data.replay(piConsumer);
+        for(ProcessingInstructionDataDiffTree dataTree : data)
+            dataTree.replay(piConsumer);
         
         piConsumer.end();
     }

@@ -7,21 +7,26 @@
 package cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree;
 
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.NamespaceDiffConsumer;
 
 /**
  *
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class PrefixDiffTree extends DiffTree {
+public final class PrefixDiffTree extends DiffTree {
     
     private final String prefix;
 
-    public String getPrefix() {
+    public final String getPrefix() {
         return prefix;
     }
 
     public PrefixDiffTree(DocumentSide side, String prefix) {
         super(side);
         this.prefix = prefix;
+    }
+    
+    public final void replay(NamespaceDiffConsumer consumer) {
+        consumer.prefix(getSide(), prefix);
     }
 }

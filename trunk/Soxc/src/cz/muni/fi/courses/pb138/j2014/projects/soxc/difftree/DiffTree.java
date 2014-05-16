@@ -6,7 +6,6 @@
 
 package cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree;
 
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.FlatDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 
 /**

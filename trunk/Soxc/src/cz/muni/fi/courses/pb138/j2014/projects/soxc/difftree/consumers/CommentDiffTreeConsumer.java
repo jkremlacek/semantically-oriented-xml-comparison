@@ -10,6 +10,8 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.CommentDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.CommentDataDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.CommentDiffTree;
+import java.util.ArrayList;
+import java.util.List;
 import org.w3c.dom.Comment;
 
 /**
@@ -25,7 +27,7 @@ public final class CommentDiffTreeConsumer implements CommentDiffConsumer {
     private final DocumentSide side;
     private final Comment comment;
     private final Listener listener;
-    private CommentDataDiffTree data = null;
+    private final List<CommentDataDiffTree> data = new ArrayList<>();
 
     public CommentDiffTreeConsumer(DocumentSide side, Comment comment, Listener listener) {
         this.side = side;
@@ -35,7 +37,7 @@ public final class CommentDiffTreeConsumer implements CommentDiffConsumer {
     
     @Override
     public final void data(DocumentSide side, String data) {
-        this.data = new CommentDataDiffTree(side, data);
+        this.data.add(new CommentDataDiffTree(side, data));
     }
 
     @Override

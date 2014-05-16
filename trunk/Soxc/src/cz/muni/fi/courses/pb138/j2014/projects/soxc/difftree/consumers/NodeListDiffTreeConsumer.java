@@ -7,9 +7,9 @@
 package cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.consumers;
 
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.AttributeDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.CDATASectionDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.CommentDiffConsumer;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.AttributeDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.DocumentDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.ElementDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.NodeListDiffConsumer;
@@ -25,6 +25,7 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.NodeDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.ProcessingInstructionDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.TextDiffTree;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
@@ -53,7 +54,7 @@ public final class NodeListDiffTreeConsumer implements NodeListDiffConsumer {
     }
 
     @Override
-    public DocumentDiffConsumer beginDocument(DocumentSide side, Document doc) {
+    public final DocumentDiffConsumer beginDocument(DocumentSide side, Document doc) {
         return new DocumentDiffTreeConsumer(side, doc, new DocumentDiffTreeConsumer.Listener() {
 
             @Override
@@ -64,12 +65,12 @@ public final class NodeListDiffTreeConsumer implements NodeListDiffConsumer {
     }
 
     @Override
-    public void entityReference(DocumentSide side, EntityReference entityRef) {
+    public final void entityReference(DocumentSide side, EntityReference entityRef) {
         list.add(new EntityReferenceDiffTree(side, entityRef));
     }
 
     @Override
-    public ElementDiffConsumer beginElement(DocumentSide side, Element element) {
+    public final ElementDiffConsumer beginElement(DocumentSide side, Element element) {
         return new ElementDiffTreeConsumer(side, element, new ElementDiffTreeConsumer.Listener() {
 
             @Override
@@ -80,7 +81,7 @@ public final class NodeListDiffTreeConsumer implements NodeListDiffConsumer {
     }
 
     @Override
-    public AttributeDiffConsumer beginAttribute(DocumentSide side, Attr attr) {
+    public final AttributeDiffConsumer beginAttribute(DocumentSide side, Attr attr) {
         return new AttributeDiffTreeConsumer(side, attr, new AttributeDiffTreeConsumer.Listener() {
 
             @Override
@@ -91,7 +92,7 @@ public final class NodeListDiffTreeConsumer implements NodeListDiffConsumer {
     }
 
     @Override
-    public TextNodeDiffConsumer beginText(DocumentSide side, Text text) {
+    public final TextNodeDiffConsumer beginText(DocumentSide side, Text text) {
         return new TextDiffTreeConsumer(side, text, new TextDiffTreeConsumer.Listener() {
 
             @Override
@@ -102,7 +103,7 @@ public final class NodeListDiffTreeConsumer implements NodeListDiffConsumer {
     }
 
     @Override
-    public CDATASectionDiffConsumer beginCDATASection(DocumentSide side, CDATASection cdata) {
+    public final CDATASectionDiffConsumer beginCDATASection(DocumentSide side, CDATASection cdata) {
         return new CDATASectionDiffTreeConsumer(side, cdata, new CDATASectionDiffTreeConsumer.Listener() {
 
             @Override
@@ -113,7 +114,7 @@ public final class NodeListDiffTreeConsumer implements NodeListDiffConsumer {
     }
 
     @Override
-    public ProcessingInstructionDiffConsumer beginProcessingInstruction(DocumentSide side, ProcessingInstruction pi) {
+    public final ProcessingInstructionDiffConsumer beginProcessingInstruction(DocumentSide side, ProcessingInstruction pi) {
         return new ProcessingInstructionDiffTreeConsumer(side, pi, new ProcessingInstructionDiffTreeConsumer.Listener() {
 
             @Override
@@ -124,7 +125,7 @@ public final class NodeListDiffTreeConsumer implements NodeListDiffConsumer {
     }
 
     @Override
-    public CommentDiffConsumer beginComment(DocumentSide side, Comment comment) {
+    public final CommentDiffConsumer beginComment(DocumentSide side, Comment comment) {
         return new CommentDiffTreeConsumer(side, comment, new CommentDiffTreeConsumer.Listener() {
 
             @Override
@@ -135,7 +136,7 @@ public final class NodeListDiffTreeConsumer implements NodeListDiffConsumer {
     }
 
     @Override
-    public void end() {
-        listener.onEnd(list);
+    public final void end() {
+        listener.onEnd(Collections.unmodifiableList(list));
     }
 }

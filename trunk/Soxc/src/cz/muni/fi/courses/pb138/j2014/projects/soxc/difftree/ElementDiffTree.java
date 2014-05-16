@@ -9,6 +9,7 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.ElementDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.NodeListDiffConsumer;
+import java.util.Collections;
 import java.util.List;
 import org.w3c.dom.Element;
 
@@ -16,11 +17,11 @@ import org.w3c.dom.Element;
  *
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class ElementDiffTree extends HierarchicalNodeDiffTree {
+public final class ElementDiffTree extends HierarchicalNodeDiffTree {
     
     private final Element node;
-    private final NamespaceUriDiffTree nsUriTree;
-    private final PrefixDiffTree prefixTree;
+    private final List<NamespaceUriDiffTree> nsUri;
+    private final List<PrefixDiffTree> prefix;
     private final List<AttributeDiffTree> attributes;
     
     @Override
@@ -32,25 +33,36 @@ public class ElementDiffTree extends HierarchicalNodeDiffTree {
         return attributes;
     }
 
-    public NamespaceUriDiffTree getNamespaceUriTree() {
-        return nsUriTree;
+    public final List<NamespaceUriDiffTree> getNamespaceUriTree() {
+        return nsUri;
     }
 
-    public PrefixDiffTree getPrefixTree() {
-        return prefixTree;
+    public final List<PrefixDiffTree> getPrefixTree() {
+        return prefix;
     }
     
-    public ElementDiffTree(DocumentSide side, Element node, NamespaceUriDiffTree nsUriTree, PrefixDiffTree prefixTree, List<NodeDiffTree> children, List<AttributeDiffTree> attributes) {
+    public ElementDiffTree(DocumentSide side, Element node,
+            List<NamespaceUriDiffTree> nsUri,
+            List<PrefixDiffTree> prefix,
+            List<NodeDiffTree> children,
+            List<AttributeDiffTree> attributes) {
         super(side, children);
+        
         this.node = node;
-        this.nsUriTree = nsUriTree;
-        this.prefixTree = prefixTree;
-        this.attributes = attributes;
+        this.nsUri = Collections.unmodifiableList(nsUri);
+        this.prefix = Collections.unmodifiableList(prefix);
+        this.attributes = Collections.unmodifiableList(attributes);
     }
 
     @Override
     public final void replay(NodeListDiffConsumer consumer) {
         ElementDiffConsumer elementConsumer = consumer.beginElement(getSide(), node);
+        
+        for(NamespaceUriDiffTree nsUriTree : nsUri)
+            nsUriTree.replay(elementConsumer);
+        
+        for(PrefixDiffTree prefixTree : prefix)
+            prefixTree.replay(elementConsumer);
         
         NodeListDiffConsumer attrsConsumer = elementConsumer.beginAttributes();
         for(NodeDiffTree attr : attributes)

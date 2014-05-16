@@ -10,6 +10,8 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.TextNodeDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.TextDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.TextValueDiffTree;
+import java.util.ArrayList;
+import java.util.List;
 import org.w3c.dom.Text;
 
 /**
@@ -25,7 +27,7 @@ public final class TextDiffTreeConsumer implements TextNodeDiffConsumer {
     private final DocumentSide side;
     private final Text text;
     private final Listener listener;
-    private TextValueDiffTree value = null;
+    private final List<TextValueDiffTree> value = new ArrayList<>();
 
     public TextDiffTreeConsumer(DocumentSide side, Text text, Listener listener) {
         this.side = side;
@@ -35,7 +37,7 @@ public final class TextDiffTreeConsumer implements TextNodeDiffConsumer {
 
     @Override
     public final void textValue(DocumentSide side, String value) {
-        this.value = new TextValueDiffTree(side, value);
+        this.value.add(new TextValueDiffTree(side, value));
     }
 
     @Override

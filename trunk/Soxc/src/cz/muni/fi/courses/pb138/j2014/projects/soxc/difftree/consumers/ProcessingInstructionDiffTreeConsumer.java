@@ -10,6 +10,8 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.ProcessingInstructionDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.ProcessingInstructionDataDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.ProcessingInstructionDiffTree;
+import java.util.ArrayList;
+import java.util.List;
 import org.w3c.dom.ProcessingInstruction;
 
 /**
@@ -25,7 +27,7 @@ public final class ProcessingInstructionDiffTreeConsumer implements ProcessingIn
     private final DocumentSide side;
     private final ProcessingInstruction pi;
     private final Listener listener;
-    private ProcessingInstructionDataDiffTree data = null;
+    private final List<ProcessingInstructionDataDiffTree> data = new ArrayList<>();
 
     public ProcessingInstructionDiffTreeConsumer(DocumentSide side, ProcessingInstruction pi, Listener listener) {
         this.side = side;
@@ -35,7 +37,7 @@ public final class ProcessingInstructionDiffTreeConsumer implements ProcessingIn
     
     @Override
     public final void data(DocumentSide side, String data) {
-        this.data = new ProcessingInstructionDataDiffTree(side, data);
+        this.data.add(new ProcessingInstructionDataDiffTree(side, data));
     }
 
     @Override
