@@ -20,7 +20,7 @@ import org.w3c.dom.Text;
 
 /**
  * Contains utility methods that return adapters for the Flat*DiffConsumer interfaces.
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public class FlatConsumers {
     

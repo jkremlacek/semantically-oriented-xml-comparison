@@ -20,7 +20,7 @@ import org.w3c.dom.Text;
  * A "flat" consumer for XML diff sub-stream. The "flat" versions recieve all messages
  * via a single interface, which may be easier to implement in some cases.
  * 
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public interface FlatDiffConsumer {
     

@@ -12,7 +12,7 @@ import org.w3c.dom.Document;
 /**
  * A consumer for an XML document diff stream.
  * 
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public interface JustDocumentDiffConsumer {
     

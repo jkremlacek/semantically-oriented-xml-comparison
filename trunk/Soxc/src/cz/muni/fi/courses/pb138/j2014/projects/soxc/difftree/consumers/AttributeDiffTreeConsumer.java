@@ -17,7 +17,7 @@ import org.w3c.dom.Attr;
 
 /**
  *
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public final class AttributeDiffTreeConsumer
         extends HierarchicalNodeDiffTreeConsumer

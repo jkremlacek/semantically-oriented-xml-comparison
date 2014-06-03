@@ -31,7 +31,7 @@ import org.w3c.dom.Text;
 
 /**
  * Contains XML comparison functions.
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public class Soxc {
     

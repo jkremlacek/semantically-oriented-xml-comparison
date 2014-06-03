@@ -9,7 +9,7 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc;
 /**
  * Represents a consumer of elements.
  * 
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 interface Consumer<T> {
     

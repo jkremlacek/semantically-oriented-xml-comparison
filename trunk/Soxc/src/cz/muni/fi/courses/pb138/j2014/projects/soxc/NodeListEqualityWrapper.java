@@ -16,7 +16,7 @@ import org.w3c.dom.Node;
 /**
  * A wrapper that overrides {@link Object#hashCode()} and {@link Object#equals(java.lang.Object)}
  * to compare {@link Node} lists for equality according to the specified {@link Options}.
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public final class NodeListEqualityWrapper {
     

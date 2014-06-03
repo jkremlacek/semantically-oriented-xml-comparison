@@ -12,7 +12,7 @@ import org.w3c.dom.Node;
 
 /**
  *
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public abstract class NodeDiffTree extends DiffTree {
     

@@ -9,7 +9,7 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc;
 /**
  * Specifies in which document something is located (left/right document or both).
  * 
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public enum DocumentSide {
     BOTH,

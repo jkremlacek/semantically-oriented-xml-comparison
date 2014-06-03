@@ -16,7 +16,7 @@ import org.w3c.dom.NodeList;
 
 /**
  * Some common utility functions.
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 class Utils {
     

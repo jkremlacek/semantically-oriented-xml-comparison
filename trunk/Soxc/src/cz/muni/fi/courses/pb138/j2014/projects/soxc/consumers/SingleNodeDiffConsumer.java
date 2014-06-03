@@ -12,7 +12,7 @@ import org.w3c.dom.Node;
 /**
  * A consumer for an XML node diff stream.
  * 
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public interface SingleNodeDiffConsumer {
 

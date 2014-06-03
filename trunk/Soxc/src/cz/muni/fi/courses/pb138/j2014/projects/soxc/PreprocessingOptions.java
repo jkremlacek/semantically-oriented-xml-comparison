@@ -8,7 +8,7 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc;
 
 /**
  * Represents options for preprocessing XML before comparison. This is an immutable class.
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public class PreprocessingOptions {
     
@@ -63,7 +63,7 @@ public class PreprocessingOptions {
     
     /**
      * A mutable class that can be used to build instances of {@link PreprocessingOptions}.
-     * @author Ondrej Mosnacek <omosnacek@gmail.com>
+     * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
      */
     public static class Builder {
         

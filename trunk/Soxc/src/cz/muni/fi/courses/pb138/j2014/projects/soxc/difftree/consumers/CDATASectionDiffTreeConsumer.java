@@ -16,7 +16,7 @@ import org.w3c.dom.CDATASection;
 
 /**
  *
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public final class CDATASectionDiffTreeConsumer implements CDATASectionDiffConsumer {
 

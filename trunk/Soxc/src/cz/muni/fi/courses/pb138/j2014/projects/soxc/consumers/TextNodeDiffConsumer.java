@@ -11,7 +11,7 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 /**
  * An XML text node diff sub-stream consumer.
  * 
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public interface TextNodeDiffConsumer {
     

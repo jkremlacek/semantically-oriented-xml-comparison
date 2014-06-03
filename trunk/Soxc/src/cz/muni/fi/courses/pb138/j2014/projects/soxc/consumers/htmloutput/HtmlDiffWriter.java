@@ -13,7 +13,7 @@ import java.io.Writer;
 /**
  * A helper class for {@link HtmlDiffConsumer}.
  * 
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 class HtmlDiffWriter {
     

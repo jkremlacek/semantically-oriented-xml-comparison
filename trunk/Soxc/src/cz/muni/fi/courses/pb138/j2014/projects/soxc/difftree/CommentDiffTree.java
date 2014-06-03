@@ -15,7 +15,7 @@ import org.w3c.dom.Comment;
 
 /**
  *
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public final class CommentDiffTree extends NodeDiffTree {
     
