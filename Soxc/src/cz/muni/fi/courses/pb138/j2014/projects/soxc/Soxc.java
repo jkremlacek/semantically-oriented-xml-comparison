@@ -16,7 +16,6 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.NodeListDiffConsum
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.ProcessingInstructionDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.SingleNodeDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.TextNodeDiffConsumer;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.util.Utils;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,6 +35,35 @@ import org.w3c.dom.Text;
  */
 public class Soxc {
     
+    /**
+     * Preprocesses a given DOM tree according to the specified options.
+     * @param node      the root node of the DOM tree to preprocess
+     * @param options   the preprocessing options to use
+     */
+    public static void preprocess(Node node, PreprocessingOptions options) {
+        short nodeType = node.getNodeType();
+        
+        if(nodeType == Node.TEXT_NODE) {
+            if(options.trimWhitespaceInText()) {
+                String text = node.getNodeValue();
+                node.setNodeValue(text.trim().replaceAll("\\s+", " "));
+            }
+        }
+        
+        // copy the list because we might remove some nodes while iterating:
+        for(Node child : new ArrayList<>(Utils.asList(node.getChildNodes()))) {
+            short childType = node.getNodeType();
+            if(childType == Node.TEXT_NODE) {
+                if(options.ignoreText() || (options.ignoreWhitespaceOnlyText() &&
+                        node.getNodeValue().matches("\\s*"))) {
+                    node.removeChild(child);
+                    continue;
+                }
+            }
+            preprocess(child, options);
+        }
+    }
+
     /**
      * Reports an unmatched node (that is only in one of the documents) to the consumer.
      * @param node
@@ -134,19 +162,6 @@ public class Soxc {
         }
     }
     
-    private static void splitNodeList(List<Node> nodes, List<NodeSimilarityWrapper> unordered, List<NodeSimilarityWrapper> ordered, Options options) {
-        for(Node node : nodes) {
-            NodeSimilarityWrapper wrapper = new NodeSimilarityWrapper(node, options);
-            // find out if the order is to be ignored for this node:
-            if((node.getNodeType() == Node.ELEMENT_NODE && options.ignoreElementOrder()) ||
-                    node.getNodeType() == Node.ATTRIBUTE_NODE) {
-                unordered.add(wrapper);
-            }
-            else {
-                ordered.add(wrapper);
-            }
-        }
-    }
     
     /**
      * Compare two node lists.
@@ -161,11 +176,17 @@ public class Soxc {
         
         List<NodeSimilarityWrapper> unorderedLeft = new ArrayList<>(nodesLeft.size());
         List<NodeSimilarityWrapper> orderedLeft = new ArrayList<>(nodesLeft.size());
-        splitNodeList(nodesLeft, unorderedLeft, orderedLeft, options);
+        Utils.splitNodeList(nodesLeft,
+                Utils.autoWrapSimilarity(Utils.asConsumer(unorderedLeft), options),
+                Utils.autoWrapSimilarity(Utils.asConsumer(orderedLeft), options),
+                options);
         
         List<NodeSimilarityWrapper> unorderedRight = new ArrayList<>(nodesRight.size());
         List<NodeSimilarityWrapper> orderedRight = new ArrayList<>(nodesRight.size());
-        splitNodeList(nodesRight, unorderedRight, orderedRight, options);
+        Utils.splitNodeList(nodesLeft,
+                Utils.autoWrapSimilarity(Utils.asConsumer(unorderedRight), options),
+                Utils.autoWrapSimilarity(Utils.asConsumer(orderedRight), options),
+                options);
         
         // COMPARE UNORDERED:
         // Take one node at a time from the left side,
