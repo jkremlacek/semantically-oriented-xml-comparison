@@ -12,7 +12,7 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
  * An abstract base for consumers for sub-streams of nodes that can belong to
  * a namespace.
  * 
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public interface NamespaceDiffConsumer {
     

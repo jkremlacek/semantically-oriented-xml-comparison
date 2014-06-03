@@ -21,7 +21,7 @@ import org.w3c.dom.Text;
 
 /**
  * A {@link FlatJustDocumentDiffConsumer} that outputs the differences in an XML format.
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public class XmlOutputDiffConsumer implements FlatJustDocumentDiffConsumer {
     

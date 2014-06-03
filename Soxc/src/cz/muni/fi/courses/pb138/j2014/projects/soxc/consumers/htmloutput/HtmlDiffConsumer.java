@@ -28,7 +28,7 @@ import org.w3c.dom.Text;
  * A dummy {@link GeneralDiffConsumer} that produces a human-readable HTML view of the
  * differences between two XML documents.
  * 
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public class HtmlDiffConsumer implements FlatJustDocumentDiffConsumer, FlatSingleNodeDiffConsumer {
     

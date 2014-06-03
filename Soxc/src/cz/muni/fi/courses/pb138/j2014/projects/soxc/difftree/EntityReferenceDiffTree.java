@@ -12,7 +12,7 @@ import org.w3c.dom.EntityReference;
 
 /**
  *
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public final class EntityReferenceDiffTree extends NodeDiffTree {
     

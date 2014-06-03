@@ -10,7 +10,7 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 
 /**
  *
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public abstract class DiffTree {
     

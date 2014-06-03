@@ -14,7 +14,7 @@ import org.w3c.dom.Document;
 
 /**
  *
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public final class DocumentDiffTree extends HierarchicalNodeDiffTree {
     

@@ -19,7 +19,7 @@ import org.w3c.dom.Text;
 /**
  * An XML node list diff sub-stream consumer.
  * 
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public interface NodeListDiffConsumer {
     

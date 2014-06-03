@@ -14,7 +14,7 @@ import org.w3c.dom.Node;
  * via a single interface, which may be easier to implement in some cases.
  * 
  * @see FlatDiffConsumer
- * @author Ondrej Mosnacek <omosnacek@gmail.com>
+ * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public interface FlatSingleNodeDiffConsumer extends FlatDiffConsumer {
     
