@@ -18,7 +18,7 @@ public final class Options {
     private final boolean ignorePrefix;
 
     /**
-     * Wheter to ignore element order. Default: {@code false}.
+     * Whether to ignore element order. Default: {@code false}.
      * @return
      */
     public final boolean ignoreElementOrder() {
@@ -26,7 +26,7 @@ public final class Options {
     }
 
     /**
-     * Wheter to ignore attributes when comparing similarity. Default: {@code true}.
+     * Whether to ignore attributes when comparing similarity. Default: {@code true}.
      * @return
      */
     public final boolean ignoreAttributesInSimilarity() {
@@ -34,7 +34,7 @@ public final class Options {
     }
     
     /**
-     * Wheter to ignore namespace URI. Default: {@code false}.
+     * Whether to ignore namespace URI. Default: {@code false}.
      * @return
      */
     public final boolean ignoreNamespaceURI() {
@@ -42,7 +42,7 @@ public final class Options {
     }
 
     /**
-     * Wheter to ignore prefix. Default: {@code false}.
+     * Whether to ignore prefix. Default: {@code false}.
      * @return
      */
     public final boolean ignorePrefix() {
@@ -52,7 +52,6 @@ public final class Options {
     /* TODO:
     
     ignoreAttributes [false]
-    ignoreTextNodes [false]
     ignoreCDATASections [false]
     ignoreComments [false]
     ignoreProcessingIntructions [false]
@@ -67,7 +66,7 @@ public final class Options {
     */
     
     /**
-     * Contructs default options.
+     * Constructs default options.
      */
     public Options() {
         this(false, true, false, false);
@@ -91,7 +90,8 @@ public final class Options {
     }
     
     /**
-     * A helper mutable class to facilitate creating {@link Options} instances.
+     * A mutable class that can be used to build instances of {@link Options}.
+     * @author Ondrej Mosnacek <omosnacek@gmail.com>
      */
     public static class Builder {
         
@@ -171,6 +171,11 @@ public final class Options {
             flags[3] = value;
         }
         
+        /**
+         * Builds an instance of the {@link Options} class from currently set
+         * options.
+         * @return the new {@link Options} instance
+         */
         public final Options buildOptions() {
             return new Options(flags[0], flags[1], flags[2], flags[3]);
         }

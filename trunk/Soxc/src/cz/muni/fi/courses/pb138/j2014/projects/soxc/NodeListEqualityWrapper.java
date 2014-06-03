@@ -7,6 +7,7 @@
 package cz.muni.fi.courses.pb138.j2014.projects.soxc;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,22 +49,10 @@ public final class NodeListEqualityWrapper {
         // divide nodes into groups:
         elsOrAttrs = new HashMap<>(nodeList.size());
         otherNodes = new ArrayList<>(nodeList.size());
-        for(Node node : nodeList) {
-            NodeEqualityWrapper wrapper = new NodeEqualityWrapper(node, options);
-            
-            // find out if the order is to be ignored for this node:
-            if((node.getNodeType() == Node.ELEMENT_NODE && options.ignoreElementOrder()) ||
-                    node.getNodeType() == Node.ATTRIBUTE_NODE) {
-                // add into the "multiset":
-                Integer count = elsOrAttrs.get(wrapper);
-                if(count == null)
-                    elsOrAttrs.put(wrapper, 1);
-                else
-                    elsOrAttrs.put(wrapper, count + 1);
-            }
-            else
-                otherNodes.add(wrapper);
-        }
+        Utils.splitNodeList(nodeList,
+                Utils.autoWrapEquality(Utils.asMultiSetConsumer(elsOrAttrs), options),
+                Utils.autoWrapEquality(Utils.asConsumer(otherNodes), options),
+                options);
         
         hashCodeCached = calculateHashCode();
     }

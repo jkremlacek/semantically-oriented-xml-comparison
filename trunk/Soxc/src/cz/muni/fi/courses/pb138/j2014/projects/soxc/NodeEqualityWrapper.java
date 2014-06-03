@@ -6,7 +6,6 @@
 
 package cz.muni.fi.courses.pb138.j2014.projects.soxc;
 
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.util.Utils;
 import org.w3c.dom.Node;
 
 /**

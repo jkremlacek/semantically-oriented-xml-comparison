@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 
-package cz.muni.fi.courses.pb138.j2014.projects.soxc.util;
+package cz.muni.fi.courses.pb138.j2014.projects.soxc;
 
 import java.util.AbstractList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -16,7 +18,7 @@ import org.w3c.dom.NodeList;
  * Some common utility functions.
  * @author Ondrej Mosnacek <omosnacek@gmail.com>
  */
-public class Utils {
+class Utils {
     
     /**
      * Gets the hash code of the given object; checks for {@code null}.
@@ -97,5 +99,64 @@ public class Utils {
      */
     public static List<Node> asList(NamedNodeMap nodeList) {
         return new NamedNodeMapAsList(nodeList);
+    }
+    
+    public static <T> Consumer<T> asConsumer(final Collection<T> collection) {
+        return new Consumer<T>() {
+
+            @Override
+            public void feed(T element) {
+                collection.add(element);
+            }
+        };
+    }
+    
+    public static <T> Consumer<T> asMultiSetConsumer(final Map<T, Integer> countMap) {
+        return new Consumer<T>() {
+
+            @Override
+            public void feed(T e) {
+                Integer count = countMap.get(e);
+                if(count == null)
+                    countMap.put(e, 1);
+                else
+                    countMap.put(e, count + 1);
+            }
+        };
+    }
+    
+    public static Consumer<Node> autoWrapEquality(final Consumer<NodeEqualityWrapper> inner, final Options options) {
+        return new Consumer<Node>() {
+
+            @Override
+            public void feed(Node element) {
+                inner.feed(new NodeEqualityWrapper(element, options));
+            }
+        };
+    }
+    
+    public static Consumer<Node> autoWrapSimilarity(final Consumer<NodeSimilarityWrapper> inner, final Options options) {
+        return new Consumer<Node>() {
+
+            @Override
+            public void feed(Node element) {
+                inner.feed(new NodeSimilarityWrapper(element, options));
+            }
+        };
+    }
+    
+    public static void splitNodeList(List<Node> nodes, Consumer<Node> unordered, Consumer<Node> ordered, Options options) {
+        for(Node node : nodes) {
+            short nodeType = node.getNodeType();
+            
+            // find out if the order is to be ignored for this node:
+            if((nodeType == Node.ELEMENT_NODE && options.ignoreElementOrder()) ||
+                    nodeType == Node.ATTRIBUTE_NODE) {
+                unordered.feed(node);
+            }
+            else {
+                ordered.feed(node);
+            }
+        }
     }
 }
