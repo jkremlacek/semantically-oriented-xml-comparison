@@ -68,8 +68,8 @@ public final class Options {
     /**
      * Constructs default options.
      */
-    public Options() {
-        this(false, true, false, false);
+    public Options(boolean[] optionsArray) {
+        this(optionsArray[0], optionsArray[1], optionsArray[2], optionsArray[3]);
     }
 
     /**
