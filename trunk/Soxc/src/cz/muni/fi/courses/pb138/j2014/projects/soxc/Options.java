@@ -49,27 +49,11 @@ public final class Options {
         return ignorePrefix;
     }
     
-    /* TODO:
-    
-    ignoreAttributes [false]
-    ignoreCDATASections [false]
-    ignoreComments [false]
-    ignoreProcessingIntructions [false]
-    ignoreEntityReferences [false]
-        ignoreEntityReferenceName [false]
-        ignoreEntityReferenceContents [false]
-    ignoreEntities [true]
-    ignoreDocumentTypeDefinition [true]
-    ignorePreamble [true]
-        ignoreXmlVersion [true]
-        ignoreXmlEncoding [true]
-    */
-    
     /**
      * Constructs default options.
      */
-    public Options(boolean[] optionsArray) {
-        this(optionsArray[0], optionsArray[1], optionsArray[2], optionsArray[3]);
+    public Options() {
+        this(false, true, false, false);
     }
 
     /**

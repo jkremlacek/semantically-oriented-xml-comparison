@@ -244,12 +244,11 @@ public class GUISelector extends javax.swing.JFrame {
                 Document docRight = builder2.parse(jTextField2.getText());
 
                 JustDocumentDiffTreeConsumer consumer = new JustDocumentDiffTreeConsumer();
-                boolean[] optionsArray = new boolean[4];
-                optionsArray[0] = jCheckBox1.isSelected(); 
-                optionsArray[1] = jCheckBox2.isSelected();
-                optionsArray[2] = jCheckBox3.isSelected();
-                optionsArray[3] = jCheckBox4.isSelected();
-                Options options = new Options(optionsArray);
+                Options options = new Options(
+                        jCheckBox1.isSelected(),
+                        jCheckBox2.isSelected(),
+                        jCheckBox3.isSelected(),
+                        jCheckBox4.isSelected());
 
                 Soxc.diffDocuments(docLeft, docRight, options, consumer);
 
