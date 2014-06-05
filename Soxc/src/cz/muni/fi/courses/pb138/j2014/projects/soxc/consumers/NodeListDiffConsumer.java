@@ -93,7 +93,7 @@ public interface NodeListDiffConsumer {
      */
     public CommentDiffConsumer beginComment(DocumentSide side, Comment comment);
     
-    // TODO Entity and DocumentType
+    // TODO DocumentType
     
     /**
      * Called when the sub-stream has ended.

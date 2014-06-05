@@ -157,6 +157,10 @@ public class Soxc {
                 piConsumer.end();
                 break;
             }
+            case Node.DOCUMENT_TYPE_NODE: {
+                // currently, DocumentType nodes are just ignored 
+                break;
+            }
             default:
                 throw new UnsupportedOperationException("Node type #" + node.getNodeType() + " not supported!");
         }
@@ -406,6 +410,10 @@ public class Soxc {
                 piConsumer.end();
                 break;
             }
+            case Node.DOCUMENT_TYPE_NODE: {
+                // currently, DocumentType nodes are just ignored 
+                break;
+            }
             default:
                 throw new UnsupportedOperationException("Node type #" + nodeLeft.getNodeType() + " not supported!");
         }
@@ -452,12 +460,18 @@ public class Soxc {
      * @return {@code true} if the nodes are equal, otherwise {@code false}
      */
     public static boolean diffDocuments(Document docLeft, Document docRight, Options options, JustDocumentDiffConsumer diffConsumer) {
-        boolean equal;
+        boolean equal = true;
         
-        diffConsumer.begin(docLeft, docRight, options);
+        DocumentDiffConsumer docConsumer = diffConsumer.begin(docLeft, docRight, options);
         
-        // TODO
-        equal = false;
+        NodeListDiffConsumer childrenConsumer = docConsumer.beginChildren();
+        List<Node> childrenLeft = Utils.asList(docLeft.getChildNodes());
+        List<Node> childrenRight = Utils.asList(docRight.getChildNodes());
+        if(!diffNodeList(childrenLeft, childrenRight, options, childrenConsumer))
+            equal = false;
+        childrenConsumer.end();
+        
+        docConsumer.end();
 
         diffConsumer.end();
         
