@@ -88,8 +88,16 @@ public class Soxc {
             case Node.ELEMENT_NODE: {
                 ElementDiffConsumer elementConsumer = diffConsumer.beginElement(side, (Element)node);
                 
-                elementConsumer.namespaceURI(side, node.getNamespaceURI());
-                elementConsumer.prefix(side, node.getPrefix());
+                if(!options.ignoreNamespaceURI()) {
+                    String nsUri = node.getNamespaceURI();
+                    if(nsUri != null)
+                        elementConsumer.namespaceURI(side, nsUri);
+                }
+                if(!options.ignorePrefix()) {
+                    String prefix = node.getPrefix();
+                    if(prefix != null)
+                        elementConsumer.prefix(side, prefix);
+                }
                 
                 NodeListDiffConsumer attrsConsumer = elementConsumer.beginAttributes();
                 List<Node> attrs = Utils.asList(node.getAttributes());
@@ -109,8 +117,16 @@ public class Soxc {
             case Node.ATTRIBUTE_NODE: {
                 AttributeDiffConsumer attrConsumer = diffConsumer.beginAttribute(side, (Attr)node);
                 
-                attrConsumer.namespaceURI(side, node.getNamespaceURI());
-                attrConsumer.prefix(side, node.getPrefix());
+                if(!options.ignoreNamespaceURI()) {
+                    String nsUri = node.getNamespaceURI();
+                    if(nsUri != null)
+                        attrConsumer.namespaceURI(side, nsUri);
+                }
+                if(!options.ignorePrefix()) {
+                    String prefix = node.getPrefix();
+                    if(prefix != null)
+                        attrConsumer.prefix(side, prefix);
+                }
                 
                 NodeListDiffConsumer childrenConsumer = attrConsumer.beginChildren();
                 List<Node> children = Utils.asList(node.getChildNodes());
@@ -187,7 +203,7 @@ public class Soxc {
         
         List<NodeSimilarityWrapper> unorderedRight = new ArrayList<>(nodesRight.size());
         List<NodeSimilarityWrapper> orderedRight = new ArrayList<>(nodesRight.size());
-        Utils.splitNodeList(nodesLeft,
+        Utils.splitNodeList(nodesRight,
                 Utils.autoWrapSimilarity(Utils.asConsumer(unorderedRight), options),
                 Utils.autoWrapSimilarity(Utils.asConsumer(orderedRight), options),
                 options);
@@ -312,6 +328,18 @@ public class Soxc {
             case Node.ELEMENT_NODE: {
                 ElementDiffConsumer elementConsumer = diffConsumer.beginElement(DocumentSide.BOTH, (Element)nodeLeft);
                 
+                // for similar nodes, if ns/prefix is not ignored, it will be equal:
+                if(!options.ignoreNamespaceURI()) {
+                    String nsUri = nodeLeft.getNamespaceURI();
+                    if(nsUri != null)
+                        elementConsumer.namespaceURI(DocumentSide.BOTH, nsUri);
+                }
+                if(!options.ignorePrefix()) {
+                    String prefix = nodeLeft.getPrefix();
+                    if(prefix != null)
+                        elementConsumer.prefix(DocumentSide.BOTH, prefix);
+                }
+
                 NodeListDiffConsumer attrsConsumer = elementConsumer.beginAttributes();
                 List<Node> attrsLeft = Utils.asList(nodeLeft.getAttributes());
                 List<Node> attrsRight = Utils.asList(nodeRight.getAttributes());
@@ -332,6 +360,18 @@ public class Soxc {
             case Node.ATTRIBUTE_NODE: {
                 AttributeDiffConsumer attrConsumer = diffConsumer.beginAttribute(DocumentSide.BOTH, (Attr)nodeLeft);
                 
+                // for similar nodes, if ns/prefix is not ignored, it will be equal:
+                if(!options.ignoreNamespaceURI()) {
+                    String nsUri = nodeLeft.getNamespaceURI();
+                    if(nsUri != null)
+                        attrConsumer.namespaceURI(DocumentSide.BOTH, nsUri);
+                }
+                if(!options.ignorePrefix()) {
+                    String prefix = nodeLeft.getPrefix();
+                    if(prefix != null)
+                        attrConsumer.prefix(DocumentSide.BOTH, prefix);
+                }
+
                 NodeListDiffConsumer childrenConsumer = attrConsumer.beginChildren();
                 List<Node> childrenLeft = Utils.asList(nodeLeft.getChildNodes());
                 List<Node> childrenRight = Utils.asList(nodeRight.getChildNodes());

@@ -254,8 +254,9 @@ public class FlatConsumers {
         return new JustDocumentDiffConsumer() {
 
             @Override
-            public DocumentDiffConsumer begin(Document docLeft, Document docRight, Options options) {
+            public DocumentDiffConsumer begin(final Document docLeft, final Document docRight, Options options) {
                 inner.begin(docLeft, docRight, options);
+                inner.beginDocument(DocumentSide.BOTH, docLeft);
                 return new DocumentDiffConsumer() {
 
                     @Override
@@ -264,7 +265,9 @@ public class FlatConsumers {
                     }
 
                     @Override
-                    public void end() { }
+                    public void end() {
+                        inner.endDocument(DocumentSide.BOTH, docLeft);
+                    }
                 };
             }
 
