@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.fi.muni.cz/courses/PB138/j2014/projects/soxc/xdiff" xml:lang="EN"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xdiff="http://www.fi.muni.cz/courses/PB138/j2014/projects/soxc/xdiff"
+    xsi:schemaLocation="http://www.w3.org/2001/XMLSchema http://www.w3.org/2001/XMLSchema.xsd">
+    
+    <!-- SIMPLE TYPES -->
+    <xsd:simpleType name="sideType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="left|right|both"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:attributeGroup name="sideAttrGroup">
+        <xsd:attribute name="side" type="xdiff:sideType"/>
+    </xsd:attributeGroup>
+    
+    <xsd:simpleType name="nodeNameType">
+        <xsd:restriction base="xsd:string">
+            <!-- according to http://www.w3.org/TR/REC-xml/#NT-Name -->
+            <xsd:pattern value="[:_A-Za-z&#xC0;-&#xD6;&#xD8;-&#xF6;&#xF8;-&#x2FF;&#x370;-&#x37D;&#x37F;-&#x1FFF;&#x200C;-&#x200D;&#x2070;-&#x218F;&#x2C00;-&#x2FEF;&#x3001;-&#xD7FF;&#xF900;-&#xFDCF;&#xFDF0;-&#xFFFD;&#x10000;-&#xEFFFF;][-.0-9&#xB7;&#x0300;-&#x036F;&#x203F;-&#x2040;:_A-Za-z&#xC0;-&#xD6;&#xD8;-&#xF6;&#xF8;-&#x2FF;&#x370;-&#x37D;&#x37F;-&#x1FFF;&#x200C;-&#x200D;&#x2070;-&#x218F;&#x2C00;-&#x2FEF;&#x3001;-&#xD7FF;&#xF900;-&#xFDCF;&#xFDF0;-&#xFFFD;&#x10000;-&#xEFFFF;]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="piTargetType">
+        <xsd:restriction base="xdiff:nodeNameType">
+            <!-- according to http://www.w3.org/TR/REC-xml/#sec-pi -->
+            <xsd:pattern value=".{0,2}|[^Xx][^Mm][^Ll]|.{4,}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="uriType">
+        <xsd:restriction base="xsd:string">
+            <!-- URIs are not usually validated so there is no point doing that here -->
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <!-- COMPLEX TYPES -->
+    <xsd:complexType name="nameWithNamespaceType">
+        <xsd:sequence>
+            <xsd:element name="name" type="xdiff:nodeNameType"/>
+            <xsd:element name="namespaceUri" minOccurs="0" maxOccurs="2">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xdiff:uriType">
+                            <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="prefix" minOccurs="0" maxOccurs="2">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xdiff:nodeNameType">
+                            <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <!-- ELEMENTS -->
+    <xsd:element name="processingInstruction">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="target" type="xdiff:piTargetType"/>
+                <xsd:element name="data" minOccurs="1" maxOccurs="2">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="xsd:string">
+                                <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+                            </xsd:extension>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+            
+            <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="comment">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="data" minOccurs="1" maxOccurs="2">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="xsd:string">
+                                <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+                            </xsd:extension>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+            
+            <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="text">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="data" minOccurs="1" maxOccurs="2">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="xsd:string">
+                                <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+                            </xsd:extension>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+            
+            <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="cdataSection">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="data" minOccurs="1" maxOccurs="2">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="xsd:string">
+                                <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+                            </xsd:extension>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+            
+            <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="entityReference">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="name" type="xdiff:nodeNameType"/>
+            </xsd:sequence>
+            
+            <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="attribute">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="xdiff:nameWithNamespaceType">
+                    <xsd:sequence>
+                        <xsd:element name="children">
+                            <xsd:complexType>
+                                <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:element ref="xdiff:text"/>
+                                    <xsd:element ref="xdiff:entityReference"/>
+                                </xsd:choice>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                    
+                    <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>        
+    </xsd:element>
+    
+    <xsd:element name="element">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="xdiff:nameWithNamespaceType">
+                    <xsd:sequence>
+                        <xsd:element name="attributes">
+                            <xsd:complexType>
+                                <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:element ref="xdiff:attribute"/>
+                                </xsd:choice>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="children">
+                            <xsd:complexType>
+                                <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:element ref="xdiff:element"/>
+                                    <xsd:element ref="xdiff:text"/>
+                                    <xsd:element ref="xdiff:comment"/>
+                                    <xsd:element ref="xdiff:processingInstruction"/>
+                                    <xsd:element ref="xdiff:cdataSection"/>
+                                    <xsd:element ref="xdiff:entityReference"/>
+                                </xsd:choice>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                    
+                    <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>        
+    </xsd:element>
+    
+    <xsd:element name="document">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="xmlVersion" minOccurs="0" maxOccurs="2">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="xsd:string">
+                                <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+                            </xsd:extension>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="xmlEncoding" minOccurs="0" maxOccurs="2">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="xsd:string">
+                                <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+                            </xsd:extension>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+
+                <xsd:element name="children">
+                    <xsd:complexType>
+                        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                            <xsd:element ref="xdiff:processingInstruction"/>
+                            <xsd:element ref="xdiff:comment"/>
+                            <xsd:element ref="xdiff:element"/>
+                        </xsd:choice>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+
+            <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <!-- ROOT ELEMENT -->
+    <xsd:element name="xdiff">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="xdiff:document" minOccurs="1" maxOccurs="2"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema> 

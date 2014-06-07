@@ -7,7 +7,6 @@
 package cz.muni.fi.courses.pb138.j2014.projects.soxc;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
