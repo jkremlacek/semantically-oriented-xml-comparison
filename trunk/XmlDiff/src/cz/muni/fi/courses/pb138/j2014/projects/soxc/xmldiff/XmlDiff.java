@@ -51,7 +51,7 @@ public class XmlDiff {
         documentLeftURI = tmp[0];
         documentRightURI = tmp[1];
         /*
-            according to the options the consumer will be either a ConsoleOutputDiffConsumer
+            according to the options the consumer will be either a TextOutputDiffConsumer
             or an XmlOutputDiffConsumer (linked to a user-specified output file)
         */
         consumer = null;
