@@ -9,6 +9,8 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc.xmldiff;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.FlatJustDocumentDiffConsumer;
+import java.io.PrintStream;
+import java.util.Stack;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
@@ -22,145 +24,238 @@ import org.w3c.dom.Text;
  * A {@link FlatJustDocumentDiffConsumer} that outputs the differences to the console.
  * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
-public class ConsoleOutputDiffConsumer implements FlatJustDocumentDiffConsumer {
-
+public final class ConsoleOutputDiffConsumer implements FlatJustDocumentDiffConsumer {
+    
+    // a convenience alias:
+    private static final PrintStream out = System.out;
+    
     /* HINT: we can use ANSI color escapes (https://en.wikipedia.org/wiki/ANSI_escape_code)
      * on Unix OSes to highlight the differences, on Windows we are screwed unless
      * we use the Jansi library (http://jansi.fusesource.org/)
      */
+    
+    private int depth = 0;
+    private Stack<DocumentSide> currentSide = new Stack<>();
+    
+    private void pushSide(DocumentSide side) {
+        currentSide.push(side);
+    }
+    
+    private DocumentSide popSide() {
+        return currentSide.pop();
+    }
+    
+    private void indent() {
+        DocumentSide side = currentSide.peek();
+        switch(side) {
+            case BOTH:
+                out.print("[BOTH]  ");
+                break;
+            case LEFT_DOCUMENT:
+                out.print("[LEFT]  ");
+                break;
+            case RIGHT_DOCUMENT:
+                out.print("[RIHGT] ");
+                break;
+            default:
+                throw new AssertionError(side.name());
+        }
+        for(int i = 0; i < depth; i++)
+            out.print("  ");
+    }
 
     @Override
     public void begin(Document docLeft, Document docRight, Options options) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        out.println(String.format("Comparison of documents '%s' and '%s'", docLeft.getDocumentURI(), docRight.getDocumentURI()));
+        out.println("--------------------");
     }
 
     @Override
     public void end() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        out.println("DONE.");
     }
 
     @Override
     public void beginChildren() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        indent();
+        out.println("Children:");
+        depth++;
     }
 
     @Override
     public void endChildren() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        depth--;
     }
 
     @Override
     public void beginDocument(DocumentSide side, Document doc) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println("DOCUMENT");
+        depth++;
     }
 
     @Override
     public void endDocument(DocumentSide side, Document doc) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        popSide();
+        depth--;
     }
 
     @Override
     public void beginElement(DocumentSide side, Element el) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println("ELEMENT");
+        depth++;
+        indent();
+        out.println(String.format("Name: %s", el.getLocalName()));
     }
 
     @Override
     public void endElement(DocumentSide side, Element el) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        popSide();
+        depth--;
     }
 
     @Override
     public void beginAttributes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        indent();
+        out.println("Attributes:");
+        depth++;
     }
 
     @Override
     public void beginAttribute(DocumentSide side, Attr attr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println("ATTRIBUTE");
+        depth++;
+        indent();
+        out.println(String.format("Name: %s", attr.getLocalName()));
     }
 
     @Override
     public void endAttribute(DocumentSide side, Attr attr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        popSide();
+        depth--;
     }
 
     @Override
     public void endAttributes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        depth--;
     }
 
     @Override
     public void entityReference(DocumentSide side, EntityReference ref) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println(String.format("ENTITY REFERENCE (%s)", ref.getNodeName()));
+        popSide();
     }
 
     @Override
     public void beginText(DocumentSide side, Text text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println("TEXT");
+        depth++;
     }
 
     @Override
     public void textValue(DocumentSide side, String value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println(String.format("Data: %s", value));
+        popSide();
     }
 
     @Override
     public void endText(DocumentSide side, Text text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        popSide();
+        depth--;
     }
 
     @Override
     public void beginCDATASection(DocumentSide side, CDATASection cdata) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println("CDATA SECTION");
+        depth++;
     }
 
     @Override
     public void CDATASectionData(DocumentSide side, String data) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println(String.format("Data: %s", data));
+        popSide();
     }
 
     @Override
     public void endCDATASection(DocumentSide side, CDATASection cdata) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        popSide();
+        depth--;
     }
 
     @Override
     public void beginComment(DocumentSide side, Comment comment) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println("COMMENT");
+        depth++;
     }
 
     @Override
     public void commentData(DocumentSide side, String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println(String.format("Data: %s", text));
+        popSide();
     }
 
     @Override
     public void endComment(DocumentSide side, Comment comment) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        popSide();
+        depth--;
     }
 
     @Override
     public void beginProcessingInstruction(DocumentSide side, ProcessingInstruction pi) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println("PROCESSING INSTRUCTION");
+        depth++;
+        indent();
+        out.println(String.format("Target: %s", pi.getTarget()));
     }
 
     @Override
     public void processingInstructionData(DocumentSide side, String data) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println(String.format("Data: %s", data));
+        popSide();
     }
 
     @Override
     public void endProcessingInstruction(DocumentSide side, ProcessingInstruction pi) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        popSide();
+        depth--;
     }
 
     @Override
     public void namespaceURI(DocumentSide side, String uri) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println(String.format("Namespace URI: %s", uri));
+        popSide();
     }
 
     @Override
     public void prefix(DocumentSide side, String prefix) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushSide(side);
+        indent();
+        out.println(String.format("Prefix: %s", prefix));
+        popSide();
     }
 }
