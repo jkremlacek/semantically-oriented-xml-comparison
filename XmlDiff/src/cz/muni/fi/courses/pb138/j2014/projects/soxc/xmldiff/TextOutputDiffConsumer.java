@@ -24,18 +24,27 @@ import org.w3c.dom.Text;
  * A {@link FlatJustDocumentDiffConsumer} that outputs the differences to the console.
  * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
-public final class ConsoleOutputDiffConsumer implements FlatJustDocumentDiffConsumer {
+public final class TextOutputDiffConsumer implements FlatJustDocumentDiffConsumer {
     
-    // a convenience alias:
-    private static final PrintStream out = System.out;
-    
-    /* HINT: we can use ANSI color escapes (https://en.wikipedia.org/wiki/ANSI_escape_code)
-     * on Unix OSes to highlight the differences, on Windows we are screwed unless
-     * we use the Jansi library (http://jansi.fusesource.org/)
-     */
+    private final PrintStream out;
     
     private int depth = 0;
-    private Stack<DocumentSide> currentSide = new Stack<>();
+    private final Stack<DocumentSide> currentSide = new Stack<>();
+    
+    /**
+     * Creates a new instance writing to {@link System#out}.
+     */
+    public TextOutputDiffConsumer() {
+        this(System.out);
+    }
+    
+    /**
+     * Creates a new instance writing to the given {@link PrintStream}.
+     * @param stream    the stream to write to
+     */
+    public TextOutputDiffConsumer(PrintStream stream) {
+        this.out = stream;
+    }
     
     private void pushSide(DocumentSide side) {
         currentSide.push(side);
