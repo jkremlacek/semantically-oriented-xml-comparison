@@ -29,7 +29,7 @@ import org.w3c.dom.Text;
  * the XDiff XML format.
  * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
-public class XmlOutputDiffConsumer implements FlatJustDocumentDiffConsumer {
+public final class XmlOutputDiffConsumer implements FlatJustDocumentDiffConsumer {
     
     private static final XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newFactory();
     static { xmlOutputFactory.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES, true); }
