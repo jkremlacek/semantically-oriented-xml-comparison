@@ -254,8 +254,8 @@ public class GUISelector extends javax.swing.JFrame {
 
                 DocumentDiffTree tree = consumer.getDocumentDiffTree();
 
-                GUIDisplay frame = new GUIDisplay();
-                //frame.setTree(tree);
+                GUIDisplay frame = new GUIDisplay(tree);
+                
                 frame.display();
             } else {
                 String message = "Pathfiles have to be set.";
