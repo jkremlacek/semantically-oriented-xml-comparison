@@ -4,31 +4,13 @@
  */
 package cz.muni.fi.courses.pb138.j2014.projects.soxc.GUI;
 
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
-import static cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide.BOTH;
-import static cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide.LEFT_DOCUMENT;
-import static cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide.RIGHT_DOCUMENT;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.AttributeDiffTree;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.CDATASectionDataDiffTree;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.CDATASectionDiffTree;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.CommentDataDiffTree;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.CommentDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.DocumentDiffTree;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.ElementDiffTree;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.EntityReferenceDiffTree;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.HierarchicalNodeDiffTree;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.NamespaceUriDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.NodeDiffTree;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.PrefixDiffTree;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.ProcessingInstructionDiffTree;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.TextDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.consumers.JustDocumentDiffTreeConsumer;
 import java.util.List;
-import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import org.w3c.dom.Document;
 
 /**
  *
@@ -40,15 +22,14 @@ public final class GUIDisplay extends javax.swing.JFrame {
     DefaultMutableTreeNode topLeft = new DefaultMutableTreeNode("File #1");
     DefaultMutableTreeNode topRight = new DefaultMutableTreeNode("File #2");
     DefaultTreeModel treeModelLeft = new DefaultTreeModel(topLeft);
-    DefaultTreeModel treeModelRight = new DefaultTreeModel(topRight);
-    
+    DefaultTreeModel treeModelRight = new DefaultTreeModel(topRight);    
     DocumentDiffTree tree;
-    GUITreeBuilder builder = new GUITreeBuilder();
     
     public GUIDisplay(DocumentDiffTree tree) {
         this.tree = tree;
+        
         List<NodeDiffTree> children = tree.getChildren();
-        this.scanChildren(children, topLeft, topRight);
+        this.getTreeStructure(children, topLeft, topRight);
         initComponents();
     }
     
@@ -62,31 +43,19 @@ public final class GUIDisplay extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollBar1 = new javax.swing.JScrollBar();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
-        jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTree2 = new javax.swing.JTree();
-        jButton1 = new javax.swing.JButton();
+        scrollPaneLeft = new javax.swing.JScrollPane();
+        jTreeLeft = new javax.swing.JTree();
+        scrollPaneRight = new javax.swing.JScrollPane();
+        jTreeRight = new javax.swing.JTree();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SOXC GUI");
 
-        jTree1.setModel(treeModelLeft);
-        jScrollPane1.setViewportView(jTree1);
+        jTreeLeft.setModel(treeModelLeft);
+        scrollPaneLeft.setViewportView(jTreeLeft);
 
-        jTree2.setModel(treeModelRight);
-        jScrollPane2.setViewportView(jTree2);
-
-        jButton1.setText("jButton1");
-        jButton1.setToolTipText("");
-        jButton1.setActionCommand("neco");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jTreeRight.setModel(treeModelRight);
+        scrollPaneRight.setViewportView(jTreeRight);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,29 +63,18 @@ public final class GUIDisplay extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addComponent(scrollPaneLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneRight, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                    .addComponent(scrollPaneLeft, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                    .addComponent(scrollPaneRight))
                 .addContainerGap())
         );
 
@@ -124,150 +82,10 @@ public final class GUIDisplay extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        treeModelLeft.reload();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    public void scanChildren(List<NodeDiffTree> parents, DefaultMutableTreeNode rootLeft, DefaultMutableTreeNode rootRight) {
-        for (NodeDiffTree parent : parents) {  
-            DefaultMutableTreeNode newNodeLeft = new DefaultMutableTreeNode();
-            DefaultMutableTreeNode newNodeRight = new DefaultMutableTreeNode();
-            
-            DocumentSide side = parent.getSide();
-            
-            if (parent instanceof AttributeDiffTree) {
-                AttributeDiffTree retypedParent = (AttributeDiffTree) parent;
-                
-                switch (side){
-                    case BOTH:
-                        builder.append(retypedParent, rootLeft, false, newNodeLeft);
-                        builder.append(retypedParent, rootRight, false, newNodeRight);
-                        break;
-                    case LEFT_DOCUMENT:
-                        builder.append(retypedParent, rootLeft, true, newNodeLeft);
-                        break;
-                    case RIGHT_DOCUMENT:
-                        builder.append(retypedParent, rootRight, true, newNodeRight);
-                        break;
-                    default:
-                        throw new AssertionError(side.name());    
-                } 
-            } else if (parent instanceof CDATASectionDiffTree) {
-                CDATASectionDiffTree retypedParent = (CDATASectionDiffTree) parent;
-                switch (side){
-                    case BOTH:
-                        builder.append(retypedParent, rootLeft, false, newNodeLeft);
-                        builder.append(retypedParent, rootRight, false, newNodeRight);
-                        break;
-                    case LEFT_DOCUMENT:
-                        builder.append(retypedParent, rootLeft, true, newNodeLeft);
-                        break;
-                    case RIGHT_DOCUMENT:
-                        builder.append(retypedParent, rootRight, true, newNodeRight);
-                        break;
-                    default:
-                        throw new AssertionError(side.name());    
-                } 
-            } else if (parent instanceof CommentDiffTree) {
-                CommentDiffTree retypedParent = (CommentDiffTree) parent;
-                switch (side){
-                    case BOTH:
-                        builder.append(retypedParent, rootLeft, false, newNodeLeft);
-                        builder.append(retypedParent, rootRight, false, newNodeRight);
-                        break;
-                    case LEFT_DOCUMENT:
-                        builder.append(retypedParent, rootLeft, true, newNodeLeft);
-                        break;
-                    case RIGHT_DOCUMENT:
-                        builder.append(retypedParent, rootRight, true, newNodeRight);
-                        break;
-                    default:
-                        throw new AssertionError(side.name());    
-                } 
-            } else if (parent instanceof DocumentDiffTree) {
-                DocumentDiffTree retypedParent = (DocumentDiffTree) parent;
-                switch (side){
-                    case BOTH:
-                        builder.append(retypedParent, rootLeft, false, newNodeLeft);
-                        builder.append(retypedParent, rootRight, false, newNodeRight);
-                        break;
-                    case LEFT_DOCUMENT:
-                        builder.append(retypedParent, rootLeft, true, newNodeLeft);
-                        break;
-                    case RIGHT_DOCUMENT:
-                        builder.append(retypedParent, rootRight, true, newNodeRight);
-                        break;
-                    default:
-                        throw new AssertionError(side.name());    
-                } 
-            } else if (parent instanceof EntityReferenceDiffTree) {
-                EntityReferenceDiffTree retypedParent = (EntityReferenceDiffTree) parent;
-                switch (side){
-                    case BOTH:
-                        builder.append(retypedParent, rootLeft, false, newNodeLeft);
-                        builder.append(retypedParent, rootRight, false, newNodeRight);
-                        break;
-                    case LEFT_DOCUMENT:
-                        builder.append(retypedParent, rootLeft, true, newNodeLeft);
-                        break;
-                    case RIGHT_DOCUMENT:
-                        builder.append(retypedParent, rootRight, true, newNodeRight);
-                        break;
-                    default:
-                        throw new AssertionError(side.name());    
-                } 
-            } else if (parent instanceof ProcessingInstructionDiffTree) {
-                ProcessingInstructionDiffTree retypedParent = (ProcessingInstructionDiffTree) parent;
-                switch (side){
-                    case BOTH:
-                        builder.append(retypedParent, rootLeft, false, newNodeLeft);
-                        builder.append(retypedParent, rootRight, false, newNodeRight);
-                        break;
-                    case LEFT_DOCUMENT:
-                        builder.append(retypedParent, rootLeft, true, newNodeLeft);
-                        break;
-                    case RIGHT_DOCUMENT:
-                        builder.append(retypedParent, rootRight, true, newNodeRight);
-                        break;
-                    default:
-                        throw new AssertionError(side.name());    
-                } 
-            } else if (parent instanceof TextDiffTree) {
-                TextDiffTree retypedParent = (TextDiffTree) parent;
-                switch (side){
-                    case BOTH:
-                        builder.append(retypedParent, rootLeft, false, newNodeLeft);
-                        builder.append(retypedParent, rootRight, false, newNodeRight);
-                        break;
-                    case LEFT_DOCUMENT:
-                        builder.append(retypedParent, rootLeft, true, newNodeLeft);
-                        break;
-                    case RIGHT_DOCUMENT:
-                        builder.append(retypedParent, rootRight, true, newNodeRight);
-                        break;
-                    default:
-                        throw new AssertionError(side.name());    
-                } 
-            } else if (parent instanceof ElementDiffTree) {
-                ElementDiffTree retypedParent = (ElementDiffTree) parent;
-                scanChildren(((HierarchicalNodeDiffTree) parent).getChildren(), newNodeLeft, newNodeRight);
-                
-                switch (side){
-                    case BOTH:
-                        builder.append(retypedParent, rootLeft, false, newNodeLeft);
-                        builder.append(retypedParent, rootRight, false, newNodeRight);
-                        break;
-                    case LEFT_DOCUMENT:
-                        builder.append(retypedParent, rootLeft, true, newNodeLeft);
-                        break;
-                    case RIGHT_DOCUMENT:
-                        builder.append(retypedParent, rootRight, true, newNodeRight);
-                        break;
-                    default:
-                        throw new AssertionError(side.name());    
-                } 
-            } 
-        }
+    public void getTreeStructure(List<NodeDiffTree> parents, DefaultMutableTreeNode rootLeft, DefaultMutableTreeNode rootRight) {
+        GUITreeFactory factory = new GUITreeFactory(parents, rootLeft, rootRight); 
+        factory.processParents();
+        factory.addNewNodes();
     }
     
     public void display() { 
@@ -286,12 +104,9 @@ public final class GUIDisplay extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JScrollBar jScrollBar1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTree jTree1;
-    private javax.swing.JTree jTree2;
+    private javax.swing.JTree jTreeLeft;
+    private javax.swing.JTree jTreeRight;
+    private javax.swing.JScrollPane scrollPaneLeft;
+    private javax.swing.JScrollPane scrollPaneRight;
     // End of variables declaration//GEN-END:variables
 }

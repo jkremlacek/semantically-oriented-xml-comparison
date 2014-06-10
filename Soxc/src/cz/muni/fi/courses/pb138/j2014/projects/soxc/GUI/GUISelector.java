@@ -7,11 +7,9 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc.GUI;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.Soxc;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.DocumentDiffTree;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.NodeDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.consumers.JustDocumentDiffTreeConsumer;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -72,19 +70,19 @@ public class GUISelector extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jLabel4 = new javax.swing.JLabel();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
+        pathfileLeft = new javax.swing.JTextField();
+        leftFileLabel = new javax.swing.JLabel();
+        rightFileLabel = new javax.swing.JLabel();
+        pathfileRight = new javax.swing.JTextField();
+        browseButtonLeft = new javax.swing.JButton();
+        browseButtonRight = new javax.swing.JButton();
+        selectFilesLabel = new javax.swing.JLabel();
+        runButton = new javax.swing.JButton();
+        checkBoxIgnoreElementOrder = new javax.swing.JCheckBox();
+        checkBoxIgnoreAttrInSimilar = new javax.swing.JCheckBox();
+        optionsLabel = new javax.swing.JLabel();
+        checkBoxIgnoreNamespaceURI = new javax.swing.JCheckBox();
+        checkBoxIgnorePrefix = new javax.swing.JCheckBox();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
 
@@ -92,58 +90,58 @@ public class GUISelector extends javax.swing.JFrame {
         setTitle("SOXC GUI");
         setResizable(false);
 
-        jTextField1.setEditable(false);
-        jTextField1.setText("path");
+        pathfileLeft.setEditable(false);
+        pathfileLeft.setText("path");
 
-        jLabel1.setText("XML File 1");
+        leftFileLabel.setText("XML File 1");
 
-        jLabel2.setText("XML File 2");
+        rightFileLabel.setText("XML File 2");
 
-        jTextField2.setEditable(false);
-        jTextField2.setText("path");
+        pathfileRight.setEditable(false);
+        pathfileRight.setText("path");
 
-        jButton1.setText("Browse");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        browseButtonLeft.setText("Browse");
+        browseButtonLeft.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                browseButtonLeftActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Browse");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        browseButtonRight.setText("Browse");
+        browseButtonRight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                browseButtonRightActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Select files:");
+        selectFilesLabel.setText("Select files:");
 
-        jButton3.setText("Run");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        runButton.setText("Run");
+        runButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                runButtonActionPerformed(evt);
             }
         });
 
-        jCheckBox1.setText("Ignore element order");
-        jCheckBox1.setToolTipText("");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxIgnoreElementOrder.setText("Ignore element order");
+        checkBoxIgnoreElementOrder.setToolTipText("");
+        checkBoxIgnoreElementOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                checkBoxIgnoreElementOrderActionPerformed(evt);
             }
         });
 
-        jCheckBox2.setText("Ignore attributes in similarity");
-        jCheckBox2.setToolTipText("");
+        checkBoxIgnoreAttrInSimilar.setText("Ignore attributes in similarity");
+        checkBoxIgnoreAttrInSimilar.setToolTipText("");
 
-        jLabel4.setText("Additional options:");
+        optionsLabel.setText("Additional options:");
 
-        jCheckBox3.setText("Ignore namespace URI");
+        checkBoxIgnoreNamespaceURI.setText("Ignore namespace URI");
 
-        jCheckBox4.setText("Ignore prefix");
-        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxIgnorePrefix.setText("Ignore prefix");
+        checkBoxIgnorePrefix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox4ActionPerformed(evt);
+                checkBoxIgnorePrefixActionPerformed(evt);
             }
         });
 
@@ -157,28 +155,28 @@ public class GUISelector extends javax.swing.JFrame {
                     .addComponent(jSeparator2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox3)
+                            .addComponent(checkBoxIgnoreNamespaceURI)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jCheckBox2, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                                .addComponent(checkBoxIgnoreElementOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(checkBoxIgnoreAttrInSimilar, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jCheckBox4)
-                                        .addComponent(jLabel3)
+                                        .addComponent(checkBoxIgnorePrefix)
+                                        .addComponent(selectFilesLabel)
                                         .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING))
+                                                .addComponent(leftFileLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(pathfileLeft, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                                                .addComponent(rightFileLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(pathfileRight, javax.swing.GroupLayout.Alignment.LEADING))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jButton1)
-                                                .addComponent(jButton2)))
-                                        .addComponent(jLabel4))
+                                                .addComponent(browseButtonLeft)
+                                                .addComponent(browseButtonRight)))
+                                        .addComponent(optionsLabel))
                                     .addGap(20, 20, 20)))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3))
+                            .addComponent(runButton))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -186,77 +184,81 @@ public class GUISelector extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(selectFilesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(leftFileLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(pathfileLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(browseButtonLeft))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rightFileLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pathfileRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(browseButtonRight))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jLabel4)
+                .addComponent(optionsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox1)
+                .addComponent(checkBoxIgnoreElementOrder)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox2)
+                .addComponent(checkBoxIgnoreAttrInSimilar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox4)
+                .addComponent(checkBoxIgnorePrefix)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxIgnoreNamespaceURI)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addComponent(runButton)
+                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        setPath(jTextField1);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void browseButtonLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonLeftActionPerformed
+        setPath(pathfileLeft);
+    }//GEN-LAST:event_browseButtonLeftActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        setPath(jTextField2);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void browseButtonRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonRightActionPerformed
+        setPath(pathfileRight);
+    }//GEN-LAST:event_browseButtonRightActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void runButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runButtonActionPerformed
         try {
            
-            if(!"path".equals(jTextField1.getText()) && !"path".equals(jTextField2.getText())) {
+            if(!"path".equals(pathfileLeft.getText()) && !"path".equals(pathfileRight.getText())) {
                 this.setVisible(false);
                 DocumentBuilderFactory factory1 = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder1 = factory1.newDocumentBuilder();       
-                Document docLeft = builder1.parse(jTextField1.getText());
+                Document docLeft = builder1.parse(pathfileLeft.getText());
 
                 DocumentBuilderFactory factory2 = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder2 = factory2.newDocumentBuilder();       
-                Document docRight = builder2.parse(jTextField2.getText());
+                Document docRight = builder2.parse(pathfileRight.getText());
 
                 JustDocumentDiffTreeConsumer consumer = new JustDocumentDiffTreeConsumer();
                 Options options = new Options(
-                        jCheckBox1.isSelected(),
-                        jCheckBox2.isSelected(),
-                        jCheckBox3.isSelected(),
-                        jCheckBox4.isSelected());
+                        checkBoxIgnoreElementOrder.isSelected(),
+                        checkBoxIgnoreAttrInSimilar.isSelected(),
+                        checkBoxIgnoreNamespaceURI.isSelected(),
+                        checkBoxIgnorePrefix.isSelected());
 
-                Soxc.diffDocuments(docLeft, docRight, options, consumer);
+                boolean equals = Soxc.diffDocuments(docLeft, docRight, options, consumer);
 
-                DocumentDiffTree tree = consumer.getDocumentDiffTree();
-
-                GUIDisplay frame = new GUIDisplay(tree);
-                
-                frame.display();
+                if (equals) {
+                    String message = "XML files are equal.";
+                    JOptionPane.showMessageDialog(new JFrame(), message, "SOXC", JOptionPane.INFORMATION_MESSAGE);
+                    System.exit(0);
+                } else {
+                    DocumentDiffTree tree = consumer.getDocumentDiffTree();
+                    GUIDisplay frame = new GUIDisplay(tree);
+                    frame.display();
+                }
             } else {
                 String message = "Pathfiles have to be set.";
                 JOptionPane.showMessageDialog(new JFrame(), message, "Error", JOptionPane.ERROR_MESSAGE);
@@ -265,15 +267,15 @@ public class GUISelector extends javax.swing.JFrame {
         } catch (ParserConfigurationException | SAXException | IOException ex) {
             Logger.getLogger(GUISelector.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_runButtonActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void checkBoxIgnoreElementOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIgnoreElementOrderActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_checkBoxIgnoreElementOrderActionPerformed
 
-    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+    private void checkBoxIgnorePrefixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIgnorePrefixActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox4ActionPerformed
+    }//GEN-LAST:event_checkBoxIgnorePrefixActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,20 +308,20 @@ public class GUISelector extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton browseButtonLeft;
+    private javax.swing.JButton browseButtonRight;
+    private javax.swing.JCheckBox checkBoxIgnoreAttrInSimilar;
+    private javax.swing.JCheckBox checkBoxIgnoreElementOrder;
+    private javax.swing.JCheckBox checkBoxIgnoreNamespaceURI;
+    private javax.swing.JCheckBox checkBoxIgnorePrefix;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel leftFileLabel;
+    private javax.swing.JLabel optionsLabel;
+    private javax.swing.JTextField pathfileLeft;
+    private javax.swing.JTextField pathfileRight;
+    private javax.swing.JLabel rightFileLabel;
+    private javax.swing.JButton runButton;
+    private javax.swing.JLabel selectFilesLabel;
     // End of variables declaration//GEN-END:variables
 }
