@@ -17,6 +17,7 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.TextDiffTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 /**
  *
@@ -87,6 +88,16 @@ public class GUITreeBuilder {
     public void append(TextDiffTree node, DefaultMutableTreeNode root, 
             boolean mismatch, DefaultMutableTreeNode newNode) {
         
+        Text textNode = node.getNode();
+        String string = textNode.getWholeText();
+        
+        if(mismatch) {
+            string = addMismatchTag(string);
+        }
+        
+        
+        
+        root.add(new DefaultMutableTreeNode(string));
     }
     
     public void append(NodeDiffTree node, DefaultMutableTreeNode root, 
