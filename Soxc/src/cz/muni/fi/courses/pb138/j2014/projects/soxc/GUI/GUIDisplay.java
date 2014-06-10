@@ -251,6 +251,7 @@ public final class GUIDisplay extends javax.swing.JFrame {
             } else if (parent instanceof ElementDiffTree) {
                 ElementDiffTree retypedParent = (ElementDiffTree) parent;
                 scanChildren(((HierarchicalNodeDiffTree) parent).getChildren(), newNodeLeft, newNodeRight);
+                
                 switch (side){
                     case BOTH:
                         builder.append(retypedParent, rootLeft, false, newNodeLeft);
