@@ -1,0 +1,63 @@
+#summary Basic information about the SOXC library.
+
+= SOXC library =
+
+The SOXC library can be used to structurally compare two XML documents or nodes (supplied as [https://en.wikipedia.org/wiki/Document_Object_Model XML DOM] nodes). The library reports discovered differences via callback interfaces called DiffConsumers. The comparison process can be customized by specifying the [Options comparison options]. The library also provides a method for preprocessing (filtering) a DOM node. This can be customized by specifying the [PreprocessingOptions preprocessing options]. Additionally, the library provides a way to capture (materialize into memory) the output of the diff process (represented by the consumer calls) into a tree-like structure called DiffTree. From this structure, it can be repeatedly 'replayed' into multiple DiffConsumers.
+
+The Soxc library can be found in the `trunk/Soxc` directory of the repository (it is a [http://netbeans.org Netbeans] project).
+== Main methods ==
+The core element of the library is the `Soxc` class (residing in the '`cz.muni.fi.courses.pb138.j2014.projects.soxc`' package) which contains the followng public methods:
+
+{{{
+public static void preprocess(Node node, PreprocessingOptions options);
+}}}
+Preprocesses the given `node` using the given `options` (see PreprocessingOptions for more details).
+
+{{{
+public static boolean diffNodes(Node nodeLeft, Node nodeRight, Options options, SingleNodeDiffConsumer diffConsumer)
+}}}
+Compares two nodes using the given `options`, feeding the differences discovered into the given `diffConsumer` (for more information see [Options] and DiffConsumers).
+
+{{{
+public static boolean diffDocuments(Document docLeft, Document docRight, Options options, JustDocumentDiffConsumer diffConsumer)
+}}}
+Compares two documents using the given `options`, feeding the differences discovered into the given `diffConsumer` (for more information see [Options] and DiffConsumers).
+
+== Example ==
+The following code compares two documents with text nodes filtered out, ignoring prefix in comparison and prints the diff information to standard output:
+{{{
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.Soxc;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.ProcessingOptions;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.FlatConsumers;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.textoutput.TextOutputDiffConsumer;
+import org.w3c.dom.Document;
+
+...
+
+Document leftDoc = ...;
+Document rightDoc = ...;
+
+// set up preprocessing:
+ProcessingOptions.Builder procOptsBuilder = new ProcessingOptions.Builder();
+procOptsBuilder.setIgnoreText(true);
+
+// filter-out text nodes from both documents:
+ProcessingOptions procOpts = procOptsBuilder.buildOptions();
+Soxc.preprocess(leftDoc, procOpts);
+Soxc.preprocess(rightDoc, procOpts);
+
+// set up comparison options:
+Options.Builder optsBuilder = new Options.Builder();
+optsBuilder.setIgnorePrefix(true);
+
+// perform the comparison:
+Options opts = optsBuilder.buildOptions();
+boolean equal = Soxc.diffDocuments(leftDoc, rightDoc, opts, FlatConsumers.toGeneral(new TextOutputDiffConsumer()));
+
+if(equal) {
+    System.out.println("The documents are equal!");
+} else {
+    System.out.println("The documents are different!");
+}
+}}}
