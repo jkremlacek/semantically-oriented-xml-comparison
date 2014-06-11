@@ -230,7 +230,8 @@ public class Soxc {
                 NodeSimilarityWrapper right = unorderedRight.get(k);
                 
                 if(left.equals(right)) {
-                    diffSimilarNodes(left.getNode(), right.getNode(), options, diffConsumer);
+                    if(!diffSimilarNodes(left.getNode(), right.getNode(), options, diffConsumer))
+                        equal = false;
                     unorderedLeft.remove(i);
                     unorderedRight.remove(k);
                     i--;
@@ -238,12 +239,14 @@ public class Soxc {
                 }
             }
         }
+        if(!unorderedLeft.isEmpty() || !unorderedRight.isEmpty())
+            equal = false;
         // report the unmatched nodes:
         for(NodeSimilarityWrapper wrapper : unorderedLeft)
             reportNode(wrapper.getNode(), DocumentSide.LEFT_DOCUMENT, options, diffConsumer);
         for(NodeSimilarityWrapper wrapper : unorderedRight)
             reportNode(wrapper.getNode(), DocumentSide.RIGHT_DOCUMENT, options, diffConsumer);
-
+    
         // COMPARE ORDERED:
         // a very simple linear diff algorithm (to be improved):
         Iterator<NodeSimilarityWrapper> itLeft = orderedLeft.iterator();
