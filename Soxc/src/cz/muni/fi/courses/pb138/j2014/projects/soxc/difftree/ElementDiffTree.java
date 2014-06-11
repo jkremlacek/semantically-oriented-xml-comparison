@@ -22,6 +22,7 @@ public final class ElementDiffTree extends HierarchicalNodeDiffTree {
     private final Element node;
     private final List<NamespaceUriDiffTree> nsUri;
     private final List<PrefixDiffTree> prefix;
+    private final List<LocalNameDiffTree> localName;
     private final List<AttributeDiffTree> attributes;
     
     @Override
@@ -41,9 +42,18 @@ public final class ElementDiffTree extends HierarchicalNodeDiffTree {
         return prefix;
     }
     
+    /**
+     * Gets the nodes for the local name of this element.
+     * @return 
+     */
+    public final List<LocalNameDiffTree> getLocalNameTree() {
+        return localName;
+    }
+    
     public ElementDiffTree(DocumentSide side, Element node,
             List<NamespaceUriDiffTree> nsUri,
             List<PrefixDiffTree> prefix,
+            List<LocalNameDiffTree> localName,
             List<NodeDiffTree> children,
             List<AttributeDiffTree> attributes) {
         super(side, children);
@@ -51,6 +61,7 @@ public final class ElementDiffTree extends HierarchicalNodeDiffTree {
         this.node = node;
         this.nsUri = Collections.unmodifiableList(nsUri);
         this.prefix = Collections.unmodifiableList(prefix);
+        this.localName = Collections.unmodifiableList(localName);
         this.attributes = Collections.unmodifiableList(attributes);
     }
 
@@ -63,6 +74,9 @@ public final class ElementDiffTree extends HierarchicalNodeDiffTree {
         
         for(PrefixDiffTree prefixTree : prefix)
             prefixTree.replay(elementConsumer);
+        
+        for(LocalNameDiffTree localNameTree : localName)
+            localNameTree.replay(elementConsumer);
         
         NodeListDiffConsumer attrsConsumer = elementConsumer.beginAttributes();
         for(NodeDiffTree attr : attributes)

@@ -39,7 +39,6 @@
     <!-- COMPLEX TYPES -->
     <xsd:complexType name="nameWithNamespaceType">
         <xsd:sequence>
-            <xsd:element name="name" type="xdiff:nodeNameType"/>
             <xsd:element name="namespaceUri" minOccurs="0" maxOccurs="2">
                 <xsd:complexType>
                     <xsd:simpleContent>
@@ -50,6 +49,15 @@
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="prefix" minOccurs="0" maxOccurs="2">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xdiff:nodeNameType">
+                            <xsd:attributeGroup ref="xdiff:sideAttrGroup"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="localName" minOccurs="1" maxOccurs="2">
                 <xsd:complexType>
                     <xsd:simpleContent>
                         <xsd:extension base="xdiff:nodeNameType">

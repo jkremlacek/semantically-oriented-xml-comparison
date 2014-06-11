@@ -29,4 +29,11 @@ public interface NamespaceDiffConsumer {
      * @param prefix    the prefix of the node
      */
     public void prefix(DocumentSide side, String prefix);
+
+    /**
+     * Reports the local name of the node.
+     * @param side  the side on which the node has the given local name
+     * @param name  the local name of the node
+     */
+    public void localName(DocumentSide side, String name);
 }

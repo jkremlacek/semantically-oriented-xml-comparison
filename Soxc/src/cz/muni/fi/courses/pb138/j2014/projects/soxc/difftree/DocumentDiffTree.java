@@ -13,7 +13,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 
 /**
- *
+ * A {@link DiffTree} node for a document.
  * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public final class DocumentDiffTree extends HierarchicalNodeDiffTree {

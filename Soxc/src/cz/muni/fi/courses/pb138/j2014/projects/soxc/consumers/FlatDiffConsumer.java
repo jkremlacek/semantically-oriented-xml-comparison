@@ -56,6 +56,13 @@ public interface FlatDiffConsumer {
     public void prefix(DocumentSide side, String prefix);
 
     /**
+     * Reports the local name of the current node.
+     * @param side      the side on which the node has the given local name
+     * @param name      the local name of the current node
+     */
+    public void localName(DocumentSide side, String name);
+    
+    /**
      * Marks the beginning of the child nodes of the current node.
      */
     public void beginChildren();

@@ -56,11 +56,12 @@ public class NodeWrappersTests {
             Assert.assertFalse(sim1.equals(sim2));
     }
     
-    private static final Options OPTS_DEFAULT = new Options(false, true, false, false);
-    private static final Options OPTS_SIM_ATT = new Options(false, false, false, false);
-    private static final Options OPTS_EL_NO_ORDER = new Options(true, true, false, false);
-    private static final Options OPTS_IGNORE_PREFIX = new Options(false, true, false, true);
-    private static final Options OPTS_IGNORE_PREFIX_AND_NS = new Options(false, true, true, true);
+    private static final Options OPTS_DEFAULT = new Options(false, false, false, true, false, false);
+    private static final Options OPTS_SIM_ATT = new Options(false, false, false, false, false, false);
+    private static final Options OPTS_EL_NO_ORDER = new Options(true, false, false, true, false, false);
+    private static final Options OPTS_IGNORE_PREFIX = new Options(false, false, false, true, false, true);
+    private static final Options OPTS_IGNORE_PREFIX_AND_NS = new Options(false, false, false, true, true, true);
+    private static final Options OPTS_IGNORE_SIM_EL_NAME = new Options(false, true, false, true, false, false);
     
     @Test
     public void testEmptyElementVariants() throws Exception {
@@ -121,5 +122,14 @@ public class NodeWrappersTests {
         doTest("<x:root xmlns:x=\"somenamespace\" />", "<y:root xmlns:y=\"somenamespace\" />", OPTS_DEFAULT, false, false);
         doTest("<x:root xmlns:x=\"somenamespace\" />", "<y:root xmlns:y=\"somenamespace\" />", OPTS_IGNORE_PREFIX, true, false);
         doTest("<x:root xmlns:x=\"somenamespace\" />", "<y:root xmlns:y=\"othernamespace\" />", OPTS_IGNORE_PREFIX_AND_NS, true, false);
+    }
+    
+    @Test
+    public void testElementNameDifferenceEffectOnSimilarity() throws Exception {
+        doTest("<x/>", "<x/>", OPTS_DEFAULT, true, true);
+        doTest("<x/>", "<x/>", OPTS_IGNORE_SIM_EL_NAME, true, true);
+        
+        doTest("<x/>", "<y/>", OPTS_DEFAULT, false, false);
+        doTest("<x/>", "<y/>", OPTS_IGNORE_SIM_EL_NAME, true, false);
     }
 }

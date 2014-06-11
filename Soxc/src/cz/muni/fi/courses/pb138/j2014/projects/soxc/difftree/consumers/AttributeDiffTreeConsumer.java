@@ -9,6 +9,7 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.consumers;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.AttributeDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.AttributeDiffTree;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.LocalNameDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.NamespaceUriDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.PrefixDiffTree;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public final class AttributeDiffTreeConsumer
     private final Listener listener;
     private final List<NamespaceUriDiffTree> nsUriTree = new ArrayList<>();
     private final List<PrefixDiffTree> prefixTree = new ArrayList<>();
+    private final List<LocalNameDiffTree> localNameTree = new ArrayList<>();
 
     public AttributeDiffTreeConsumer(DocumentSide side, Attr attr, Listener listener) {
         this.side = side;
@@ -48,9 +50,16 @@ public final class AttributeDiffTreeConsumer
     public final void prefix(DocumentSide side, String prefix) {
         prefixTree.add(new PrefixDiffTree(side, prefix));
     }
+
+    @Override
+    public void localName(DocumentSide side, String name) {
+        localNameTree.add(new LocalNameDiffTree(side, name));
+    }
     
     @Override
     public final void end() {
-        listener.onEnd(new AttributeDiffTree(side, attr, nsUriTree, prefixTree, getChildren()));
+        listener.onEnd(new AttributeDiffTree(side, attr,
+                nsUriTree, prefixTree, localNameTree,
+                getChildren()));
     }
 }

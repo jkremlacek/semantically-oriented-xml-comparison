@@ -28,6 +28,8 @@ import org.w3c.dom.Text;
  * A dummy {@link GeneralDiffConsumer} that produces a human-readable HTML view of the
  * differences between two XML documents.
  * 
+ * NOTE: the implementation is currently broken!
+ * 
  * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public class HtmlDiffConsumer implements FlatJustDocumentDiffConsumer, FlatSingleNodeDiffConsumer {
@@ -316,4 +318,7 @@ public class HtmlDiffConsumer implements FlatJustDocumentDiffConsumer, FlatSingl
 
     @Override
     public void prefix(DocumentSide side, String prefix) { }
+
+    @Override
+    public void localName(DocumentSide side, String name) { }
 }

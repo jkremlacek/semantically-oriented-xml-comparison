@@ -83,6 +83,11 @@ public class FlatConsumers {
                 }
 
                 @Override
+                public void localName(DocumentSide side, String name) {
+                    inner.localName(side, name);
+                }
+
+                @Override
                 public void end() {
                     inner.endElement(side, element);
                 }
@@ -107,6 +112,11 @@ public class FlatConsumers {
                 @Override
                 public void prefix(DocumentSide side, String prefix) {
                     inner.prefix(side, prefix);
+                }
+
+                @Override
+                public void localName(DocumentSide side, String name) {
+                    inner.localName(side, name);
                 }
 
                 @Override
