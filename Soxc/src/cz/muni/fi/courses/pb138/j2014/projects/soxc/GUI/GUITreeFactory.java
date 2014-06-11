@@ -253,8 +253,10 @@ public class GUITreeFactory {
                 }
             }
             
-            attributeTextLeft = attributeTextLeft + " " + leftAttributeTag + "=\"" + attrValueLeft + "\"";
-            attributeTextRight = attributeTextRight + " "  + rightAttributeTag + "=\"" + attrValueRight + "\"";
+            if(!leftAttributeTag.isEmpty())
+                attributeTextLeft = attributeTextLeft + " " + leftAttributeTag + "=\"" + attrValueLeft + "\"";
+            if(!rightAttributeTag.isEmpty())
+                attributeTextRight = attributeTextRight + " "  + rightAttributeTag + "=\"" + attrValueRight + "\"";
         }
                 
         String textLeft = "<html><b>" + addElementMismatchTag(leftElementTag) + "</b>" + attributeTextLeft + "</html>";
