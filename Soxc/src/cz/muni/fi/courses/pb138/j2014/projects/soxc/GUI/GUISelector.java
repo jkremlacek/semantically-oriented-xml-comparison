@@ -254,6 +254,7 @@ public class GUISelector extends javax.swing.JFrame {
                 
                 // CREATE THE DOCUMENT BUILDER:
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                factory.setNamespaceAware(true); // this is necessary - /home/ondrej/Dokumenty/Developing/PB138/soxc-xml/compare1.xml
                 // TODO: make checkboxes for this: ...
                 factory.setIgnoringComments(true);
                 // ... and other DocBuilderFactory settings
