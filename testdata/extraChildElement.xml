@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<company xmlns:="cz.muni.fi.courses.pb138.j2014.projects.soxc">
+    <branches>
+        <branch bid="brno_office">
+            <address>
+                <street>Botanická 69</street>
+                <city>Brno</city>
+                <postal_code>602 00</postal_code>
+            </address>
+            <head pid="104">
+            </head>
+            <staff>
+                <person pid="104" position="manager">
+                    <salary>10000</salary>
+                    <note>Despotic monarch.</note>
+                </person>
+                <person pid="103" position="peon">
+                    <salary>6099</salary>
+                    <note>Lazy drunk.</note>
+                </person>
+            </staff>
+        </branch>
+        <branch bid="praha_store">
+            <address>
+                <street>Národní třída 7</street>
+                <city>Praha</city>
+                <postal_code>110 00</postal_code>
+            </address>
+            <head pid="101">
+            </head>
+            <staff>
+                <person pid="101" position="manager">
+                    <salary>10000</salary>
+                    <note>Salas manager.</note>
+                </person>
+                <person pid="103" position="peon">
+                    <salary>7456</salary>
+                    <note>Drink less on Friday.</note>
+                </person>
+                <person pid="102" position="manager">
+                    <salary>12000</salary>
+                    <note>One man personal department.</note>
+                </person>
+            </staff>
+        </branch>
+    </branches>
+    <employees>
+        <person pid="101">
+            <name>Karel Vomáčka</name>
+            <email>kar.vom@mail.com</email>
+            <phone>456 845 354</phone>
+            <favorite_color>Red</favorite_color>
+        </person>
+        <person pid="102">
+            <name>Petr Rychloun</name>
+            <email>peroun@mail.com</email>
+            <phone>485 269 358</phone>
+            <favorite_color>Blue</favorite_color>
+        </person>
+        <person pid="103">
+            <name>Honza Vorel</name>
+            <email>killer22@xmail.com</email>
+            <phone>982 476 135</phone>
+            <favorite_color>Orange</favorite_color>
+        </person>
+        <person pid="104">
+            <name>Michael von Snitzel</name>
+            <email>duke.lord@chateau.com</email>
+            <phone>666 845 292</phone>
+            <favorite_color>Black</favorite_color>            
+        </person>
+    </employees>
+</company>
