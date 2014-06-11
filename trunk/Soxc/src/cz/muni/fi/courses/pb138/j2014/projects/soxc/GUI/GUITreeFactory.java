@@ -26,6 +26,7 @@ import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Text;
 
 /**
@@ -82,12 +83,11 @@ public class GUITreeFactory {
         }
     }
     
-    public void processParent(AttributeDiffTree parent) {
+    public String processParent(AttributeDiffTree parent) {
         Attr attr = parent.getNode();
         String text = attr.getName();
-        text = text + " = " + attr.getValue();
-        text = addMismatchTag(text);
-        addToNewNodes(text);
+        text = text + "=\"" + addElementMismatchTag(attr.getValue()) + "\"";
+        return text;
     }
     
     public void processParent(CDATASectionDiffTree parent) {
@@ -129,8 +129,14 @@ public class GUITreeFactory {
     
     public void processParent(ElementDiffTree parent) {
         Element element = parent.getNode();
+        String attributeText = " ";
         
-        String text = addMismatchTag(element.getTagName());
+        List<AttributeDiffTree> attributes = parent.getAttributes();
+        for(AttributeDiffTree attribute : attributes) {
+            attributeText = attributeText + " " + processParent(attribute);
+        }
+                
+        String text = "<html><b>" + addElementMismatchTag(element.getTagName()) + "</b>" + attributeText + "</html>";
 
         DefaultMutableTreeNode newElementTreeNode = new DefaultMutableTreeNode(text);
         newNodesLeft.add(newElementTreeNode);
@@ -160,7 +166,16 @@ public class GUITreeFactory {
         if(side == DocumentSide.BOTH) {
             return text;
         } else {
-            return "<html><b><font color=" + MISMATCH_COLOR + "\">" +  text + "</tag><b></html>";
+            return "<html><b><font color=" + MISMATCH_COLOR + "\">" +  text + "</font></b></html>";
+        }
+        
+    }
+    
+    public String addElementMismatchTag(String text) {
+        if(side == DocumentSide.BOTH) {
+            return text;
+        } else {
+            return "<b><font color=" + MISMATCH_COLOR + "\">" +  text + "</font></b>";
         }
         
     }
@@ -192,7 +207,6 @@ public class GUITreeFactory {
                 break;
             default:
                 throw new AssertionError(side.name());    
-        } 
-        
+        }         
     }
 }
