@@ -59,10 +59,10 @@ public class Soxc {
         
         // copy the list because we might remove some nodes while iterating:
         for(Node child : new ArrayList<>(Utils.asList(node.getChildNodes()))) {
-            short childType = node.getNodeType();
+            short childType = child.getNodeType();
             if(childType == Node.TEXT_NODE) {
                 if(options.ignoreText() || (options.ignoreWhitespaceOnlyText() &&
-                        node.getNodeValue().matches("\\s*"))) {
+                        child.getNodeValue().matches("\\s*"))) {
                     node.removeChild(child);
                     continue;
                 }
