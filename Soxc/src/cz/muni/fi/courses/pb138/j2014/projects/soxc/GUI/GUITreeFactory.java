@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.w3c.dom.Attr;
+import org.w3c.dom.CDATASection;
+import org.w3c.dom.Comment;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
@@ -88,15 +91,26 @@ public class GUITreeFactory {
     }
     
     public void processParent(CDATASectionDiffTree parent) {
-        
+        CDATASection cData = parent.getNode();
+        String text = cData.getData();
+        text = "<!CDATA[" + text + "]]>";
+        text = addMismatchTag(text);
+        addToNewNodes(text);
     }
     
     public void processParent(CommentDiffTree parent) {
-        
+        Comment comment = parent.getNode();
+        String text = comment.getTextContent();
+        text = addMismatchTag(text);
+        addToNewNodes(text);
     }
     
     public void processParent(DocumentDiffTree parent) {
-        
+        Document document = parent.getNode();
+        String encoding = "encoding=\"" + document.getXmlEncoding() + "\"";
+        String version = "version=\"" + document.getXmlVersion() + "\"";
+        String tagName = "<?xml " + version + " " + encoding + "?>";
+        addToNewNodes(tagName);
     }
     
     public void processParent(EntityReferenceDiffTree parent) {
@@ -108,12 +122,9 @@ public class GUITreeFactory {
     }
     
     public void processParent(TextDiffTree parent) {
-        Text textNode = parent.getNode();    
-        //ignore new line symbol as text content of a node
-        if(!(textNode.getWholeText()).equals("\n")) {
-            String text = addMismatchTag(textNode.getWholeText());
-            addToNewNodes(text);
-        }
+        Text textNode = parent.getNode();
+        String text = addMismatchTag(textNode.getWholeText());
+        addToNewNodes(text);
     }
     
     public void processParent(ElementDiffTree parent) {
