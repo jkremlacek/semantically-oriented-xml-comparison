@@ -14,7 +14,7 @@ import java.util.List;
 import org.w3c.dom.Comment;
 
 /**
- *
+ * A {@link DiffTree} node for a comment.
  * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public final class CommentDiffTree extends NodeDiffTree {
@@ -22,10 +22,15 @@ public final class CommentDiffTree extends NodeDiffTree {
     private final Comment node;
     private final List<CommentDataDiffTree> data;
 
+    @Override
     public final Comment getNode() {
         return node;
     }
 
+    /**
+     * Gets the nodes for the data.
+     * @return 
+     */
     public final List<CommentDataDiffTree> getData() {
         return data;
     }

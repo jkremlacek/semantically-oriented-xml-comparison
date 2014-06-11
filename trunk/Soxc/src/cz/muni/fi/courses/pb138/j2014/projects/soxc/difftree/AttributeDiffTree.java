@@ -14,13 +14,14 @@ import java.util.List;
 import org.w3c.dom.Attr;
 
 /**
- *
+ * A {@link DiffTree} node for an attribute.
  * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public final class AttributeDiffTree extends HierarchicalNodeDiffTree {
     
     private final Attr node;
     private final List<NamespaceUriDiffTree> nsUri;
+    private final List<LocalNameDiffTree> localName;
     private final List<PrefixDiffTree> prefix;
 
     @Override
@@ -28,23 +29,41 @@ public final class AttributeDiffTree extends HierarchicalNodeDiffTree {
         return node;
     }
 
+    /**
+     * Gets the nodes for the namespace URI of this attribute.
+     * @return 
+     */
     public final List<NamespaceUriDiffTree> getNamespaceUri() {
         return nsUri;
     }
 
+    /**
+     * Gets the nodes for the prefix of this attribute.
+     * @return 
+     */
     public final List<PrefixDiffTree> getPrefix() {
         return prefix;
+    }
+    
+    /**
+     * Gets the nodes for the local name of this attribute.
+     * @return 
+     */
+    public final List<LocalNameDiffTree> getLocalNameTree() {
+        return localName;
     }
     
     public AttributeDiffTree(DocumentSide side, Attr node,
             List<NamespaceUriDiffTree> nsUri,
             List<PrefixDiffTree> prefix,
+            List<LocalNameDiffTree> localName,
             List<NodeDiffTree> children) {
         super(side, children);
         
         this.node = node;
         this.nsUri = Collections.unmodifiableList(nsUri);
         this.prefix = Collections.unmodifiableList(prefix);
+        this.localName = Collections.unmodifiableList(localName);
     }
 
     @Override
@@ -56,6 +75,9 @@ public final class AttributeDiffTree extends HierarchicalNodeDiffTree {
         
         for(PrefixDiffTree prefixTree : prefix)
             prefixTree.replay(attrConsumer);
+        
+        for(LocalNameDiffTree localNameTree : localName)
+            localNameTree.replay(attrConsumer);
         
         replayChildren(attrConsumer);
         

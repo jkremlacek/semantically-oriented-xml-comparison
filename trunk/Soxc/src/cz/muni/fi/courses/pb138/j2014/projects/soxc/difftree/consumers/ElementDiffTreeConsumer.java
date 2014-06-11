@@ -11,6 +11,7 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.ElementDiffConsume
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.NodeListDiffConsumer;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.AttributeDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.ElementDiffTree;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.LocalNameDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.NamespaceUriDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.NodeDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.PrefixDiffTree;
@@ -36,6 +37,7 @@ public final class ElementDiffTreeConsumer
     private final Listener listener;
     private final List<NamespaceUriDiffTree> nsUriTree = new ArrayList<>();
     private final List<PrefixDiffTree> prefixTree = new ArrayList<>();
+    private final List<LocalNameDiffTree> localNameTree = new ArrayList<>();
     private List<AttributeDiffTree> attributes = null;
 
     public ElementDiffTreeConsumer(DocumentSide side, Element element, Listener listener) {
@@ -52,6 +54,11 @@ public final class ElementDiffTreeConsumer
     @Override
     public final void prefix(DocumentSide side, String prefix) {
         prefixTree.add(new PrefixDiffTree(side, prefix));
+    }
+    
+    @Override
+    public void localName(DocumentSide side, String name) {
+        localNameTree.add(new LocalNameDiffTree(side, name));
     }
     
     @Override
@@ -78,6 +85,8 @@ public final class ElementDiffTreeConsumer
 
     @Override
     public final void end() {
-        listener.onEnd(new ElementDiffTree(side, element, nsUriTree, prefixTree, getChildren(), attributes));
+        listener.onEnd(new ElementDiffTree(side, element,
+                nsUriTree, prefixTree, localNameTree,
+                getChildren(), attributes));
     }
 }

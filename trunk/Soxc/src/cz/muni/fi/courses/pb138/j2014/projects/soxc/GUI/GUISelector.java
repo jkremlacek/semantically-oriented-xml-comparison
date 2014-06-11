@@ -5,7 +5,7 @@
 package cz.muni.fi.courses.pb138.j2014.projects.soxc.GUI;
 
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
-import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.PreprocessingOptions;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.Soxc;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.DocumentDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.consumers.JustDocumentDiffTreeConsumer;
@@ -87,10 +87,10 @@ public class GUISelector extends javax.swing.JFrame {
         checkBoxIgnorePrefix = new javax.swing.JCheckBox();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        checkBoxIgnoreXMLDeclaration = new javax.swing.JCheckBox();
-        checkBoxIgnoreElementNames = new javax.swing.JCheckBox();
-        checkBoxIgnoreTextData = new javax.swing.JCheckBox();
-        checkBoxTrimWhiteSpaces = new javax.swing.JCheckBox();
+        checkBoxIgnoreElNameInSimilarity = new javax.swing.JCheckBox();
+        checkBoxIgnoreAttrNameInSimilarity = new javax.swing.JCheckBox();
+        checkBoxIgnoreText = new javax.swing.JCheckBox();
+        checkBoxTrimWhiteSpace = new javax.swing.JCheckBox();
 
         jCheckBox4.setText("jCheckBox4");
 
@@ -133,12 +133,8 @@ public class GUISelector extends javax.swing.JFrame {
 
         checkBoxIgnoreElementOrder.setText("Ignore element order");
         checkBoxIgnoreElementOrder.setToolTipText("");
-        checkBoxIgnoreElementOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxIgnoreElementOrderActionPerformed(evt);
-            }
-        });
 
+        checkBoxIgnoreAttrInSimilar.setSelected(true);
         checkBoxIgnoreAttrInSimilar.setText("Ignore attributes in similarity");
         checkBoxIgnoreAttrInSimilar.setToolTipText("");
 
@@ -147,24 +143,14 @@ public class GUISelector extends javax.swing.JFrame {
         checkBoxIgnoreNamespaceURI.setText("Ignore namespace URI");
 
         checkBoxIgnorePrefix.setText("Ignore prefix");
-        checkBoxIgnorePrefix.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxIgnorePrefixActionPerformed(evt);
-            }
-        });
 
-        checkBoxIgnoreXMLDeclaration.setText("Ignore XML declaration");
-        checkBoxIgnoreXMLDeclaration.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxIgnoreXMLDeclarationActionPerformed(evt);
-            }
-        });
+        checkBoxIgnoreElNameInSimilarity.setLabel("Ignore element name in similarity");
 
-        checkBoxIgnoreElementNames.setText("Ignore element names");
+        checkBoxIgnoreAttrNameInSimilarity.setLabel("Ignore attribute name in similarity");
 
-        checkBoxIgnoreTextData.setText("Ignore text data");
+        checkBoxIgnoreText.setLabel("Ignore text nodes");
 
-        checkBoxTrimWhiteSpaces.setText("Trim whitespaces");
+        checkBoxTrimWhiteSpace.setLabel("Trim whitespace in text");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,14 +162,14 @@ public class GUISelector extends javax.swing.JFrame {
                     .addComponent(jSeparator2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkBoxTrimWhiteSpaces)
-                            .addComponent(checkBoxIgnoreTextData)
-                            .addComponent(checkBoxIgnoreElementNames)
-                            .addComponent(checkBoxIgnoreXMLDeclaration)
+                            .addComponent(checkBoxTrimWhiteSpace)
+                            .addComponent(checkBoxIgnoreText)
+                            .addComponent(checkBoxIgnoreAttrNameInSimilarity)
+                            .addComponent(checkBoxIgnoreElNameInSimilarity)
                             .addComponent(checkBoxIgnoreNamespaceURI)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(checkBoxIgnoreElementOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(checkBoxIgnoreAttrInSimilar, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                                .addComponent(checkBoxIgnoreAttrInSimilar, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(checkBoxIgnorePrefix)
@@ -235,13 +221,13 @@ public class GUISelector extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxIgnoreNamespaceURI)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxIgnoreXMLDeclaration)
+                .addComponent(checkBoxIgnoreElNameInSimilarity)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxIgnoreElementNames)
+                .addComponent(checkBoxIgnoreAttrNameInSimilarity)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxIgnoreTextData)
+                .addComponent(checkBoxIgnoreText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxTrimWhiteSpaces)
+                .addComponent(checkBoxTrimWhiteSpace)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -265,25 +251,36 @@ public class GUISelector extends javax.swing.JFrame {
            
             if(!"path".equals(pathfileLeft.getText()) && !"path".equals(pathfileRight.getText())) {
                 this.setVisible(false);
-                DocumentBuilderFactory factory1 = DocumentBuilderFactory.newInstance();
-                factory1.setIgnoringComments(true);
-                DocumentBuilder builder1 = factory1.newDocumentBuilder();       
-                Document docLeft = builder1.parse(pathfileLeft.getText());
+                
+                // CREATE THE DOCUMENT BUILDER:
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                // TODO: make checkboxes for this: ...
+                factory.setIgnoringComments(true);
+                // ... and other DocBuilderFactory settings
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                
+                // PARSE DOCUMENTS:
+                Document docLeft = builder.parse(pathfileLeft.getText());
+                Document docRight = builder.parse(pathfileRight.getText());
+                
+                // DO THE PREPROCESSING:
+                PreprocessingOptions preOpts = new PreprocessingOptions(
+                        checkBoxIgnoreText.isSelected(),
+                        true, // TODO: make checkbox for this one
+                        checkBoxTrimWhiteSpace.isSelected());
+                
+                Soxc.preprocess(docLeft, preOpts);
+                Soxc.preprocess(docRight, preOpts);
 
-                DocumentBuilderFactory factory2 = DocumentBuilderFactory.newInstance();
-                DocumentBuilder builder2 = factory2.newDocumentBuilder();       
-                Document docRight = builder2.parse(pathfileRight.getText());
-
+                // RUN THE COMPARISON:
                 JustDocumentDiffTreeConsumer consumer = new JustDocumentDiffTreeConsumer();
                 Options options = new Options(
                         checkBoxIgnoreElementOrder.isSelected(),
+                        checkBoxIgnoreElNameInSimilarity.isSelected(),
+                        checkBoxIgnoreAttrNameInSimilarity.isSelected(),
                         checkBoxIgnoreAttrInSimilar.isSelected(),
                         checkBoxIgnoreNamespaceURI.isSelected(),
-                        checkBoxIgnorePrefix.isSelected(),
-                        checkBoxIgnoreXMLDeclaration.isSelected(),
-                        checkBoxIgnoreElementNames.isSelected(),
-                        checkBoxIgnoreTextData.isSelected(),
-                        checkBoxTrimWhiteSpaces.isSelected());
+                        checkBoxIgnorePrefix.isSelected());
                 
                 boolean equals = Soxc.diffDocuments(docLeft, docRight, options, consumer);
 
@@ -305,18 +302,6 @@ public class GUISelector extends javax.swing.JFrame {
             Logger.getLogger(GUISelector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_runButtonActionPerformed
-
-    private void checkBoxIgnoreElementOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIgnoreElementOrderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkBoxIgnoreElementOrderActionPerformed
-
-    private void checkBoxIgnorePrefixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIgnorePrefixActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkBoxIgnorePrefixActionPerformed
-
-    private void checkBoxIgnoreXMLDeclarationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIgnoreXMLDeclarationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkBoxIgnoreXMLDeclarationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -352,13 +337,13 @@ public class GUISelector extends javax.swing.JFrame {
     private javax.swing.JButton browseButtonLeft;
     private javax.swing.JButton browseButtonRight;
     private javax.swing.JCheckBox checkBoxIgnoreAttrInSimilar;
-    private javax.swing.JCheckBox checkBoxIgnoreElementNames;
+    private javax.swing.JCheckBox checkBoxIgnoreAttrNameInSimilarity;
+    private javax.swing.JCheckBox checkBoxIgnoreElNameInSimilarity;
     private javax.swing.JCheckBox checkBoxIgnoreElementOrder;
     private javax.swing.JCheckBox checkBoxIgnoreNamespaceURI;
     private javax.swing.JCheckBox checkBoxIgnorePrefix;
-    private javax.swing.JCheckBox checkBoxIgnoreTextData;
-    private javax.swing.JCheckBox checkBoxIgnoreXMLDeclaration;
-    private javax.swing.JCheckBox checkBoxTrimWhiteSpaces;
+    private javax.swing.JCheckBox checkBoxIgnoreText;
+    private javax.swing.JCheckBox checkBoxTrimWhiteSpace;
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

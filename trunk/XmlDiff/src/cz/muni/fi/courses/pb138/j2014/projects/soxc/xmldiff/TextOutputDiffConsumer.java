@@ -64,7 +64,7 @@ public final class TextOutputDiffConsumer implements FlatJustDocumentDiffConsume
                 out.print("[LEFT]  ");
                 break;
             case RIGHT_DOCUMENT:
-                out.print("[RIHGT] ");
+                out.print("[RIGHT] ");
                 break;
             default:
                 throw new AssertionError(side.name());
@@ -116,8 +116,6 @@ public final class TextOutputDiffConsumer implements FlatJustDocumentDiffConsume
         indent();
         out.println("ELEMENT");
         depth++;
-        indent();
-        out.println(String.format("Name: %s", el.getLocalName()));
     }
 
     @Override
@@ -139,8 +137,6 @@ public final class TextOutputDiffConsumer implements FlatJustDocumentDiffConsume
         indent();
         out.println("ATTRIBUTE");
         depth++;
-        indent();
-        out.println(String.format("Name: %s", attr.getLocalName()));
     }
 
     @Override
@@ -265,6 +261,14 @@ public final class TextOutputDiffConsumer implements FlatJustDocumentDiffConsume
         pushSide(side);
         indent();
         out.println(String.format("Prefix: %s", prefix));
+        popSide();
+    }
+
+    @Override
+    public void localName(DocumentSide side, String name) {
+        pushSide(side);
+        indent();
+        out.println(String.format("Local name: %s", name));
         popSide();
     }
 }

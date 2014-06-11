@@ -124,10 +124,6 @@ public final class XmlOutputDiffConsumer implements FlatJustDocumentDiffConsumer
         try {
             writer.writeStartElement(XDIFF_PREFIX, "element", XDIFF_NAMESPACE_URI);
             writer.writeAttribute("side", translateDocSide(side));
-            
-            writer.writeStartElement(XDIFF_PREFIX, "name", XDIFF_NAMESPACE_URI);
-            writer.writeCharacters(el.getNodeName());
-            writer.writeEndElement();
         } catch (XMLStreamException ex) {
             Logger.getLogger(XmlOutputDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -156,10 +152,6 @@ public final class XmlOutputDiffConsumer implements FlatJustDocumentDiffConsumer
         try {
             writer.writeStartElement(XDIFF_PREFIX, "attribute", XDIFF_NAMESPACE_URI);
             writer.writeAttribute("side", translateDocSide(side));
-            
-            writer.writeStartElement(XDIFF_PREFIX, "name", XDIFF_NAMESPACE_URI);
-            writer.writeCharacters(attr.getNodeName());
-            writer.writeEndElement();
         } catch (XMLStreamException ex) {
             Logger.getLogger(XmlOutputDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -339,6 +331,7 @@ public final class XmlOutputDiffConsumer implements FlatJustDocumentDiffConsumer
     public void namespaceURI(DocumentSide side, String uri) {
         try {
             writer.writeStartElement(XDIFF_PREFIX, "namespaceUri", XDIFF_NAMESPACE_URI);
+            writer.writeAttribute("side", translateDocSide(side));
             writer.writeCharacters(uri);
             writer.writeEndElement();
         } catch (XMLStreamException ex) {
@@ -350,7 +343,20 @@ public final class XmlOutputDiffConsumer implements FlatJustDocumentDiffConsumer
     public void prefix(DocumentSide side, String prefix) {
         try {
             writer.writeStartElement(XDIFF_PREFIX, "prefix", XDIFF_NAMESPACE_URI);
+            writer.writeAttribute("side", translateDocSide(side));
             writer.writeCharacters(prefix);
+            writer.writeEndElement();
+        } catch (XMLStreamException ex) {
+            Logger.getLogger(XmlOutputDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void localName(DocumentSide side, String name) {
+        try {
+            writer.writeStartElement(XDIFF_PREFIX, "localName", XDIFF_NAMESPACE_URI);
+            writer.writeAttribute("side", translateDocSide(side));
+            writer.writeCharacters(name);
             writer.writeEndElement();
         } catch (XMLStreamException ex) {
             Logger.getLogger(XmlOutputDiffConsumer.class.getName()).log(Level.SEVERE, null, ex);

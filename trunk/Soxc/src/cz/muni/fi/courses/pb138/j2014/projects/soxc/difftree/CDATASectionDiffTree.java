@@ -14,7 +14,7 @@ import java.util.List;
 import org.w3c.dom.CDATASection;
 
 /**
- *
+ * A {@link DiffTree} node for a CDATA section.
  * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public final class CDATASectionDiffTree extends NodeDiffTree {
@@ -27,6 +27,10 @@ public final class CDATASectionDiffTree extends NodeDiffTree {
         return node;
     }
 
+    /**
+     * Gets the nodes for the data.
+     * @return 
+     */
     public final List<CDATASectionDataDiffTree> getData() {
         return data;
     }

@@ -15,6 +15,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -37,14 +38,14 @@
                   <Component id="jSeparator2" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="checkBoxTrimWhiteSpaces" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkBoxIgnoreTextData" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkBoxIgnoreElementNames" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkBoxIgnoreXMLDeclaration" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxTrimWhiteSpace" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxIgnoreText" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxIgnoreAttrNameInSimilarity" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxIgnoreElNameInSimilarity" min="-2" max="-2" attributes="0"/>
                           <Component id="checkBoxIgnoreNamespaceURI" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="checkBoxIgnoreElementOrder" max="32767" attributes="0"/>
-                              <Component id="checkBoxIgnoreAttrInSimilar" alignment="0" pref="224" max="32767" attributes="0"/>
+                              <Component id="checkBoxIgnoreAttrInSimilar" alignment="0" pref="244" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="checkBoxIgnorePrefix" min="-2" max="-2" attributes="0"/>
@@ -109,13 +110,13 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxIgnoreNamespaceURI" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="checkBoxIgnoreXMLDeclaration" min="-2" max="-2" attributes="0"/>
+              <Component id="checkBoxIgnoreElNameInSimilarity" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="checkBoxIgnoreElementNames" min="-2" max="-2" attributes="0"/>
+              <Component id="checkBoxIgnoreAttrNameInSimilarity" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="checkBoxIgnoreTextData" min="-2" max="-2" attributes="0"/>
+              <Component id="checkBoxIgnoreText" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="checkBoxTrimWhiteSpaces" min="-2" max="-2" attributes="0"/>
+              <Component id="checkBoxTrimWhiteSpace" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -182,12 +183,10 @@
         <Property name="text" type="java.lang.String" value="Ignore element order"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxIgnoreElementOrderActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreAttrInSimilar">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Ignore attributes in similarity"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
@@ -206,35 +205,29 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Ignore prefix"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxIgnorePrefixActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator2">
     </Component>
-    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreXMLDeclaration">
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreElNameInSimilarity">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ignore XML declaration"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxIgnoreXMLDeclarationActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreElementNames">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Ignore element names"/>
+        <Property name="label" type="java.lang.String" value="Ignore element name in similarity"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreTextData">
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreAttrNameInSimilarity">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ignore text data"/>
+        <Property name="label" type="java.lang.String" value="Ignore attribute name in similarity"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="checkBoxTrimWhiteSpaces">
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreText">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Trim whitespaces"/>
+        <Property name="label" type="java.lang.String" value="Ignore text nodes"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxTrimWhiteSpace">
+      <Properties>
+        <Property name="label" type="java.lang.String" value="Trim whitespace in text"/>
       </Properties>
     </Component>
   </SubComponents>

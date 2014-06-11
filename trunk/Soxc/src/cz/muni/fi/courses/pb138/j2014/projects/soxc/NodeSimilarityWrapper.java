@@ -49,7 +49,7 @@ public final class NodeSimilarityWrapper {
         hashCodeCached = calculateHashCode();
     }
 
-    private int getNodeNameHashCode(Node node) {
+    private int getNodeNameHashCode() {
         int hash = 3;
         // if local name is null, just compare node names,
         // otherwise do a NS aware comparison:
@@ -57,11 +57,15 @@ public final class NodeSimilarityWrapper {
             hash = 83 * hash + node.getNodeName().hashCode();
         }
         else {
-            hash = 83 * hash + node.getLocalName().hashCode();
-            if(!options.ignoreNamespaceURI())
-                hash = 83 * hash + Utils.getHashCode(node.getNamespaceURI());
-            if(!options.ignorePrefix())
-                hash = 83 * hash + Utils.getHashCode(node.getPrefix());
+            short nodeType = node.getNodeType();
+            if((!options.ignoreElementNameInSimilarity() && nodeType == Node.ELEMENT_NODE) ||
+                    (!options.ignoreAttributeNameInSimilarity() && nodeType == Node.ATTRIBUTE_NODE)) {
+                hash = 83 * hash + node.getLocalName().hashCode();
+                if(!options.ignoreNamespaceURI())
+                    hash = 83 * hash + Utils.getHashCode(node.getNamespaceURI());
+                if(!options.ignorePrefix())
+                    hash = 83 * hash + Utils.getHashCode(node.getPrefix());
+            }
         }
         return hash;
     }
@@ -71,20 +75,24 @@ public final class NodeSimilarityWrapper {
      * @param a first node
      * @param b second node
      */
-    private boolean nodeNameEquals(Node a, Node b) {
+    private static boolean nodeNameEquals(Node a, Node b, Options options) {
         // if local name is null, just compare node names,
-        // otherwise do a NS aware comparison:
+        // otherwise do an NS aware comparison:
         if(a.getLocalName() == null) {
             if(!a.getNodeName().equals(b.getNodeName()))
                 return false;
         }
         else {
-            if(!a.getLocalName().equals(b.getLocalName()))
-                return false;
-            if(!options.ignoreNamespaceURI() && !Utils.equal(a.getNamespaceURI(), b.getNamespaceURI()))
-                return false;
-            if(!options.ignorePrefix() && !Utils.equal(a.getPrefix(), b.getPrefix()))
-                return false;
+            short nodeType = a.getNodeType();
+            if((!options.ignoreElementNameInSimilarity() && nodeType == Node.ELEMENT_NODE) ||
+                    (!options.ignoreAttributeNameInSimilarity() && nodeType == Node.ATTRIBUTE_NODE)) {
+                if(!a.getLocalName().equals(b.getLocalName()))
+                    return false;
+                if(!options.ignoreNamespaceURI() && !Utils.equal(a.getNamespaceURI(), b.getNamespaceURI()))
+                    return false;
+                if(!options.ignorePrefix() && !Utils.equal(a.getPrefix(), b.getPrefix()))
+                    return false;
+            }
         }
         return true;
     }
@@ -92,7 +100,7 @@ public final class NodeSimilarityWrapper {
     private int calculateHashCode() {
         int hash = 3;
         hash = 83 * hash + node.getNodeType();
-        hash = 83 * hash + getNodeNameHashCode(node);
+        hash = 83 * hash + getNodeNameHashCode();
         if(attributesEqualityWrapper != null)
             hash = 83 * hash + attributesEqualityWrapper.hashCode();
         return hash;
@@ -118,7 +126,7 @@ public final class NodeSimilarityWrapper {
             return false;
         
         // compare node names:
-        if(!nodeNameEquals(this.node, other.node))
+        if(!nodeNameEquals(this.node, other.node, options))
             return false;
         
         // optionally compare attributes:

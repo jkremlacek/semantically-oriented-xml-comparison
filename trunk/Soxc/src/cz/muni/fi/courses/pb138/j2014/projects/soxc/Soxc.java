@@ -45,8 +45,15 @@ public class Soxc {
         
         if(nodeType == Node.TEXT_NODE) {
             if(options.trimWhitespaceInText()) {
-                String text = node.getNodeValue();
-                node.setNodeValue(text.trim().replaceAll("\\s+", " "));
+                String text = node.getNodeValue().trim().replaceAll("\\s+", " ");
+                node.setNodeValue(text);
+                
+                // remove the node if the text would become empty:
+                if(text.isEmpty()) {
+                    Node parent = node.getParentNode();
+                    if(parent != null)
+                        node.getParentNode().removeChild(node);
+                }
             }
         }
         
@@ -64,10 +71,6 @@ public class Soxc {
         }
     }
     
-    public static void preprocess(Document doc, Options options){
-        
-    }
-
     /**
      * Reports an unmatched node (that is only in one of the documents) to the consumer.
      * @param node
@@ -102,6 +105,7 @@ public class Soxc {
                     if(prefix != null)
                         elementConsumer.prefix(side, prefix);
                 }
+                elementConsumer.localName(side, node.getLocalName());
                 
                 NodeListDiffConsumer attrsConsumer = elementConsumer.beginAttributes();
                 List<Node> attrs = Utils.asList(node.getAttributes());
@@ -131,6 +135,7 @@ public class Soxc {
                     if(prefix != null)
                         attrConsumer.prefix(side, prefix);
                 }
+                attrConsumer.localName(side, node.getLocalName());
                 
                 NodeListDiffConsumer childrenConsumer = attrConsumer.beginChildren();
                 List<Node> children = Utils.asList(node.getChildNodes());
@@ -343,6 +348,15 @@ public class Soxc {
                     if(prefix != null)
                         elementConsumer.prefix(DocumentSide.BOTH, prefix);
                 }
+                
+                String nameLeft = nodeLeft.getLocalName();
+                String nameRight = nodeRight.getLocalName();
+                if(nameLeft.equals(nameRight))
+                    elementConsumer.localName(DocumentSide.BOTH, nameLeft);
+                else {
+                    elementConsumer.localName(DocumentSide.LEFT_DOCUMENT, nameLeft);
+                    elementConsumer.localName(DocumentSide.RIGHT_DOCUMENT, nameRight);
+                }
 
                 NodeListDiffConsumer attrsConsumer = elementConsumer.beginAttributes();
                 List<Node> attrsLeft = Utils.asList(nodeLeft.getAttributes());
@@ -374,6 +388,15 @@ public class Soxc {
                     String prefix = nodeLeft.getPrefix();
                     if(prefix != null)
                         attrConsumer.prefix(DocumentSide.BOTH, prefix);
+                }
+
+                String nameLeft = nodeLeft.getLocalName();
+                String nameRight = nodeRight.getLocalName();
+                if(nameLeft.equals(nameRight))
+                    attrConsumer.localName(DocumentSide.BOTH, nameLeft);
+                else {
+                    attrConsumer.localName(DocumentSide.LEFT_DOCUMENT, nameLeft);
+                    attrConsumer.localName(DocumentSide.RIGHT_DOCUMENT, nameRight);
                 }
 
                 NodeListDiffConsumer childrenConsumer = attrConsumer.beginChildren();
