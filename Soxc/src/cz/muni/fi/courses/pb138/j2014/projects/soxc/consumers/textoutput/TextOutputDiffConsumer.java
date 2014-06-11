@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package cz.muni.fi.courses.pb138.j2014.projects.soxc.xmldiff;
+package cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.textoutput;
 
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
