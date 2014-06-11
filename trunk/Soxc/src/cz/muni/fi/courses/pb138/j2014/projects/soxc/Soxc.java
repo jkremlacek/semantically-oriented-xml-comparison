@@ -63,6 +63,10 @@ public class Soxc {
             preprocess(child, options);
         }
     }
+    
+    public static void preprocess(Document doc, Options options){
+        
+    }
 
     /**
      * Reports an unmatched node (that is only in one of the documents) to the consumer.
@@ -517,4 +521,6 @@ public class Soxc {
         
         return equal;
     }
+    
+   
 }

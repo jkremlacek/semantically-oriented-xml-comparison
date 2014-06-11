@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<prefix:company xmlns:prefix="cz.muni.fi.courses.pb138.j2014.projects.soxc">
+    <prefix:branches>
+        <prefix:branch bid="brno_office">
+            <prefix:address>
+                <prefix:street>Botanická 69</prefix:street>
+                <prefix:city>Brno</prefix:city>
+                <prefix:postal_code>602 00</prefix:postal_code>
+            </prefix:address>
+            <prefix:head pid="104">
+            </prefix:head>
+            <prefix:staff>
+                <prefix:person pid="104" position="manager">
+                    <prefix:salary>10000</prefix:salary>
+                    <prefix:note>Despotic monarch.</prefix:note>
+                </prefix:person>
+                <prefix:person pid="103" position="peon">
+                    <prefix:salary>6099</prefix:salary>
+                    <prefix:note>Lazy drunk.</prefix:note>
+                </prefix:person>
+            </prefix:staff>
+        </prefix:branch>
+        <prefix:branch bid="praha_store">
+            <prefix:address>
+                <prefix:street>Národní třída 7</prefix:street>
+                <prefix:city>Praha</prefix:city>
+                <prefix:postal_code>110 00</prefix:postal_code>
+            </prefix:address>
+            <prefix:head pid="101">
+            </prefix:head>
+            <prefix:staff>
+                <prefix:person pid="101" position="manager">
+                    <prefix:salary>10000</prefix:salary>
+                    <prefix:note>Salas manager.</prefix:note>
+                </prefix:person>
+                <prefix:person pid="103" position="peon">
+                    <prefix:salary>7456</prefix:salary>
+                    <prefix:note>Drink less on Friday.</prefix:note>
+                </prefix:person>
+                <prefix:person pid="102" position="manager">
+                    <prefix:salary>12000</prefix:salary>
+                    <prefix:note>One man personal department.</prefix:note>
+                </prefix:person>
+            </prefix:staff>
+        </prefix:branch>
+    </prefix:branches>
+    <prefix:employees>
+        <prefix:person pid="101">
+            <prefix:name>Karel Vomáčka</prefix:name>
+            <prefix:email>kar.vom@mail.com</prefix:email>
+            <prefix:phone>456 845 354</prefix:phone>
+        </prefix:person>
+        <prefix:person pid="102">
+            <prefix:name>Petr Rychloun</prefix:name>
+            <prefix:email>peroun@mail.com</prefix:email>
+            <prefix:phone>485 269 358</prefix:phone>
+        </prefix:person>
+        <prefix:person pid="103">
+            <prefix:name>Honza Vorel</prefix:name>
+            <prefix:email>killer22@xmail.com</prefix:email>
+            <prefix:phone>982 476 135</prefix:phone>
+        </prefix:person>
+        <prefix:person pid="104">
+            <prefix:name>Michael von Snitzel</prefix:name>
+            <prefix:email>duke.lord@chateau.com</prefix:email>
+            <prefix:phone>666 845 292</prefix:phone>
+        </prefix:person>
+    </prefix:employees>
+</prefix:company>
