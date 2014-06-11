@@ -37,6 +37,7 @@ public class GUISelector extends javax.swing.JFrame {
     
     public GUISelector() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -150,6 +151,7 @@ public class GUISelector extends javax.swing.JFrame {
 
         checkBoxIgnoreText.setLabel("Ignore text nodes");
 
+        checkBoxTrimWhiteSpace.setSelected(true);
         checkBoxTrimWhiteSpace.setLabel("Trim whitespace in text");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -228,7 +230,7 @@ public class GUISelector extends javax.swing.JFrame {
                 .addComponent(checkBoxIgnoreText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxTrimWhiteSpace)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(runButton)

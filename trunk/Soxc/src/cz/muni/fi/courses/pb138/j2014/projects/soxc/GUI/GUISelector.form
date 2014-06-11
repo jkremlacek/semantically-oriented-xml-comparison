@@ -117,7 +117,7 @@
               <Component id="checkBoxIgnoreText" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxTrimWhiteSpace" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="93" max="32767" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="runButton" min="-2" max="-2" attributes="0"/>
@@ -227,6 +227,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxTrimWhiteSpace">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="label" type="java.lang.String" value="Trim whitespace in text"/>
       </Properties>
     </Component>
