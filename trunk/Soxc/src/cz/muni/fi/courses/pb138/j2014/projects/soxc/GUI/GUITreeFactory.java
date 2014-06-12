@@ -29,7 +29,8 @@ import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 
 /**
- *
+ * Parses a list of NodeDiffTrees, building a TreeNode structure representing left and right file separately
+ * 
  * @author Jakub Kremláček
  */
 public class GUITreeFactory {
@@ -50,6 +51,9 @@ public class GUITreeFactory {
         newNodesRight = new ArrayList<>();
     }
     
+    /*
+     * Changes classtype of every member of parents list (from the class constructor), parsing them each by their instance
+     */
     public void processParents() {
         for (NodeDiffTree parent : parents) {
             side = parent.getSide();
@@ -79,6 +83,11 @@ public class GUITreeFactory {
         }
     }
     
+    /*
+     * Appends a node of CDATA type to the list of new nodes.
+     * 
+     * @param   parentCDATA DiffTree source of text value for the new node
+     */
     public void processParent(CDATASectionDiffTree parent) {
         CDATASection cData = parent.getNode();
         String text = cData.getData();
@@ -87,6 +96,11 @@ public class GUITreeFactory {
         addToNewNodes(text);
     }
     
+    /*
+     * Appends a node of Comment type to the list of new nodes.
+     * 
+     * @param   parent      Comment DiffTree source of text value for the new node
+     */
     public void processParent(CommentDiffTree parent) {
         Comment comment = parent.getNode();
         String text = comment.getTextContent();
@@ -94,6 +108,11 @@ public class GUITreeFactory {
         addToNewNodes(text);
     }
     
+    /*
+     * Appends a node of Document type to the list of new nodes.
+     * 
+     * @param   parent      Document DiffTree source of text value for the new node
+     */
     public void processParent(DocumentDiffTree parent) {
         Document document = parent.getNode();
         String encoding = "encoding=\"" + document.getXmlEncoding() + "\"";
@@ -102,6 +121,12 @@ public class GUITreeFactory {
         addToNewNodes(tagName);
     }
     
+    /*
+     * Appends a node of Entity type to the list of new nodes.
+     * Each Document-side of the Node is added separately.
+     * 
+     * @param   parent      Entity DiffTree source of text value for the new node
+     */
     public void processParent(EntityReferenceDiffTree parent) {
         DefaultMutableTreeNode newEntityReferenceNodeLeft;
         DefaultMutableTreeNode newEntityReferenceNodeRight;
@@ -137,6 +162,12 @@ public class GUITreeFactory {
         }
     }
     
+    /*
+     * Appends a node of Processing Instruction type to the list of new nodes.
+     * Each Document-side of the Node is added separately.
+     * 
+     * @param   parent      Processing Instruction DiffTree source of text value for the new node
+     */
     public void processParent(ProcessingInstructionDiffTree parent) {
         List<ProcessingInstructionDataDiffTree> procInstrList = parent.getData();
         
@@ -170,6 +201,12 @@ public class GUITreeFactory {
         
     }
     
+    /*
+     * Appends a node of Text type to the list of new nodes.
+     * Each Document-side of the Node is added separately.
+     * 
+     * @param   parent      Text DiffTree source of text value for the new node
+     */
     public void processParent(TextDiffTree parent) {
         List<TextValueDiffTree> textValueList = parent.getValue();
         for (int i = 0; i < textValueList.size(); i++) {
@@ -198,6 +235,15 @@ public class GUITreeFactory {
         }
     }
     
+    /*
+     * Appends a node of Element type to the list of new nodes.
+     * Each Document-side of the Node is added separately.
+     * Attributes of the element are parsed before appending the element node
+     * to the list of new nodes. Attributes are added to the element tag
+     * in order to simulate basic XML structure
+     * 
+     * @param   parent      Element DiffTree source of text value for the new node
+     */
     public void processParent(ElementDiffTree parent) {
         //Element element = parent.getNode();
         String leftElementTag = "";
@@ -302,9 +348,9 @@ public class GUITreeFactory {
             }
             
             if(!leftAttributeTag.isEmpty())
-                attributeTextLeft = attributeTextLeft + " " + attributeNamespace.getLeftNamespace(leftAttributeTag + "=\"" + attrValueLeft + "\"");
+                attributeTextLeft = attributeTextLeft + " " + attributeNamespace.getLeftNamespaceWithoutURI(leftAttributeTag + "=\"" + attrValueLeft + "\"");
             if(!rightAttributeTag.isEmpty())
-                attributeTextRight = attributeTextRight + " " + attributeNamespace.getLeftNamespace(rightAttributeTag + "=\"" + attrValueRight + "\"");
+                attributeTextRight = attributeTextRight + " " + attributeNamespace.getLeftNamespaceWithoutURI(rightAttributeTag + "=\"" + attrValueRight + "\"");
         }
         
         //finalization of tag
@@ -337,7 +383,14 @@ public class GUITreeFactory {
                 throw new AssertionError(side.name());    
         } 
     }
-       
+    
+    /*
+     * adds mismatch html tag if node is not on both sides equal
+     * 
+     * @param   text    string value, that will be encapsulated with mismatch tag
+     * @return          string value encapsulated with mismatch html tag if node 
+     *                  wasn't equal on both sides
+     */
     public String addMismatchTag(String text) {
         if(side == DocumentSide.BOTH) {
             return text;
@@ -346,10 +399,23 @@ public class GUITreeFactory {
         }       
     }
     
+    /*
+     * adds mismatch html tag
+     * 
+     * @param   text    string value, that will be encapsulated with mismatch tag
+     * @return          string value encapsulated with mismatch tag
+     */
     public String addMismatchTagOverriden(String text) {
         return "<b><font color=" + MISMATCH_COLOR + "\">" +  text + "</font></b>";      
     }
     
+    /*
+     * adds mismatch tag if node is not on both sides equal
+     * 
+     * @param   text    string value, that will be encapsulated with mismatch tag
+     * @return          string value encapsulated with mismatch tag if node 
+     *                  wasn't equal on both sides
+     */
     public String addElementMismatchTag(String text) {
         if(side == DocumentSide.BOTH) {
             return text;
@@ -359,6 +425,10 @@ public class GUITreeFactory {
         
     }
     
+    /*
+     * Method that is called last during parent parsing procedure. Appends new 
+     * nodes to the root nodes.
+     */
     public void addNewNodes() {
         for (DefaultMutableTreeNode treeNodeToBeAdded : newNodesLeft) {
             rootLeft.add(treeNodeToBeAdded);
@@ -370,6 +440,11 @@ public class GUITreeFactory {
         
     }
     
+    /*
+     * Adds text as a new node to the list of new nodes.
+     * 
+     * @param   text    string to be added as a new node
+     */
     public void addToNewNodes(String text) {
         DefaultMutableTreeNode newElementTreeNode = new DefaultMutableTreeNode(text);
         switch (side){
