@@ -7,8 +7,14 @@
 package cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers;
 
 /**
- * An XML CDATA section diff sub-stream consumer.
+ * An XML document diff sub-stream consumer.
  * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
+ * <p>
+ * Order of method calls:
+ * <ol>
+ * <li>{@link HierarchicalNodeDiffConsumer}'s methods</li>
+ * </ol>
+ * </p>
  */
 public interface DocumentDiffConsumer extends HierarchicalNodeDiffConsumer {
     
