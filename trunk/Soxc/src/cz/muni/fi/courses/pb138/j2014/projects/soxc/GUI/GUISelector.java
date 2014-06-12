@@ -92,6 +92,8 @@ public class GUISelector extends javax.swing.JFrame {
         checkBoxIgnoreAttrNameInSimilarity = new javax.swing.JCheckBox();
         checkBoxIgnoreText = new javax.swing.JCheckBox();
         checkBoxTrimWhiteSpace = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
 
         jCheckBox4.setText("jCheckBox4");
 
@@ -154,49 +156,64 @@ public class GUISelector extends javax.swing.JFrame {
         checkBoxTrimWhiteSpace.setSelected(true);
         checkBoxTrimWhiteSpace.setLabel("Trim whitespace in text");
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cz/muni/fi/courses/pb138/j2014/projects/soxc/GUI/img/SOXC.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(optionsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(97, 97, 97))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(leftFileLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkBoxTrimWhiteSpace)
-                            .addComponent(checkBoxIgnoreText)
-                            .addComponent(checkBoxIgnoreAttrNameInSimilarity)
-                            .addComponent(checkBoxIgnoreElNameInSimilarity)
-                            .addComponent(checkBoxIgnoreNamespaceURI)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(checkBoxIgnoreElementOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(checkBoxIgnoreAttrInSimilar, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(checkBoxIgnorePrefix)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(pathfileRight)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(rightFileLabel)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(pathfileLeft, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(browseButtonLeft, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(browseButtonRight, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(checkBoxTrimWhiteSpace)
+                                        .addComponent(checkBoxIgnoreText)
+                                        .addComponent(checkBoxIgnoreAttrNameInSimilarity)
+                                        .addComponent(checkBoxIgnoreElNameInSimilarity)
+                                        .addComponent(checkBoxIgnoreNamespaceURI)
+                                        .addComponent(jLabel1)
                                         .addComponent(selectFilesLabel)
+                                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(checkBoxIgnoreAttrInSimilar, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                                        .addComponent(checkBoxIgnoreElementOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jSeparator2)
+                                        .addComponent(jSeparator1)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(leftFileLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(pathfileLeft, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                                                .addComponent(rightFileLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(pathfileRight, javax.swing.GroupLayout.Alignment.LEADING))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(browseButtonLeft)
-                                                .addComponent(browseButtonRight)))
-                                        .addComponent(optionsLabel))
-                                    .addGap(20, 20, 20)))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(runButton))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                            .addGap(21, 21, 21)
+                                            .addComponent(checkBoxIgnorePrefix, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(runButton))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addComponent(selectFilesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(leftFileLabel)
@@ -212,7 +229,7 @@ public class GUISelector extends javax.swing.JFrame {
                     .addComponent(browseButtonRight))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(optionsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxIgnoreElementOrder)
@@ -230,7 +247,7 @@ public class GUISelector extends javax.swing.JFrame {
                 .addComponent(checkBoxIgnoreText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxTrimWhiteSpace)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(runButton)
@@ -348,8 +365,10 @@ public class GUISelector extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxIgnoreText;
     private javax.swing.JCheckBox checkBoxTrimWhiteSpace;
     private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel leftFileLabel;
     private javax.swing.JLabel optionsLabel;
     private javax.swing.JTextField pathfileLeft;
