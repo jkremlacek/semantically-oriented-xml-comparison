@@ -17,17 +17,16 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.EntityReferenceDiff
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.HierarchicalNodeDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.LocalNameDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.NodeDiffTree;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.ProcessingInstructionDataDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.ProcessingInstructionDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.TextDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.TextValueDiffTree;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
-import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
-import org.w3c.dom.Text;
 
 /**
  *
@@ -104,10 +103,70 @@ public class GUITreeFactory {
     }
     
     public void processParent(EntityReferenceDiffTree parent) {
+        DefaultMutableTreeNode newEntityReferenceNodeLeft;
+        DefaultMutableTreeNode newEntityReferenceNodeRight;
         
+        switch (parent.getSide()) {
+            case BOTH:
+                newEntityReferenceNodeLeft = new DefaultMutableTreeNode("&(" +((parent).getNode()).getLocalName()+ ")");
+                newEntityReferenceNodeRight = new DefaultMutableTreeNode("&(" +((parent).getNode()).getLocalName()+ ")");
+                
+                newNodesLeft.add(newEntityReferenceNodeLeft);
+                newNodesRight.add(newEntityReferenceNodeRight);
+                break;
+            case LEFT_DOCUMENT:
+                newEntityReferenceNodeLeft = new DefaultMutableTreeNode(
+                        "<b><font color=" + MISMATCH_COLOR + "\">" 
+                        + "&(" 
+                        + ((parent).getNode()).getLocalName() 
+                        + ")"
+                        + "</font></b>"
+                        );
+                newNodesLeft.add(newEntityReferenceNodeLeft);
+                break;
+            case RIGHT_DOCUMENT:
+                newEntityReferenceNodeRight = new DefaultMutableTreeNode(
+                        "<b><font color=" + MISMATCH_COLOR + "\">" 
+                        + "&("
+                        + ((parent).getNode()).getLocalName()
+                        + ")"
+                        + "</font></b>"
+                        );
+                newNodesRight.add(newEntityReferenceNodeRight);
+                break;
+        }
     }
     
     public void processParent(ProcessingInstructionDiffTree parent) {
+        List<ProcessingInstructionDataDiffTree> procInstrList = parent.getData();
+        
+        String leftProcInstr = "";
+        String rightProcInstr = "";
+        
+        for (ProcessingInstructionDataDiffTree procInstr : procInstrList) {
+            switch (procInstr.getSide()) {
+                case BOTH:
+                    leftProcInstr = procInstr.getData();
+                    rightProcInstr = procInstr.getData();
+                    break;
+                case LEFT_DOCUMENT:
+                    leftProcInstr = "<html>" + addMismatchTagOverriden(procInstr.getData()) + "</html>";
+                    break;
+                case RIGHT_DOCUMENT:
+                    rightProcInstr = "<html>" + addMismatchTagOverriden(procInstr.getData()) + "</html>";
+                    break;
+            }
+        }
+        
+        if (!leftProcInstr.isEmpty()) {
+            leftProcInstr = "<?" + leftProcInstr + "?>";
+            newNodesLeft.add(new DefaultMutableTreeNode(leftProcInstr));
+        }
+        
+        if (!rightProcInstr.isEmpty()) {
+            rightProcInstr = "<?" + rightProcInstr + "?>";
+            newNodesRight.add(new DefaultMutableTreeNode(rightProcInstr));
+        }
         
     }
     
@@ -128,15 +187,11 @@ public class GUITreeFactory {
                     newNodesRight.add(newTextTreeNodeRight);
                     break;
                 case LEFT_DOCUMENT:
-                    newTextTreeNodeLeft = new DefaultMutableTreeNode("<b><font color=" + MISMATCH_COLOR + "\">"
-                            + textValue.getValue() 
-                            + "</font></b>");
+                    newTextTreeNodeLeft = new DefaultMutableTreeNode(addMismatchTagOverriden(textValue.getValue()));
                     newNodesLeft.add(newTextTreeNodeLeft);
                     break;
                 case RIGHT_DOCUMENT:
-                    newTextTreeNodeRight = new DefaultMutableTreeNode("<b><font color=" + MISMATCH_COLOR + "\">" 
-                            + textValue.getValue()
-                            + "</font></b>");
+                    newTextTreeNodeRight = new DefaultMutableTreeNode(addMismatchTagOverriden(textValue.getValue()));
                     newNodesRight.add(newTextTreeNodeRight);
                     break;
             }
@@ -173,6 +228,7 @@ public class GUITreeFactory {
         List<AttributeDiffTree> attributes = parent.getAttributes();
         for(AttributeDiffTree attribute : attributes) {
             
+            NamespaceBuilder attributeNamespace = new NamespaceBuilder(attribute.getNamespaceUri(), attribute.getPrefix());
             
             //attribute tag parsing
             
@@ -188,14 +244,10 @@ public class GUITreeFactory {
                         rightAttributeTag = nameTree.getLocalName();
                         break;
                     case LEFT_DOCUMENT:
-                        leftAttributeTag = "<b><font color=" + MISMATCH_COLOR + "\">"
-                                + nameTree.getLocalName()
-                                + "</font></b>";
+                        leftAttributeTag = addMismatchTagOverriden(nameTree.getLocalName());
                         break;
                     case RIGHT_DOCUMENT:
-                        rightAttributeTag = "<b><font color=" + MISMATCH_COLOR + "\">"
-                                + nameTree.getLocalName()
-                                + "</font></b>";
+                        rightAttributeTag = addMismatchTagOverriden(nameTree.getLocalName());
                         break;
                 }
             }
@@ -218,14 +270,10 @@ public class GUITreeFactory {
                                 attrValueRight = attrValueLeft;
                                 break;
                             case LEFT_DOCUMENT:
-                                attrValueLeft = "<b><font color=" + MISMATCH_COLOR + "\">"
-                                        + textValue.getValue() 
-                                        + "</font></b>";
+                                attrValueLeft = addMismatchTagOverriden(textValue.getValue());
                                 break;
                             case RIGHT_DOCUMENT:
-                                attrValueRight = "<b><font color=" + MISMATCH_COLOR + "\">" 
-                                        + textValue.getValue()
-                                        + "</font></b>";
+                                attrValueRight = addMismatchTagOverriden(textValue.getValue());
                                 break;
                         }
                     }
@@ -236,31 +284,35 @@ public class GUITreeFactory {
                             attrValueRight = attrValueLeft;
                             break;
                         case LEFT_DOCUMENT:
-                            attrValueLeft = "<b><font color=" + MISMATCH_COLOR + "\">" 
-                                    + "&(" 
+                            attrValueLeft = addMismatchTagOverriden(
+                                    "&(" 
                                     + (((EntityReferenceDiffTree) attrChildren).getNode()).getLocalName() 
                                     + ")"
-                                    + "</font></b>";
+                                    );
                             break;
                         case RIGHT_DOCUMENT:
-                            attrValueRight = "<b><font color=" + MISMATCH_COLOR + "\">" 
-                                    + "&("
+                            attrValueRight = addMismatchTagOverriden(
+                                    "&("
                                     + (((EntityReferenceDiffTree) attrChildren).getNode()).getLocalName()
                                     + ")"
-                                    + "</font></b>";
+                                    );
                             break;
                     }
                 }
             }
             
             if(!leftAttributeTag.isEmpty())
-                attributeTextLeft = attributeTextLeft + " " + leftAttributeTag + "=\"" + attrValueLeft + "\"";
+                attributeTextLeft = attributeTextLeft + " " + attributeNamespace.getLeftNamespace(leftAttributeTag + "=\"" + attrValueLeft + "\"");
             if(!rightAttributeTag.isEmpty())
-                attributeTextRight = attributeTextRight + " "  + rightAttributeTag + "=\"" + attrValueRight + "\"";
+                attributeTextRight = attributeTextRight + " " + attributeNamespace.getLeftNamespace(rightAttributeTag + "=\"" + attrValueRight + "\"");
         }
-                
-        String textLeft = "<html><b>" + addElementMismatchTag(leftElementTag) + "</b>" + attributeTextLeft + "</html>";
-        String textRight = "<html><b>" + addElementMismatchTag(rightElementTag) + "</b>" + attributeTextRight + "</html>";
+        
+        //finalization of tag
+        
+        NamespaceBuilder elementNamespace = new NamespaceBuilder(parent.getNamespaceUriTree(), parent.getPrefixTree());
+        
+        String textLeft = "<html><b>" + elementNamespace.getLeftNamespaceWithoutURI(addElementMismatchTag(leftElementTag)) + "</b>" + attributeTextLeft + "</html>";
+        String textRight = "<html><b>" + elementNamespace.getRightNamespaceWithoutURI(addElementMismatchTag(rightElementTag)) + "</b>" + attributeTextRight + "</html>";
 
         DefaultMutableTreeNode newElementTreeNodeLeft = new DefaultMutableTreeNode(textLeft);
         DefaultMutableTreeNode newElementTreeNodeRight = new DefaultMutableTreeNode(textRight);
@@ -292,6 +344,10 @@ public class GUITreeFactory {
         } else {
             return "<html><b><font color=" + MISMATCH_COLOR + "\">" +  text + "</font></b></html>";
         }       
+    }
+    
+    public String addMismatchTagOverriden(String text) {
+        return "<b><font color=" + MISMATCH_COLOR + "\">" +  text + "</font></b>";      
     }
     
     public String addElementMismatchTag(String text) {
