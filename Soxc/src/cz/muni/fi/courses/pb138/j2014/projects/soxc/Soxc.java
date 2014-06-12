@@ -548,5 +548,47 @@ public class Soxc {
         return equal;
     }
     
-   
+    /**
+     * Finds hierarchical differences between two DOM nodes.
+     * This version also calls
+     * {@link #preprocess(org.w3c.dom.Node, cz.muni.fi.courses.pb138.j2014.projects.soxc.PreprocessingOptions)}
+     * on both documents before comparison.
+     * @param nodeLeft      the 'left' node
+     * @param nodeRight     the 'right' node
+     * @param options       comparison options
+     * @param preprocOptions    preprocessing options
+     * @param diffConsumer  the listener that wil consume the diff information
+     * @return {@code true} if the nodes are equal, otherwise {@code false}
+     */
+    public static boolean diffNodesPreprocess(Node nodeLeft, Node nodeRight,
+            Options options, PreprocessingOptions preprocOptions,
+            SingleNodeDiffConsumer diffConsumer) {
+        
+        preprocess(nodeLeft, preprocOptions);
+        preprocess(nodeRight, preprocOptions);
+        
+        return diffNodes(nodeLeft, nodeRight, options, diffConsumer);
+    }
+    
+    /**
+     * Finds hierarchical differences between two DOM documents.
+     * This version also calls
+     * {@link #preprocess(org.w3c.dom.Node, cz.muni.fi.courses.pb138.j2014.projects.soxc.PreprocessingOptions)}
+     * on both documents before comparison.
+     * @param docLeft           the 'left' node
+     * @param docRight          the 'right' node
+     * @param options           comparison options
+     * @param preprocOptions    preprocessing options
+     * @param diffConsumer      the listener that wil consume the diff information
+     * @return {@code true} if the nodes are equal, otherwise {@code false}
+     */
+    public static boolean diffDocumentsPreprocess(Document docLeft, Document docRight,
+            Options options, PreprocessingOptions preprocOptions,
+            JustDocumentDiffConsumer diffConsumer) {
+        
+        preprocess(docLeft, preprocOptions);
+        preprocess(docRight, preprocOptions);
+        
+        return diffDocuments(docLeft, docRight, options, diffConsumer);
+    }
 }
