@@ -5,6 +5,9 @@
 The SOXC library can be used to structurally compare two XML documents or nodes (supplied as [https://en.wikipedia.org/wiki/Document_Object_Model XML DOM] nodes). The library reports discovered differences via callback interfaces called DiffConsumers. The comparison process can be customized by specifying the [Options comparison options]. The library also provides a method for preprocessing (filtering) a DOM node. This can be customized by specifying the [PreprocessingOptions preprocessing options]. Additionally, the library provides a way to capture (materialize into memory) the output of the diff process (represented by the consumer calls) into a tree-like structure called DiffTree. From this structure, it can be repeatedly 'replayed' into multiple DiffConsumers.
 
 The Soxc library can be found in the `trunk/Soxc` directory of the repository (it is a [http://netbeans.org Netbeans] project).
+
+ __*NOTE:* The DOM nodes passed to the library must be created by a `DocumentBuilder` which has `isNamespaceAware()` set to `true` (i. e. `getLocalName()` must not return `null` on elements and attributes).
+
 == Main methods ==
 The core element of the library is the `Soxc` class (residing in the '`cz.muni.fi.courses.pb138.j2014.projects.soxc`' package) which contains the followng public methods:
 
