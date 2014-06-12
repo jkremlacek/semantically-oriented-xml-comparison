@@ -24,9 +24,9 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jSplitPane1" pref="580" max="32767" attributes="0"/>
+              <Component id="jSplitPane1" pref="780" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -35,7 +35,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jSplitPane1" pref="414" max="32767" attributes="0"/>
+              <Component id="jSplitPane1" pref="478" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -44,7 +44,7 @@
   <SubComponents>
     <Container class="javax.swing.JSplitPane" name="jSplitPane1">
       <Properties>
-        <Property name="dividerLocation" type="int" value="290"/>
+        <Property name="dividerLocation" type="int" value="390"/>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>

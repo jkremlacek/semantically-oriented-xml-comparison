@@ -10,6 +10,7 @@ import static cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide.LEFT_DOC
 import static cz.muni.fi.courses.pb138.j2014.projects.soxc.DocumentSide.RIGHT_DOCUMENT;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.AttributeDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.CDATASectionDiffTree;
+import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.CommentDataDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.CommentDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.DocumentDiffTree;
 import cz.muni.fi.courses.pb138.j2014.projects.soxc.difftree.ElementDiffTree;
@@ -98,14 +99,35 @@ public class GUITreeFactory {
     
     /*
      * Appends a node of Comment type to the list of new nodes.
+     * Each Document-side of the Node is added separately.
      * 
      * @param   parent      Comment DiffTree source of text value for the new node
      */
     public void processParent(CommentDiffTree parent) {
-        Comment comment = parent.getNode();
-        String text = comment.getTextContent();
-        text = addMismatchTag(text);
-        addToNewNodes(text);
+        String leftComment = "";
+        String rightComment = "";
+        
+        for (CommentDataDiffTree commentData : parent.getData()) {
+            switch (commentData.getSide()) {
+                case BOTH:
+                    leftComment = "<!--" + commentData.getData() + "-->";
+                    rightComment = leftComment;
+                    break;
+                case LEFT_DOCUMENT:
+                    leftComment = "<html>&lt!--" + addMismatchTagOverriden(commentData.getData()) + "--></html>";
+                    break;
+                case RIGHT_DOCUMENT:
+                    rightComment = "<html>&lt!--" + addMismatchTagOverriden(commentData.getData()) + "--></html>";
+                    break;
+            }
+        }
+        
+        if (!leftComment.isEmpty()) {
+            newNodesLeft.add(new DefaultMutableTreeNode(leftComment));
+        }
+        if (!rightComment.isEmpty()) {
+            newNodesRight.add(new DefaultMutableTreeNode(rightComment));
+        }
     }
     
     /*
