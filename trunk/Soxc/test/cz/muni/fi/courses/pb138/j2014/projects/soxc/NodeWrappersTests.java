@@ -56,12 +56,12 @@ public class NodeWrappersTests {
             Assert.assertFalse(sim1.equals(sim2));
     }
     
-    private static final Options OPTS_DEFAULT = new Options(false, false, false, true, false, false);
-    private static final Options OPTS_SIM_ATT = new Options(false, false, false, false, false, false);
-    private static final Options OPTS_EL_NO_ORDER = new Options(true, false, false, true, false, false);
-    private static final Options OPTS_IGNORE_PREFIX = new Options(false, false, false, true, false, true);
-    private static final Options OPTS_IGNORE_PREFIX_AND_NS = new Options(false, false, false, true, true, true);
-    private static final Options OPTS_IGNORE_SIM_EL_NAME = new Options(false, true, false, true, false, false);
+    private static final Options OPTS_DEFAULT = new Options(false, false, true, false, false);
+    private static final Options OPTS_SIM_ATT = new Options(false, false, false, false, false);
+    private static final Options OPTS_EL_NO_ORDER = new Options(true, false, true, false, false);
+    private static final Options OPTS_IGNORE_PREFIX = new Options(false, false, true, false, true);
+    private static final Options OPTS_IGNORE_PREFIX_AND_NS = new Options(false, false, true, true, true);
+    private static final Options OPTS_IGNORE_SIM_EL_NAME = new Options(false, true, true, false, false);
     
     @Test
     public void testEmptyElementVariants() throws Exception {
