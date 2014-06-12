@@ -1,0 +1,5 @@
+#summary The XDiff XML format.
+
+= The XDiff XML format =
+
+XDiff is a standard XML representation of the comparison of two XML documents with SOXC. The namespace for XDiff elements is `http://www.fi.muni.cz/courses/PB138/j2014/projects/soxc/xdiff`. An XML schema can be found in the repository at `/trunk/schema/xdiff.xsd`. There is also an XSLT stylesheet at `/trunk/xslt/xdiff-to-html.xsl` which transforms an XDiff document into a simple XHTML view of the differences.
