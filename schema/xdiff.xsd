@@ -209,6 +209,7 @@
     <xsd:element name="document">
         <xsd:complexType>
             <xsd:sequence>
+                <!-- NOT YET SUPPORTED!
                 <xsd:element name="xmlVersion" minOccurs="0" maxOccurs="2">
                     <xsd:complexType>
                         <xsd:simpleContent>
@@ -227,6 +228,7 @@
                         </xsd:simpleContent>
                     </xsd:complexType>
                 </xsd:element>
+                -->
 
                 <xsd:element name="children">
                     <xsd:complexType>
