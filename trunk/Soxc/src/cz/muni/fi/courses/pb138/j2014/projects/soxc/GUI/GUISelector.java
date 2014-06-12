@@ -94,6 +94,9 @@ public class GUISelector extends javax.swing.JFrame {
         checkBoxTrimWhiteSpace = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
+        checkBoxIgnoreComments = new javax.swing.JCheckBox();
+        checkBoxCoalesceCDATA = new javax.swing.JCheckBox();
+        checkBoxExpandEntityRefs = new javax.swing.JCheckBox();
 
         jCheckBox4.setText("jCheckBox4");
 
@@ -158,12 +161,20 @@ public class GUISelector extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cz/muni/fi/courses/pb138/j2014/projects/soxc/GUI/img/SOXC.png"))); // NOI18N
 
+        checkBoxIgnoreComments.setLabel("Ignore comments");
+
+        checkBoxCoalesceCDATA.setSelected(true);
+        checkBoxCoalesceCDATA.setText("Coalesce CDATA into text");
+
+        checkBoxExpandEntityRefs.setSelected(true);
+        checkBoxExpandEntityRefs.setText("Expand entity references");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
+                .addGap(88, 88, 88)
                 .addComponent(optionsLabel)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -174,9 +185,6 @@ public class GUISelector extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(pathfileRight)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(rightFileLabel)
-                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(pathfileLeft, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +194,6 @@ public class GUISelector extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(checkBoxTrimWhiteSpace)
-                                        .addComponent(checkBoxIgnoreElNameInSimilarity)
                                         .addComponent(checkBoxIgnoreNamespaceURI)
                                         .addComponent(jLabel1)
                                         .addComponent(selectFilesLabel)
@@ -196,13 +203,18 @@ public class GUISelector extends javax.swing.JFrame {
                                         .addComponent(jSeparator2)
                                         .addComponent(jSeparator1)
                                         .addComponent(checkBoxIgnoreText))
-                                    .addComponent(runButton))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(runButton)
+                                    .addComponent(rightFileLabel))
+                                .addGap(0, 1, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkBoxIgnoreWhitespaceOnlyText)
                             .addComponent(checkBoxIgnorePrefix, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkBoxIgnoreElNameInSimilarity)
+                            .addComponent(checkBoxExpandEntityRefs)
+                            .addComponent(checkBoxCoalesceCDATA)
+                            .addComponent(checkBoxIgnoreComments)
+                            .addComponent(checkBoxIgnoreWhitespaceOnlyText)
                             .addComponent(leftFileLabel))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -230,22 +242,28 @@ public class GUISelector extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(optionsLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(checkBoxIgnoreElementOrder)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxIgnoreElNameInSimilarity)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxIgnoreAttrInSimilar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxIgnorePrefix)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxIgnoreNamespaceURI)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxIgnoreElNameInSimilarity)
+                .addComponent(checkBoxIgnorePrefix)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxIgnoreText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxIgnoreWhitespaceOnlyText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxTrimWhiteSpace)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxIgnoreComments)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxCoalesceCDATA)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxExpandEntityRefs)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -273,9 +291,10 @@ public class GUISelector extends javax.swing.JFrame {
                 // CREATE THE DOCUMENT BUILDER:
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 factory.setNamespaceAware(true); // this is necessary - /home/ondrej/Dokumenty/Developing/PB138/soxc-xml/compare1.xml
-                // TODO: make checkboxes for this: ...
-                factory.setIgnoringComments(true);
-                // ... and other DocBuilderFactory settings
+                factory.setIgnoringComments(checkBoxIgnoreComments.isSelected());
+                factory.setCoalescing(checkBoxCoalesceCDATA.isSelected());
+                factory.setExpandEntityReferences(checkBoxExpandEntityRefs.isSelected());
+                
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 
                 // PARSE DOCUMENTS:
@@ -350,7 +369,10 @@ public class GUISelector extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browseButtonLeft;
     private javax.swing.JButton browseButtonRight;
+    private javax.swing.JCheckBox checkBoxCoalesceCDATA;
+    private javax.swing.JCheckBox checkBoxExpandEntityRefs;
     private javax.swing.JCheckBox checkBoxIgnoreAttrInSimilar;
+    private javax.swing.JCheckBox checkBoxIgnoreComments;
     private javax.swing.JCheckBox checkBoxIgnoreElNameInSimilarity;
     private javax.swing.JCheckBox checkBoxIgnoreElementOrder;
     private javax.swing.JCheckBox checkBoxIgnoreNamespaceURI;
