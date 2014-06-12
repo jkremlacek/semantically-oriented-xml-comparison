@@ -18,6 +18,9 @@ import org.w3c.dom.Text;
 
 /**
  * An XML node list diff sub-stream consumer.
+ * <p>
+ * Order of method calls: unrestricted (sequential comparison).
+ * </p>
  * 
  * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
@@ -25,6 +28,7 @@ public interface NodeListDiffConsumer {
     
     /**
      * Called when the document sub-stream has begun.
+     * This is a sequential comparison method.
      * @param side  the side on which the node has appeared
      * @param doc   the document (if {@code side} is {@link DocumentSide#BOTH},
      *              only the properties defining similarity are guaranteed to
@@ -34,12 +38,14 @@ public interface NodeListDiffConsumer {
     public DocumentDiffConsumer beginDocument(DocumentSide side, Document doc);
     /**
      * Called when an entity reference was encoutered.
+     * This is a sequential comparison method.
      * @param side      the side on which the node has appeared
      * @param entityRef the entity reference
      */
     public void entityReference(DocumentSide side, EntityReference entityRef);
     /**
      * Called when the element sub-stream has begun.
+     * This is a sequential comparison method.
      * @param side      the side on which the node has appeared
      * @param element   the element (if {@code side} is {@link DocumentSide#BOTH},
      *                  only the properties defining similarity are guaranteed to
@@ -49,6 +55,7 @@ public interface NodeListDiffConsumer {
     public ElementDiffConsumer beginElement(DocumentSide side, Element element);
     /**
      * Called when the attribute sub-stream has begun.
+     * This is a sequential comparison method.
      * @param side  the side on which the node has appeared
      * @param attr  the attribute (if {@code side} is {@link DocumentSide#BOTH},
      *              only the properties defining similarity are guaranteed to
@@ -58,6 +65,7 @@ public interface NodeListDiffConsumer {
     public AttributeDiffConsumer beginAttribute(DocumentSide side, Attr attr);
     /**
      * Called when the text node sub-stream has begun.
+     * This is a sequential comparison method.
      * @param side  the side on which the node has appeared
      * @param text  the text node (if {@code side} is {@link DocumentSide#BOTH},
      *              only the properties defining similarity are guaranteed to
@@ -67,6 +75,7 @@ public interface NodeListDiffConsumer {
     public TextNodeDiffConsumer beginText(DocumentSide side, Text text);
     /**
      * Called when the CDATA section sub-stream has begun.
+     * This is a sequential comparison method.
      * @param side  the side on which the node has appeared
      * @param cdata the CDATA section (if {@code side} is {@link DocumentSide#BOTH},
      *              only the properties defining similarity are guaranteed to
@@ -76,6 +85,7 @@ public interface NodeListDiffConsumer {
     public CDATASectionDiffConsumer beginCDATASection(DocumentSide side, CDATASection cdata);
     /**
      * Called when the processing instruction sub-stream has begun.
+     * This is a sequential comparison method.
      * @param side  the side on which the node has appeared
      * @param pi    the processing instruction (if {@code side} is {@link DocumentSide#BOTH},
      *              only the properties defining similarity are guaranteed to
@@ -85,6 +95,7 @@ public interface NodeListDiffConsumer {
     public ProcessingInstructionDiffConsumer beginProcessingInstruction(DocumentSide side, ProcessingInstruction pi);
     /**
      * Called when the comment sub-stream has begun.
+     * This is a sequential comparison method.
      * @param side      the side on which the node has appeared
      * @param comment   the comment (if {@code side} is {@link DocumentSide#BOTH},
      *                  only the properties defining similarity are guaranteed to

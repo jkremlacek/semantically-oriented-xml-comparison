@@ -9,7 +9,12 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers;
 /**
  * An abstract base for consumers for sub-streams of hierarchical nodes (nodes
  * with children).
- * 
+ * <p>
+ * Order of method calls:
+ * <ol>
+ * <li>{@link #beginChildren()}</li>
+ * </ol>
+ * </p>
  * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;
  */
 public interface HierarchicalNodeDiffConsumer {
