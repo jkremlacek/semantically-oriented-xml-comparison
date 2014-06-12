@@ -58,8 +58,7 @@ public final class NodeSimilarityWrapper {
         }
         else {
             short nodeType = node.getNodeType();
-            if((!options.ignoreElementNameInSimilarity() && nodeType == Node.ELEMENT_NODE) ||
-                    (!options.ignoreAttributeNameInSimilarity() && nodeType == Node.ATTRIBUTE_NODE)) {
+            if(!(options.ignoreElementNameInSimilarity() && nodeType == Node.ELEMENT_NODE)) {
                 hash = 83 * hash + node.getLocalName().hashCode();
                 if(!options.ignoreNamespaceURI())
                     hash = 83 * hash + Utils.getHashCode(node.getNamespaceURI());
@@ -84,8 +83,7 @@ public final class NodeSimilarityWrapper {
         }
         else {
             short nodeType = a.getNodeType();
-            if((!options.ignoreElementNameInSimilarity() && nodeType == Node.ELEMENT_NODE) ||
-                    (!options.ignoreAttributeNameInSimilarity() && nodeType == Node.ATTRIBUTE_NODE)) {
+            if(!options.ignoreElementNameInSimilarity() && nodeType == Node.ELEMENT_NODE) {
                 if(!a.getLocalName().equals(b.getLocalName()))
                     return false;
                 if(!options.ignoreNamespaceURI() && !Utils.equal(a.getNamespaceURI(), b.getNamespaceURI()))

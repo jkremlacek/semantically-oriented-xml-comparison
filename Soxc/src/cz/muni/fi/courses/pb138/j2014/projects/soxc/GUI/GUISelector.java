@@ -16,8 +16,8 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.UIManager; 
+import javax.swing.UIManager;
+import javax.swing.filechooser.FileFilter; 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -89,7 +89,7 @@ public class GUISelector extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         checkBoxIgnoreElNameInSimilarity = new javax.swing.JCheckBox();
-        checkBoxIgnoreAttrNameInSimilarity = new javax.swing.JCheckBox();
+        checkBoxIgnoreWhitespaceOnlyText = new javax.swing.JCheckBox();
         checkBoxIgnoreText = new javax.swing.JCheckBox();
         checkBoxTrimWhiteSpace = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
@@ -149,11 +149,11 @@ public class GUISelector extends javax.swing.JFrame {
 
         checkBoxIgnoreElNameInSimilarity.setLabel("Ignore element name in similarity");
 
-        checkBoxIgnoreAttrNameInSimilarity.setLabel("Ignore attribute name in similarity");
+        checkBoxIgnoreWhitespaceOnlyText.setSelected(true);
+        checkBoxIgnoreWhitespaceOnlyText.setLabel("Ignore whitespace-only text");
 
         checkBoxIgnoreText.setLabel("Ignore text nodes");
 
-        checkBoxTrimWhiteSpace.setSelected(true);
         checkBoxTrimWhiteSpace.setLabel("Trim whitespace in text");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cz/muni/fi/courses/pb138/j2014/projects/soxc/GUI/img/SOXC.png"))); // NOI18N
@@ -162,16 +162,13 @@ public class GUISelector extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(optionsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(97, 97, 97))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(optionsLabel)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(leftFileLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -189,8 +186,6 @@ public class GUISelector extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(checkBoxTrimWhiteSpace)
-                                        .addComponent(checkBoxIgnoreText)
-                                        .addComponent(checkBoxIgnoreAttrNameInSimilarity)
                                         .addComponent(checkBoxIgnoreElNameInSimilarity)
                                         .addComponent(checkBoxIgnoreNamespaceURI)
                                         .addComponent(jLabel1)
@@ -200,12 +195,16 @@ public class GUISelector extends javax.swing.JFrame {
                                         .addComponent(checkBoxIgnoreElementOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jSeparator2)
                                         .addComponent(jSeparator1)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(21, 21, 21)
-                                            .addComponent(checkBoxIgnorePrefix, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(checkBoxIgnoreText))
                                     .addComponent(runButton))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkBoxIgnoreWhitespaceOnlyText)
+                            .addComponent(checkBoxIgnorePrefix, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(leftFileLabel))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,9 +241,9 @@ public class GUISelector extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxIgnoreElNameInSimilarity)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxIgnoreAttrNameInSimilarity)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxIgnoreText)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxIgnoreWhitespaceOnlyText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxTrimWhiteSpace)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -286,14 +285,13 @@ public class GUISelector extends javax.swing.JFrame {
                 // RUN THE COMPARISON:
                 PreprocessingOptions preOpts = new PreprocessingOptions(
                         checkBoxIgnoreText.isSelected(),
-                        true, // TODO: make checkbox for this one
+                        checkBoxIgnoreWhitespaceOnlyText.isSelected(),
                         checkBoxTrimWhiteSpace.isSelected());
 
                 JustDocumentDiffTreeConsumer consumer = new JustDocumentDiffTreeConsumer();
                 Options options = new Options(
                         checkBoxIgnoreElementOrder.isSelected(),
                         checkBoxIgnoreElNameInSimilarity.isSelected(),
-                        checkBoxIgnoreAttrNameInSimilarity.isSelected(),
                         checkBoxIgnoreAttrInSimilar.isSelected(),
                         checkBoxIgnoreNamespaceURI.isSelected(),
                         checkBoxIgnorePrefix.isSelected());
@@ -353,12 +351,12 @@ public class GUISelector extends javax.swing.JFrame {
     private javax.swing.JButton browseButtonLeft;
     private javax.swing.JButton browseButtonRight;
     private javax.swing.JCheckBox checkBoxIgnoreAttrInSimilar;
-    private javax.swing.JCheckBox checkBoxIgnoreAttrNameInSimilarity;
     private javax.swing.JCheckBox checkBoxIgnoreElNameInSimilarity;
     private javax.swing.JCheckBox checkBoxIgnoreElementOrder;
     private javax.swing.JCheckBox checkBoxIgnoreNamespaceURI;
     private javax.swing.JCheckBox checkBoxIgnorePrefix;
     private javax.swing.JCheckBox checkBoxIgnoreText;
+    private javax.swing.JCheckBox checkBoxIgnoreWhitespaceOnlyText;
     private javax.swing.JCheckBox checkBoxTrimWhiteSpace;
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JLabel jLabel1;

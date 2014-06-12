@@ -7,7 +7,6 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc;
 public class Options {
     private final boolean ignoreElementOrder;
     private final boolean ignoreElementNameInSimilarity;
-    private final boolean ignoreAttributeNameInSimilarity;
     private final boolean ignoreAttributesInSimilarity;
     private final boolean ignoreNamespaceURI;
     private final boolean ignorePrefix;
@@ -26,14 +25,6 @@ public class Options {
      */
     public final boolean ignoreElementNameInSimilarity() {
         return ignoreElementNameInSimilarity;
-    }
-    
-    /**
-     * Whether to ignore attribute name when comparing similarity. Default: {@code false}.
-     * @return
-     */
-    public final boolean ignoreAttributeNameInSimilarity() {
-        return ignoreAttributeNameInSimilarity;
     }
     
     /**
@@ -64,27 +55,24 @@ public class Options {
      * Constructs default options.
      */
     public Options() {
-        this(false, false, false, true, false, false);
+        this(false, false, true, false, false);
     }
 
     /**
      * Constructs new options.
      * @param ignoreElementOrder
      * @param ignoreElementNameInSimilarity
-     * @param ignoreAttributeNameInSimilarity
      * @param ignoreAttributesInSimilarity
      * @param ignoreNamespaceURI
      * @param ignorePrefix 
      */
     public Options(boolean ignoreElementOrder,
             boolean ignoreElementNameInSimilarity,
-            boolean ignoreAttributeNameInSimilarity,
             boolean ignoreAttributesInSimilarity,
             boolean ignoreNamespaceURI,
             boolean ignorePrefix) {
         this.ignoreElementOrder = ignoreElementOrder;
         this.ignoreElementNameInSimilarity = ignoreElementNameInSimilarity;
-        this.ignoreAttributeNameInSimilarity = ignoreAttributeNameInSimilarity;
         this.ignoreAttributesInSimilarity = ignoreAttributesInSimilarity;
         this.ignoreNamespaceURI = ignoreNamespaceURI;
         this.ignorePrefix = ignorePrefix;
@@ -98,7 +86,7 @@ public class Options {
         
         // use an array so we don't have to put the names everywhere:
         private final boolean[] flags = new boolean[] {
-            false, false, false, true, false, false
+            false, false, true, false, false
         };
         
         /**
@@ -137,12 +125,12 @@ public class Options {
             flags[1] = value;
         }
 
-         /**
+       /**
          * Gets a value indicating wheter to ignore attributes when comparing similarity.
          * Default: {@code true}.
          * @return
          */
-        public final boolean getIgnoreAttributeNameInSimilarity() {
+        public final boolean getIgnoreAttributesInSimilarity() {
             return flags[2];
         }
 
@@ -151,26 +139,8 @@ public class Options {
          * Default: {@code true}.
          * @param value the new value
          */
-        public final void setIgnoreAttributeNameInSimilarity(boolean value) {
-            flags[2] = value;
-        }
-
-       /**
-         * Gets a value indicating wheter to ignore attributes when comparing similarity.
-         * Default: {@code true}.
-         * @return
-         */
-        public final boolean getIgnoreAttributesInSimilarity() {
-            return flags[3];
-        }
-
-        /**
-         * Sets a value indicating wheter to ignore attributes when comparing similarity.
-         * Default: {@code true}.
-         * @param value the new value
-         */
         public final void setIgnoreAttributesInSimilarity(boolean value) {
-            flags[3] = value;
+            flags[2] = value;
         }
 
         /**
@@ -179,7 +149,7 @@ public class Options {
          * @return
          */
         public final boolean getIgnoreNamespaceURI() {
-            return flags[4];
+            return flags[3];
         }
 
         /**
@@ -188,7 +158,7 @@ public class Options {
          * @param value the new value
          */
         public final void setIgnoreNamespaceURI(boolean value) {
-            flags[4] = value;
+            flags[3] = value;
         }
 
         /**
@@ -197,7 +167,7 @@ public class Options {
          * @return
          */
         public final boolean getIgnorePrefix() {
-            return flags[5];
+            return flags[4];
         }
 
         /**
@@ -206,7 +176,7 @@ public class Options {
          * @param value the new value
          */
         public final void setIgnorePrefix(boolean value) {
-            flags[5] = value;
+            flags[4] = value;
         }
         
         /**
@@ -215,7 +185,7 @@ public class Options {
          * @return the new {@link Options} instance
          */
         public final Options buildOptions() {
-            return new Options(flags[0], flags[1], flags[2], flags[3], flags[4], flags[5]);
+            return new Options(flags[0], flags[1], flags[2], flags[3], flags[4]);
         }
     }
 }

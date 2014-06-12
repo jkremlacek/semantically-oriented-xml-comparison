@@ -32,18 +32,14 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="optionsLabel" min="-2" pref="116" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+              <Component id="optionsLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="leftFileLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
@@ -65,8 +61,6 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="checkBoxTrimWhiteSpace" min="-2" max="-2" attributes="0"/>
-                                      <Component id="checkBoxIgnoreText" min="-2" max="-2" attributes="0"/>
-                                      <Component id="checkBoxIgnoreAttrNameInSimilarity" min="-2" max="-2" attributes="0"/>
                                       <Component id="checkBoxIgnoreElNameInSimilarity" min="-2" max="-2" attributes="0"/>
                                       <Component id="checkBoxIgnoreNamespaceURI" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -76,10 +70,7 @@
                                       <Component id="checkBoxIgnoreElementOrder" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
-                                          <Component id="checkBoxIgnorePrefix" min="-2" pref="224" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="checkBoxIgnoreText" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="runButton" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -87,6 +78,14 @@
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="checkBoxIgnoreWhitespaceOnlyText" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxIgnorePrefix" min="-2" pref="224" max="-2" attributes="0"/>
+                          <Component id="leftFileLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -129,9 +128,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxIgnoreElNameInSimilarity" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="checkBoxIgnoreAttrNameInSimilarity" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxIgnoreText" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="checkBoxIgnoreWhitespaceOnlyText" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxTrimWhiteSpace" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -232,9 +231,10 @@
         <Property name="label" type="java.lang.String" value="Ignore element name in similarity"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreAttrNameInSimilarity">
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreWhitespaceOnlyText">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Ignore attribute name in similarity"/>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="label" type="java.lang.String" value="Ignore whitespace-only text"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreText">
@@ -244,7 +244,6 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxTrimWhiteSpace">
       <Properties>
-        <Property name="selected" type="boolean" value="true"/>
         <Property name="label" type="java.lang.String" value="Trim whitespace in text"/>
       </Properties>
     </Component>
