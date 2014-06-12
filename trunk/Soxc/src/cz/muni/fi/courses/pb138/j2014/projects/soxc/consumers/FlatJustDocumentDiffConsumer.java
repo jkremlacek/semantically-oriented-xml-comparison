@@ -10,8 +10,10 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.Options;
 import org.w3c.dom.Document;
 
 /**
- * A "flat" consumer for XML document diff stream. The "flat" versions recieve all messages
- * via a single interface, which may be easier to implement in some cases.
+ * A "flat" consumer for XML document diff stream. The "flat" versions recieve
+ * all events via a single interface, which may be easier to implement in some
+ * cases. Use {@link FlatConsumers#toGeneral(cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.FlatJustDocumentDiffConsumer)}
+ * to convert this to a {@link JustDocumentDiffConsumer}.
  * 
  * @see FlatDiffConsumer
  * @author Ondrej Mosnacek &lt;omosnacek@gmail.com&gt;

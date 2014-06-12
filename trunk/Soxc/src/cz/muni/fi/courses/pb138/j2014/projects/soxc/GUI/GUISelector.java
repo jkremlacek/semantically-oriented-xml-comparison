@@ -283,16 +283,12 @@ public class GUISelector extends javax.swing.JFrame {
                 Document docLeft = builder.parse(pathfileLeft.getText());
                 Document docRight = builder.parse(pathfileRight.getText());
                 
-                // DO THE PREPROCESSING:
+                // RUN THE COMPARISON:
                 PreprocessingOptions preOpts = new PreprocessingOptions(
                         checkBoxIgnoreText.isSelected(),
                         true, // TODO: make checkbox for this one
                         checkBoxTrimWhiteSpace.isSelected());
-                
-                Soxc.preprocess(docLeft, preOpts);
-                Soxc.preprocess(docRight, preOpts);
 
-                // RUN THE COMPARISON:
                 JustDocumentDiffTreeConsumer consumer = new JustDocumentDiffTreeConsumer();
                 Options options = new Options(
                         checkBoxIgnoreElementOrder.isSelected(),
@@ -302,7 +298,7 @@ public class GUISelector extends javax.swing.JFrame {
                         checkBoxIgnoreNamespaceURI.isSelected(),
                         checkBoxIgnorePrefix.isSelected());
                 
-                boolean equals = Soxc.diffDocuments(docLeft, docRight, options, consumer);
+                boolean equals = Soxc.diffDocumentsPreprocess(docLeft, docRight, options, preOpts, consumer);
 
                 if (equals) {
                     String message = "XML files are equal.";
