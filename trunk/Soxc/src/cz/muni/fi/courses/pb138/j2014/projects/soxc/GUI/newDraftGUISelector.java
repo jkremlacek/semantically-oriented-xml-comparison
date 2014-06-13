@@ -323,9 +323,9 @@ public class newDraftGUISelector extends javax.swing.JFrame {
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 
                 // PARSE DOCUMENTS:
-                Document docLeft = builder.parse(pathfileLeft.getText());
-                Document docRight = builder.parse(pathfileRight.getText());
-                
+                Document docLeft = builder.parse(new File(pathfileLeft.getText()));
+                Document docRight = builder.parse(new File(pathfileRight.getText()));
+                                
                 // RUN THE COMPARISON:
                 PreprocessingOptions preOpts = new PreprocessingOptions(
                         checkBoxIgnoreText.isSelected(),
