@@ -9,23 +9,38 @@ The Soxc library can be found in the `trunk/Soxc` directory of the repository (i
  __*NOTE:* The DOM nodes passed to the library must be created by a `DocumentBuilder` which has `isNamespaceAware()` set to `true` (i. e. `getLocalName()` must not return `null` on elements and attributes).
 
 == Main methods ==
-The core element of the library is the `Soxc` class (residing in the '`cz.muni.fi.courses.pb138.j2014.projects.soxc`' package) which contains the followng public methods:
+The core element of the library is the `Soxc` class (residing in the '`cz.muni.fi.courses.pb138.j2014.projects.soxc`' package) which contains the following public methods:
 
 {{{
 public static void preprocess(Node node, PreprocessingOptions options);
 }}}
-Preprocesses the given `node` using the given `options` (see PreprocessingOptions for more details).
+Preprocesses the given `node` using the given `options` (see PreprocessingOptions for more details). Note that this operation will modify the DOM tree in-place.
 
 {{{
-public static boolean diffNodes(Node nodeLeft, Node nodeRight, Options options, SingleNodeDiffConsumer diffConsumer)
+public static boolean diffNodes(Node nodeLeft, Node nodeRight,
+                                Options options, SingleNodeDiffConsumer diffConsumer)
 }}}
 Compares two nodes using the given `options`, feeding the differences discovered into the given `diffConsumer` (for more information see [Options] and DiffConsumers).
 
 {{{
-public static boolean diffDocuments(Document docLeft, Document docRight, Options options, JustDocumentDiffConsumer diffConsumer)
+public static boolean diffDocuments(Document docLeft, Document docRight,
+                                    Options options, JustDocumentDiffConsumer diffConsumer)
 }}}
 Compares two documents using the given `options`, feeding the differences discovered into the given `diffConsumer` (for more information see [Options] and DiffConsumers).
 
+{{{
+public static boolean diffNodesPreprocess(Node nodeLeft, Node nodeRight,
+                                          Options options, PreprocessingOptions preprocOptions,
+                                          SingleNodeDiffConsumer diffConsumer)
+}}}
+Same as `diffNodes` above, but calls `preprocess` on both nodes with the given preprocessing options before comparing.
+
+{{{
+public static boolean diffDocumentsPreprocess(Document docLeft, Document docRight,
+                                              Options options, PreprocessingOptions preprocOptions,
+                                              JustDocumentDiffConsumer diffConsumer)
+}}}
+Same as `diffDocuments` above, but calls `preprocess` on both documents with the given preprocessing options before comparing.
 == Example ==
 The following code compares two documents with text nodes filtered out, ignoring prefix in comparison and prints the diff information to standard output:
 {{{
@@ -45,18 +60,17 @@ Document rightDoc = ...;
 ProcessingOptions.Builder procOptsBuilder = new ProcessingOptions.Builder();
 procOptsBuilder.setIgnoreText(true);
 
-// filter-out text nodes from both documents:
-ProcessingOptions procOpts = procOptsBuilder.buildOptions();
-Soxc.preprocess(leftDoc, procOpts);
-Soxc.preprocess(rightDoc, procOpts);
-
 // set up comparison options:
 Options.Builder optsBuilder = new Options.Builder();
 optsBuilder.setIgnorePrefix(true);
 
-// perform the comparison:
+// perform the comparison with preprocessing:
 Options opts = optsBuilder.buildOptions();
-boolean equal = Soxc.diffDocuments(leftDoc, rightDoc, opts, FlatConsumers.toGeneral(new TextOutputDiffConsumer()));
+ProcessingOptions procOpts = procOptsBuilder.buildOptions();
+
+boolean equal = Soxc.diffDocuments(leftDoc, rightDoc,
+                                   opts, preprocOpts,
+                                   FlatConsumers.toGeneral(new TextOutputDiffConsumer()));
 
 if(equal) {
     System.out.println("The documents are equal!");
