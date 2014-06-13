@@ -457,7 +457,6 @@ public class GUITreeFactory {
         for (DefaultMutableTreeNode treeNodeToBeAdded : newNodesRight) {
             rootRight.add(treeNodeToBeAdded);
         }
-        
     }
     
     /*
