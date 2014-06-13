@@ -97,6 +97,8 @@ public class GUISelector extends javax.swing.JFrame {
         checkBoxIgnoreComments = new javax.swing.JCheckBox();
         checkBoxCoalesceCDATA = new javax.swing.JCheckBox();
         checkBoxExpandEntityRefs = new javax.swing.JCheckBox();
+        checkBoxIgnoreCDATA = new javax.swing.JCheckBox();
+        checkBoxIgnoreProcessingInstructions = new javax.swing.JCheckBox();
 
         jCheckBox4.setText("jCheckBox4");
 
@@ -178,6 +180,10 @@ public class GUISelector extends javax.swing.JFrame {
         checkBoxExpandEntityRefs.setText("Expand entity references");
         checkBoxExpandEntityRefs.setToolTipText("Whether to expand entity references before comparison");
 
+        checkBoxIgnoreCDATA.setText("Ignore CDATA");
+
+        checkBoxIgnoreProcessingInstructions.setText("Ignore processing instructions");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -214,10 +220,12 @@ public class GUISelector extends javax.swing.JFrame {
                                         .addComponent(checkBoxIgnoreText))
                                     .addComponent(runButton)
                                     .addComponent(rightFileLabel))
-                                .addGap(0, 1, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkBoxIgnoreCDATA)
+                            .addComponent(checkBoxIgnoreProcessingInstructions)
                             .addComponent(checkBoxIgnorePrefix, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(checkBoxIgnoreElNameInSimilarity)
                             .addComponent(checkBoxExpandEntityRefs)
@@ -273,6 +281,10 @@ public class GUISelector extends javax.swing.JFrame {
                 .addComponent(checkBoxCoalesceCDATA)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxExpandEntityRefs)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxIgnoreCDATA)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxIgnoreProcessingInstructions)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -314,7 +326,9 @@ public class GUISelector extends javax.swing.JFrame {
                 PreprocessingOptions preOpts = new PreprocessingOptions(
                         checkBoxIgnoreText.isSelected(),
                         checkBoxIgnoreWhitespaceOnlyText.isSelected(),
-                        checkBoxTrimWhiteSpace.isSelected());
+                        checkBoxTrimWhiteSpace.isSelected(),
+                        checkBoxIgnoreCDATA.isSelected(),
+                        checkBoxIgnoreProcessingInstructions.isSelected());
 
                 JustDocumentDiffTreeConsumer consumer = new JustDocumentDiffTreeConsumer();
                 Options options = new Options(
@@ -381,11 +395,13 @@ public class GUISelector extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxCoalesceCDATA;
     private javax.swing.JCheckBox checkBoxExpandEntityRefs;
     private javax.swing.JCheckBox checkBoxIgnoreAttrInSimilar;
+    private javax.swing.JCheckBox checkBoxIgnoreCDATA;
     private javax.swing.JCheckBox checkBoxIgnoreComments;
     private javax.swing.JCheckBox checkBoxIgnoreElNameInSimilarity;
     private javax.swing.JCheckBox checkBoxIgnoreElementOrder;
     private javax.swing.JCheckBox checkBoxIgnoreNamespaceURI;
     private javax.swing.JCheckBox checkBoxIgnorePrefix;
+    private javax.swing.JCheckBox checkBoxIgnoreProcessingInstructions;
     private javax.swing.JCheckBox checkBoxIgnoreText;
     private javax.swing.JCheckBox checkBoxIgnoreWhitespaceOnlyText;
     private javax.swing.JCheckBox checkBoxTrimWhiteSpace;

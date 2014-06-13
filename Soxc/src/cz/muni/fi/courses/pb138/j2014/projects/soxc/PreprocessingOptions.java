@@ -15,6 +15,8 @@ public class PreprocessingOptions {
     private final boolean ignoreText;
     private final boolean ignoreWhitespaceOnlyText;
     private final boolean trimWhitespaceInText;
+    private final boolean ignoreCDATA;
+    private final boolean ignoreProcesingInstructions;
 
     /**
      * Whether to ignore text nodes. Default: {@code false}.
@@ -39,12 +41,20 @@ public class PreprocessingOptions {
     public final boolean trimWhitespaceInText() {
         return trimWhitespaceInText;
     }
+    
+    public final boolean ignoreCDATA(){
+        return ignoreCDATA;
+    }
+    
+    public final boolean ignoreProcessingInstructions(){
+        return ignoreProcesingInstructions;
+    }
 
     /**
      * Constructs default options.
      */
     public PreprocessingOptions() {
-        this(false, true, false);
+        this(false, true, false, false, false);
     }
     
     /**
@@ -52,13 +62,19 @@ public class PreprocessingOptions {
      * @param ignoreText
      * @param ignoreWhitespaceOnlyText
      * @param trimWhitespaceInText
+     * @param ignoreCDATA
+     * @param ignoreProcessingInstructions
      */
     public PreprocessingOptions(boolean ignoreText,
             boolean ignoreWhitespaceOnlyText,
-            boolean trimWhitespaceInText) {
+            boolean trimWhitespaceInText,
+            boolean ignoreCDATA,
+            boolean ignoreProcessingInstructions) {
         this.ignoreText = ignoreText;
         this.ignoreWhitespaceOnlyText = ignoreWhitespaceOnlyText;
         this.trimWhitespaceInText = trimWhitespaceInText;
+        this.ignoreCDATA = ignoreCDATA;
+        this.ignoreProcesingInstructions = ignoreProcessingInstructions;
     }
     
     /**
@@ -68,7 +84,7 @@ public class PreprocessingOptions {
     public static class Builder {
         
         private final boolean[] flags = new boolean[] {
-            false, true, false
+            false, true, false, false, false
         };
         
         /**
@@ -126,12 +142,48 @@ public class PreprocessingOptions {
         }
         
         /**
+         * Gets a value indicating wheter to ignore CDATA sections.
+         * Default: {@code false}.
+         * @return
+         */
+        public final boolean getIgnoreCDATA() {
+            return flags[3];
+        }
+
+        /**
+         * Sets a value indicating wheter to ignore CDATA sections.
+         * Default: {@code false}.
+         * @param value the new value
+         */
+        public final void setIgnoreCDATA(boolean value) {
+            flags[3] = value;
+        }
+        
+        /**
+         * Gets a value indicating wheter to ignore preprocessing instructions.
+         * Default: {@code false}.
+         * @return
+         */
+        public final boolean getIgnoreProcessingInstructions() {
+            return flags[4];
+        }
+
+        /**
+         * Sets a value indicating wheter to ignore preprocessing instructions.
+         * Default: {@code false}.
+         * @param value the new value
+         */
+        public final void setIgnoreProcessingInstructions(boolean value) {
+            flags[4] = value;
+        }
+        
+        /**
          * Builds an instance of the {@link PreprocessingOptions} class from
          * currently set options.
          * @return the new {@link PreprocessingOptions} instance
          */
         public final PreprocessingOptions buildOptions() {
-            return new PreprocessingOptions(flags[0], flags[1], flags[2]);
+            return new PreprocessingOptions(flags[0], flags[1], flags[2], flags[3], flags[4]);
         }
     }
 }

@@ -15,7 +15,6 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -70,13 +69,15 @@
                                   <Component id="runButton" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="rightFileLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="checkBoxIgnoreCDATA" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxIgnoreProcessingInstructions" min="-2" max="-2" attributes="0"/>
                           <Component id="checkBoxIgnorePrefix" min="-2" pref="224" max="-2" attributes="0"/>
                           <Component id="checkBoxIgnoreElNameInSimilarity" min="-2" max="-2" attributes="0"/>
                           <Component id="checkBoxExpandEntityRefs" min="-2" max="-2" attributes="0"/>
@@ -139,6 +140,10 @@
               <Component id="checkBoxCoalesceCDATA" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxExpandEntityRefs" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="checkBoxIgnoreCDATA" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="checkBoxIgnoreProcessingInstructions" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -286,6 +291,16 @@
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Expand entity references"/>
         <Property name="toolTipText" type="java.lang.String" value="Whether to expand entity references before comparison"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreCDATA">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ignore CDATA"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreProcessingInstructions">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ignore processing instructions"/>
       </Properties>
     </Component>
   </SubComponents>
