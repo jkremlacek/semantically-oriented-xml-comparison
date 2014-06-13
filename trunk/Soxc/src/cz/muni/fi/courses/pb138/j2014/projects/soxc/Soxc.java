@@ -389,7 +389,10 @@ public class Soxc {
                 else {
                     elementConsumer.localName(DocumentSide.LEFT_DOCUMENT, nameLeft);
                     elementConsumer.localName(DocumentSide.RIGHT_DOCUMENT, nameRight);
-                    equal = false;
+                    
+                    if(!options.ignoreElementNameInSimilarity()) {
+                        equal = false;
+                    }
                 }
 
                 NodeListDiffConsumer attrsConsumer = elementConsumer.beginAttributes();
