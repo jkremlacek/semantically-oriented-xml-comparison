@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4//EN"
+    "http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
+<book lang="cz-CZ">
+    <article>
+        <title>Závěrečná zpráva</title>
+        <!--<subtitle>Jakub Kremláček</subtitle>-->
+        <articleinfo>
+            <author>
+                <firstname>Jakub</firstname>
+                <surname>Kremláček</surname>
+            </author>
+        </articleinfo>
+        <section>
+            <title>Vykonaná práce na řešení projektu</title>
+            <para>
+                Po přihlášení všech členů týmu jsem se ujal vedení týmu, vytvořil a nastavil 
+				GC repozitář a GG diskusní fórum, které bylo využíváno hlavně zezačátku práce 
+				na projektu, kdy bylo třeba pohlídat deadline jednotlivých kontrolních bodů. 
+				V pozdější fázi vývoje jsem zajistil live-chat prostřednictvím skupiny na službě 
+				Facebook, jelikož bylo zapotřebí zajistit rychlou komunikaci, pro okamžité řešení 
+				nastalých problémů.
+            </para>
+			<para>
+				Vyjma organizace skupiny jsem se při vlastním řešení projektu ujal práce 
+				na GUI, které bylo zapotřebí vytvořit na míru podle struktury vytvořené 
+				až v průběhu práce na projektu ostatními členy týmu.
+			</para>
+        </section>
+    </article>
+</book>
