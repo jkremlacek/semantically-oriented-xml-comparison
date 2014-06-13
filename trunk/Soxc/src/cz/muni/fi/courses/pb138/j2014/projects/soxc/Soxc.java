@@ -70,10 +70,12 @@ public class Soxc {
             
             if(childType == Node.CDATA_SECTION_NODE && options.ignoreCDATA()){
                 node.removeChild(child);
+                continue;
             }
             
             if(childType == Node.PROCESSING_INSTRUCTION_NODE && options.ignoreProcessingInstructions()){
                 node.removeChild(child);
+                continue;
             }
                 
             preprocess(child, options);

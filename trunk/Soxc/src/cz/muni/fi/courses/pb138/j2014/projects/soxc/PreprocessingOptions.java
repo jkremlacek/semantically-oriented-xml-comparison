@@ -16,7 +16,7 @@ public class PreprocessingOptions {
     private final boolean ignoreWhitespaceOnlyText;
     private final boolean trimWhitespaceInText;
     private final boolean ignoreCDATA;
-    private final boolean ignoreProcesingInstructions;
+    private final boolean ignoreProcessingInstructions;
 
     /**
      * Whether to ignore text nodes. Default: {@code false}.
@@ -47,7 +47,7 @@ public class PreprocessingOptions {
     }
     
     public final boolean ignoreProcessingInstructions(){
-        return ignoreProcesingInstructions;
+        return ignoreProcessingInstructions;
     }
 
     /**
@@ -74,7 +74,7 @@ public class PreprocessingOptions {
         this.ignoreWhitespaceOnlyText = ignoreWhitespaceOnlyText;
         this.trimWhitespaceInText = trimWhitespaceInText;
         this.ignoreCDATA = ignoreCDATA;
-        this.ignoreProcesingInstructions = ignoreProcessingInstructions;
+        this.ignoreProcessingInstructions = ignoreProcessingInstructions;
     }
     
     /**
