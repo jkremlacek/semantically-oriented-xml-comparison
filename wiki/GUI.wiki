@@ -29,5 +29,5 @@ Run button executes comparsing algorithm and shows a result:
 
  * If XML files are equal a simple notification message will show up:
 https://is.muni.cz/auth/www/410131/49250063/SOXC_Equal.png?studium=614144
- * If XML are not equal a JTree Display window will show up and highlights with red color any mismatches found:
+ * If XML are not equal a JTree Display window will show up and highlights with red color any mismatch found:
 https://is.muni.cz/auth/www/410131/49250063/SOXC_Display.png?studium=614144-
