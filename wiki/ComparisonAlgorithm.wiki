@@ -16,14 +16,15 @@ By default, two DOM nodes are *similar* IFF (if and only if) all of the followin
   # the _node types_ of both nodes are equal
   # the _namespace URIs_ of both nodes are equal (or both nodes are in no namespace)
   # the _prefixes_ of both nodes are equal (or both nodes have no prefix)
-  # the _node names_ of both nodes are equal (or both nodes have no node name)
+  # the _local names_ (or _node nmes_ if nodes are neither elements nor attributes) of both nodes are equal (or both nodes have no node name)
 
 The default behavior can be customized by changing the following comparison options (see the `Options` class in package `cz.muni.fi.courses.pb138.j2014.projects.soxc`):
 
   * *ignoreNamespaceURI* - if set to `true` condition 2 is ignored
   * *ignorePrefix* - if set to `true, condition 3 is ignored
-  * *ignorePrefix* - if set to `true, condition 3 is ignored
-  * *ignoreAttributesInSimilarity* - if set to `false`, also the attribute lists (if the nodes are elements) of both nodes must be equal for the nodes to be similar
+  * *ignoreAttributesInSimilarity* - if set to `false`, also the attribute lists (if the nodes are elements) of both
+  * *ignoreElementNameInSimilarity* - if set to `true, conditions 2,3 and 4 are ignored
+nodes must be equal for the nodes to be similar
 
 
 == Equality ==
@@ -43,7 +44,3 @@ Next, let _U,,l,,_ (_U,,r,,_) be the collection of nodes from the left (right) l
   * the node is an element and the *ignoreElementOrder* option is set to `true`
   * the node is an attribute
 Then the two node lists are equal IFF _O,,l,,_ is sequentially equal to _O,,r,,_ (both have the same size and the nodes at each index are equal) and for each node in the set union of _U,,l,,_ and _U,,r,,_ (with equality of two nodes as defined above) the number of occurrences in both _U,,l,,_ and _U,,r,,_ is the same.
-
-== Reporting differences ==
-
-_TODO_
