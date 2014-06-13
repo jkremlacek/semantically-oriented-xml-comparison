@@ -84,7 +84,7 @@ public class Soxc {
                 DocumentDiffConsumer docConsumer = diffConsumer.beginDocument(side, (Document)node);
 
                 NodeListDiffConsumer childrenConsumer = docConsumer.beginChildren();
-                List<Node> children = Utils.asList(node.getAttributes());
+                List<Node> children = Utils.asList(node.getChildNodes());
                 for(Node child : children)
                     reportNode(child, side, options, childrenConsumer);
                 childrenConsumer.end();
@@ -114,7 +114,7 @@ public class Soxc {
                 attrsConsumer.end();
                 
                 NodeListDiffConsumer childrenConsumer = elementConsumer.beginChildren();
-                List<Node> children = Utils.asList(node.getAttributes());
+                List<Node> children = Utils.asList(node.getChildNodes());
                 for(Node child : children)
                     reportNode(child, side, options, childrenConsumer);
                 childrenConsumer.end();
