@@ -311,7 +311,7 @@ public class newDraftGUISelector extends javax.swing.JFrame {
         try {
            
             if(!"path".equals(pathfileLeft.getText()) && !"path".equals(pathfileRight.getText())) {
-                this.setVisible(false);
+                //this.setVisible(false);
                 
                 // CREATE THE DOCUMENT BUILDER:
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -347,7 +347,7 @@ public class newDraftGUISelector extends javax.swing.JFrame {
                 if (equals) {
                     String message = "XML files are equal.";
                     JOptionPane.showMessageDialog(new JFrame(), message, "SOXC", JOptionPane.INFORMATION_MESSAGE);
-                    System.exit(0);
+                    //System.exit(0);
                 } else {
                     DocumentDiffTree tree = consumer.getDocumentDiffTree();
                     GUIDisplay frame = new GUIDisplay(tree);
