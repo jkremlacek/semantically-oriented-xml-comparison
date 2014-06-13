@@ -138,36 +138,45 @@ public class GUISelector extends javax.swing.JFrame {
         });
 
         checkBoxIgnoreElementOrder.setText("Ignore element order");
-        checkBoxIgnoreElementOrder.setToolTipText("");
+        checkBoxIgnoreElementOrder.setToolTipText("Whether to ignore order of elements");
 
         checkBoxIgnoreAttrInSimilar.setSelected(true);
         checkBoxIgnoreAttrInSimilar.setText("Ignore attributes in similarity");
-        checkBoxIgnoreAttrInSimilar.setToolTipText("");
+        checkBoxIgnoreAttrInSimilar.setToolTipText("Wheter to ignore attributes (incl. values) when finding matching elements.");
 
         optionsLabel.setText("Additional options:");
 
         checkBoxIgnoreNamespaceURI.setText("Ignore namespace URI");
+        checkBoxIgnoreNamespaceURI.setToolTipText("Wheter to exclude nodes' namespace URI from comparison");
 
         checkBoxIgnorePrefix.setText("Ignore prefix");
+        checkBoxIgnorePrefix.setToolTipText("Wheter to exclude nodes' prefix from comparison");
 
+        checkBoxIgnoreElNameInSimilarity.setToolTipText("Wheter to ignore element names (incl. namespace+prefix) when finding matching elements");
         checkBoxIgnoreElNameInSimilarity.setLabel("Ignore element name in similarity");
 
         checkBoxIgnoreWhitespaceOnlyText.setSelected(true);
+        checkBoxIgnoreWhitespaceOnlyText.setToolTipText("Whether to exclude whitespace-only text nodes from comparison");
         checkBoxIgnoreWhitespaceOnlyText.setLabel("Ignore whitespace-only text");
 
+        checkBoxIgnoreText.setToolTipText("Whether to exclude text nodes from comparison");
         checkBoxIgnoreText.setLabel("Ignore text nodes");
 
+        checkBoxTrimWhiteSpace.setToolTipText("Whether to trim whitespace in text nodes like in HTML (leading/trailing ws removed, internal ws collapsed into one space)");
         checkBoxTrimWhiteSpace.setLabel("Trim whitespace in text");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cz/muni/fi/courses/pb138/j2014/projects/soxc/GUI/img/SOXC.png"))); // NOI18N
 
+        checkBoxIgnoreComments.setToolTipText("Whether to exclude comments from comparison");
         checkBoxIgnoreComments.setLabel("Ignore comments");
 
         checkBoxCoalesceCDATA.setSelected(true);
         checkBoxCoalesceCDATA.setText("Coalesce CDATA into text");
+        checkBoxCoalesceCDATA.setToolTipText("Whether to coalesce CDATA sections into surrounding text nodes");
 
         checkBoxExpandEntityRefs.setSelected(true);
         checkBoxExpandEntityRefs.setText("Expand entity references");
+        checkBoxExpandEntityRefs.setToolTipText("Whether to expand entity references before comparison");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

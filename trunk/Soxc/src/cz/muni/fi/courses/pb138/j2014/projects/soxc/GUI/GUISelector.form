@@ -203,14 +203,14 @@
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreElementOrder">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ignore element order"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to ignore order of elements"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreAttrInSimilar">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Ignore attributes in similarity"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Wheter to ignore attributes (incl. values) when finding matching elements."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="optionsLabel">
@@ -221,11 +221,13 @@
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreNamespaceURI">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ignore namespace URI"/>
+        <Property name="toolTipText" type="java.lang.String" value="Wheter to exclude nodes&apos; namespace URI from comparison"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnorePrefix">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ignore prefix"/>
+        <Property name="toolTipText" type="java.lang.String" value="Wheter to exclude nodes&apos; prefix from comparison"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
@@ -234,22 +236,26 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreElNameInSimilarity">
       <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Wheter to ignore element names (incl. namespace+prefix) when finding matching elements"/>
         <Property name="label" type="java.lang.String" value="Ignore element name in similarity"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreWhitespaceOnlyText">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to exclude whitespace-only text nodes from comparison"/>
         <Property name="label" type="java.lang.String" value="Ignore whitespace-only text"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreText">
       <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to exclude text nodes from comparison"/>
         <Property name="label" type="java.lang.String" value="Ignore text nodes"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxTrimWhiteSpace">
       <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to trim whitespace in text nodes like in HTML (leading/trailing ws removed, internal ws collapsed into one space)"/>
         <Property name="label" type="java.lang.String" value="Trim whitespace in text"/>
       </Properties>
     </Component>
@@ -264,6 +270,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreComments">
       <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to exclude comments from comparison"/>
         <Property name="label" type="java.lang.String" value="Ignore comments"/>
       </Properties>
     </Component>
@@ -271,12 +278,14 @@
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Coalesce CDATA into text"/>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to coalesce CDATA sections into surrounding text nodes"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxExpandEntityRefs">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Expand entity references"/>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to expand entity references before comparison"/>
       </Properties>
     </Component>
   </SubComponents>
