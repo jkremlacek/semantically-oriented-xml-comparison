@@ -35,15 +35,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="selectFilesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="leftFileLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="rightFileLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="runButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="selectFilesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="leftFileLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="rightFileLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="runButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="pathfileLeft" pref="233" max="32767" attributes="0"/>
@@ -56,49 +52,41 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jSeparator4" min="-2" pref="11" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="checkBoxIgnoreWhitespaceOnlyText" pref="191" max="32767" attributes="0"/>
-                              <Component id="checkBoxIgnoreProcessingInstructions" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="checkBoxIgnoreText" alignment="0" max="32767" attributes="0"/>
-                              <Component id="checkBoxIgnoreComments" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="checkBoxCoalesceCDATA" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="checkBoxExpandEntityRefs" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="checkBoxIgnoreCDATA" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="checkBoxTrimWhiteSpace" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                  <Component id="jLabePreproOptions" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="checkBoxIgnoreNamespaceURI" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="checkBoxIgnoreWhitespaceOnlyText" pref="191" max="32767" attributes="0"/>
+                      <Component id="checkBoxIgnoreProcessingInstructions" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkBoxIgnoreText" alignment="0" max="32767" attributes="0"/>
+                      <Component id="checkBoxIgnoreComments" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkBoxCoalesceCDATA" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkBoxExpandEntityRefs" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkBoxIgnoreCDATA" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkBoxTrimWhiteSpace" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="jLabePreproOptions" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="checkBoxIgnoreNamespaceURI" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="checkBoxIgnoreAttrInSimilar" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="checkBoxIgnoreAttrInSimilar" alignment="0" max="32767" attributes="0"/>
-                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="checkBoxIgnorePrefix" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="checkBoxIgnoreElNameInSimilarity" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="checkBoxIgnoreElementOrder" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="checkBoxIgnorePrefix" alignment="0" max="32767" attributes="0"/>
+                              <Component id="checkBoxIgnoreElNameInSimilarity" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              <Component id="optionsLabel" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="checkBoxIgnoreElementOrder" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                      <Component id="jSeparator1" min="-2" pref="191" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Component id="optionsLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace pref="10" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -108,8 +96,6 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="selectFilesLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -126,9 +112,7 @@
                           <Component id="pathfileRight" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="browseButtonRight" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                      <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                       <Component id="runButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -147,9 +131,7 @@
                               <Component id="checkBoxIgnoreNamespaceURI" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="checkBoxIgnorePrefix" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="jLabePreproOptions" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="checkBoxTrimWhiteSpace" min="-2" max="-2" attributes="0"/>
@@ -259,8 +241,6 @@
         <Property name="toolTipText" type="java.lang.String" value="Wheter to exclude nodes&apos; prefix from comparison"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSeparator" name="jSeparator2">
-    </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreElNameInSimilarity">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Wheter to ignore element names (incl. namespace+prefix) when finding matching elements"/>
@@ -292,8 +272,6 @@
           <Image iconType="3" name="/cz/muni/fi/courses/pb138/j2014/projects/soxc/GUI/img/SOXC.png"/>
         </Property>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JSeparator" name="jSeparator3">
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreComments">
       <Properties>
@@ -334,8 +312,6 @@
       <Properties>
         <Property name="orientation" type="int" value="1"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>
   </SubComponents>
 </Form>
