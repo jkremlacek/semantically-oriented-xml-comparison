@@ -340,16 +340,35 @@ public class Soxc {
             case Node.ELEMENT_NODE: {
                 ElementDiffConsumer elementConsumer = diffConsumer.beginElement(DocumentSide.BOTH, (Element)nodeLeft);
                 
-                // for similar nodes, if ns/prefix is not ignored, it will be equal:
                 if(!options.ignoreNamespaceURI()) {
-                    String nsUri = nodeLeft.getNamespaceURI();
-                    if(nsUri != null)
-                        elementConsumer.namespaceURI(DocumentSide.BOTH, nsUri);
+                    String nsUriLeft = nodeLeft.getNamespaceURI();
+                    String nsUriRight = nodeRight.getNamespaceURI();
+                    if(Utils.equal(nsUriLeft, nsUriRight)) {
+                        if(nsUriLeft != null)
+                            elementConsumer.namespaceURI(DocumentSide.BOTH, nsUriLeft);
+                    }
+                    else {
+                        if(nsUriLeft != null)
+                            elementConsumer.namespaceURI(DocumentSide.LEFT_DOCUMENT, nsUriLeft);
+                        if(nsUriRight != null)
+                            elementConsumer.namespaceURI(DocumentSide.RIGHT_DOCUMENT, nsUriRight);
+                        equal = false;
+                    }
                 }
                 if(!options.ignorePrefix()) {
-                    String prefix = nodeLeft.getPrefix();
-                    if(prefix != null)
-                        elementConsumer.prefix(DocumentSide.BOTH, prefix);
+                    String prefixLeft = nodeLeft.getPrefix();
+                    String prefixRight = nodeRight.getPrefix();
+                    if(Utils.equal(prefixLeft, prefixRight)) {
+                        if(prefixLeft != null)
+                            elementConsumer.prefix(DocumentSide.BOTH, prefixLeft);
+                    }
+                    else {
+                        if(prefixLeft != null)
+                            elementConsumer.prefix(DocumentSide.LEFT_DOCUMENT, prefixLeft);
+                        if(prefixRight != null)
+                            elementConsumer.prefix(DocumentSide.RIGHT_DOCUMENT, prefixRight);
+                        equal = false;
+                    }
                 }
                 
                 String nameLeft = nodeLeft.getLocalName();
@@ -359,6 +378,7 @@ public class Soxc {
                 else {
                     elementConsumer.localName(DocumentSide.LEFT_DOCUMENT, nameLeft);
                     elementConsumer.localName(DocumentSide.RIGHT_DOCUMENT, nameRight);
+                    equal = false;
                 }
 
                 NodeListDiffConsumer attrsConsumer = elementConsumer.beginAttributes();
@@ -381,18 +401,37 @@ public class Soxc {
             case Node.ATTRIBUTE_NODE: {
                 AttributeDiffConsumer attrConsumer = diffConsumer.beginAttribute(DocumentSide.BOTH, (Attr)nodeLeft);
                 
-                // for similar nodes, if ns/prefix is not ignored, it will be equal:
                 if(!options.ignoreNamespaceURI()) {
-                    String nsUri = nodeLeft.getNamespaceURI();
-                    if(nsUri != null)
-                        attrConsumer.namespaceURI(DocumentSide.BOTH, nsUri);
+                    String nsUriLeft = nodeLeft.getNamespaceURI();
+                    String nsUriRight = nodeRight.getNamespaceURI();
+                    if(Utils.equal(nsUriLeft, nsUriRight)) {
+                        if(nsUriLeft != null)
+                            attrConsumer.namespaceURI(DocumentSide.BOTH, nsUriLeft);
+                    }
+                    else {
+                        if(nsUriLeft != null)
+                            attrConsumer.namespaceURI(DocumentSide.LEFT_DOCUMENT, nsUriLeft);
+                        if(nsUriRight != null)
+                            attrConsumer.namespaceURI(DocumentSide.RIGHT_DOCUMENT, nsUriRight);
+                        equal = false;
+                    }
                 }
                 if(!options.ignorePrefix()) {
-                    String prefix = nodeLeft.getPrefix();
-                    if(prefix != null)
-                        attrConsumer.prefix(DocumentSide.BOTH, prefix);
+                    String prefixLeft = nodeLeft.getPrefix();
+                    String prefixRight = nodeRight.getPrefix();
+                    if(Utils.equal(prefixLeft, prefixRight)) {
+                        if(prefixLeft != null)
+                            attrConsumer.prefix(DocumentSide.BOTH, prefixLeft);
+                    }
+                    else {
+                        if(prefixLeft != null)
+                            attrConsumer.prefix(DocumentSide.LEFT_DOCUMENT, prefixLeft);
+                        if(prefixRight != null)
+                            attrConsumer.prefix(DocumentSide.RIGHT_DOCUMENT, prefixRight);
+                        equal = false;
+                    }
                 }
-
+                
                 String nameLeft = nodeLeft.getLocalName();
                 String nameRight = nodeRight.getLocalName();
                 if(nameLeft.equals(nameRight))
@@ -400,6 +439,7 @@ public class Soxc {
                 else {
                     attrConsumer.localName(DocumentSide.LEFT_DOCUMENT, nameLeft);
                     attrConsumer.localName(DocumentSide.RIGHT_DOCUMENT, nameRight);
+                    equal = false;
                 }
 
                 NodeListDiffConsumer childrenConsumer = attrConsumer.beginChildren();
