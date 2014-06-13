@@ -372,7 +372,7 @@ public class GUITreeFactory {
             if(!leftAttributeTag.isEmpty())
                 attributeTextLeft = attributeTextLeft + " " + attributeNamespace.getLeftNamespaceWithoutURI(leftAttributeTag + "=\"" + attrValueLeft + "\"");
             if(!rightAttributeTag.isEmpty())
-                attributeTextRight = attributeTextRight + " " + attributeNamespace.getLeftNamespaceWithoutURI(rightAttributeTag + "=\"" + attrValueRight + "\"");
+                attributeTextRight = attributeTextRight + " " + attributeNamespace.getRightNamespaceWithoutURI(rightAttributeTag + "=\"" + attrValueRight + "\"");
         }
         
         //finalization of tag
