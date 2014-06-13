@@ -24,3 +24,7 @@ Pro tyto případy musí mít knihovna nastavení, kde lze dodefinovat jestli u�
 = Application/library: =
 
 The library is based on traversing and comparing both XML files that are (together with comparison options) given as input. See [ComparisonAlgorithm] for more details about the comparison. The library will have a GUI and CLI frontend that will let the user specify the comparison options, process the given XML files and display them with the differences highlighted.
+
+= GUI =
+
+https://code.google.com/p/semantically-oriented-xml-comparison/wiki/GUI
