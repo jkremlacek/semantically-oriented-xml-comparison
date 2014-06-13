@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.JCheckBox" name="jCheckBox4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jCheckBox4"/>
+      </Properties>
+    </Component>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="SOXC GUI"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+              <Component id="optionsLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="checkBoxIgnoreComments" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="checkBoxTrimWhiteSpace" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabePreproOptions" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="checkBoxCoalesceCDATA" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxExpandEntityRefs" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxIgnoreCDATA" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxIgnoreProcessingInstructions" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="checkBoxIgnorePrefix" min="-2" pref="224" max="-2" attributes="0"/>
+                          <Component id="checkBoxIgnoreElNameInSimilarity" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxIgnoreWhitespaceOnlyText" min="-2" max="-2" attributes="0"/>
+                          <Component id="leftFileLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="256" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jSeparator3" max="32767" attributes="0"/>
+                          <Component id="jSeparator2" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="checkBoxIgnoreNamespaceURI" min="-2" max="-2" attributes="0"/>
+                                  <Component id="selectFilesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxIgnoreAttrInSimilar" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
+                                  <Component id="checkBoxIgnoreText" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxIgnoreElementOrder" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
+                                  <Component id="rightFileLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="pathfileRight" max="32767" attributes="0"/>
+                                  <Component id="pathfileLeft" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="jLabel1" min="-2" pref="300" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="browseButtonLeft" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="browseButtonRight" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="runButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+              <Component id="selectFilesLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="leftFileLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="pathfileLeft" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="browseButtonLeft" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="rightFileLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="pathfileRight" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="browseButtonRight" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="optionsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabePreproOptions" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="checkBoxIgnoreElementOrder" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxTrimWhiteSpace" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="checkBoxIgnoreElNameInSimilarity" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxIgnoreComments" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="checkBoxIgnoreAttrInSimilar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxCoalesceCDATA" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="checkBoxIgnoreNamespaceURI" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxExpandEntityRefs" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="checkBoxIgnorePrefix" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxIgnoreCDATA" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="checkBoxIgnoreText" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxIgnoreProcessingInstructions" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="checkBoxIgnoreWhitespaceOnlyText" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="runButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JTextField" name="pathfileLeft">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" value="path"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="leftFileLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="XML File 1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="rightFileLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="XML File 2"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="pathfileRight">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" value="path"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="browseButtonLeft">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Browse"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="browseButtonLeftActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="browseButtonRight">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Browse"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="browseButtonRightActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="selectFilesLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Select files:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="runButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Run"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="runButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreElementOrder">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ignore element order"/>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to ignore order of elements"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreAttrInSimilar">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Ignore attributes in similarity"/>
+        <Property name="toolTipText" type="java.lang.String" value="Wheter to ignore attributes (incl. values) when finding matching elements."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="optionsLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Additional options:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreNamespaceURI">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ignore namespace URI"/>
+        <Property name="toolTipText" type="java.lang.String" value="Wheter to exclude nodes&apos; namespace URI from comparison"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnorePrefix">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ignore prefix"/>
+        <Property name="toolTipText" type="java.lang.String" value="Wheter to exclude nodes&apos; prefix from comparison"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSeparator" name="jSeparator1">
+    </Component>
+    <Component class="javax.swing.JSeparator" name="jSeparator2">
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreElNameInSimilarity">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Wheter to ignore element names (incl. namespace+prefix) when finding matching elements"/>
+        <Property name="label" type="java.lang.String" value="Ignore element name in similarity"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreWhitespaceOnlyText">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to exclude whitespace-only text nodes from comparison"/>
+        <Property name="label" type="java.lang.String" value="Ignore whitespace-only text"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreText">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to exclude text nodes from comparison"/>
+        <Property name="label" type="java.lang.String" value="Ignore text nodes"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxTrimWhiteSpace">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to trim whitespace in text nodes like in HTML (leading/trailing ws removed, internal ws collapsed into one space)"/>
+        <Property name="label" type="java.lang.String" value="Trim whitespace in text"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/cz/muni/fi/courses/pb138/j2014/projects/soxc/GUI/img/SOXC.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSeparator" name="jSeparator3">
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreComments">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to exclude comments from comparison"/>
+        <Property name="label" type="java.lang.String" value="Ignore comments"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxCoalesceCDATA">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Coalesce CDATA into text"/>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to coalesce CDATA sections into surrounding text nodes"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxExpandEntityRefs">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Expand entity references"/>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to expand entity references before comparison"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreCDATA">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ignore CDATA"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreProcessingInstructions">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ignore processing instructions"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabePreproOptions">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Preprocesing options:"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>
