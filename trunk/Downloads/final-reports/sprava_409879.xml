@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4//EN"
+    "http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
+<book lang="sk-SK">
+    <article>
+        <title>Záverečná správa</title>
+        <!--<subtitle>Ondrej Mosnáček</subtitle>-->
+        <articleinfo>
+            <author>
+                <firstname>Ondrej</firstname>
+                <surname>Mosnáček</surname>
+            </author>
+        </articleinfo>
+        <section>
+            <title>Podiel na riešení</title>
+            <para>
+                Na projekte som mal na starosti predovšetkým návrh a implementáciu
+                jadra knižnice - algoritmus porovnávania, spôsob reprezentácie
+                rozdielov medzi XML uzlami, implementáciu niektorých volieb
+                porovnávania.
+            </para>
+            <para>
+                Ku knižnici som napísal niekoľko unit testov testujúcich korektnosť
+                správania interných prvkov knižnice.
+            </para>
+            <para>
+                Ďalej som navrhol XML formát na reprezentáciu rozdielov v XML
+                dokumentoch (vrátane XML schémy) a naimplementoval som do knižnice
+                možnosť výpisu v tomto formáte.
+            </para>
+            <para>
+                Do wiki stránok projektu som pridal návod na používanie knižnice.
+            </para>
+            <para>
+                Napísal som aj základnú kostru command-line rozhrania, ktoré ale
+                z dôvodu rezignácie jedného z členov nebolo dokončené.
+            </para>
+        </section>
+    </article>
+</book>
