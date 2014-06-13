@@ -86,13 +86,11 @@ public class newDraftGUISelector extends javax.swing.JFrame {
         optionsLabel = new javax.swing.JLabel();
         checkBoxIgnoreNamespaceURI = new javax.swing.JCheckBox();
         checkBoxIgnorePrefix = new javax.swing.JCheckBox();
-        jSeparator2 = new javax.swing.JSeparator();
         checkBoxIgnoreElNameInSimilarity = new javax.swing.JCheckBox();
         checkBoxIgnoreWhitespaceOnlyText = new javax.swing.JCheckBox();
         checkBoxIgnoreText = new javax.swing.JCheckBox();
         checkBoxTrimWhiteSpace = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
         checkBoxIgnoreComments = new javax.swing.JCheckBox();
         checkBoxCoalesceCDATA = new javax.swing.JCheckBox();
         checkBoxExpandEntityRefs = new javax.swing.JCheckBox();
@@ -100,7 +98,6 @@ public class newDraftGUISelector extends javax.swing.JFrame {
         checkBoxIgnoreProcessingInstructions = new javax.swing.JCheckBox();
         jLabePreproOptions = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        jSeparator1 = new javax.swing.JSeparator();
 
         jCheckBox4.setText("jCheckBox4");
 
@@ -197,14 +194,11 @@ public class newDraftGUISelector extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(selectFilesLabel)
-                        .addComponent(leftFileLabel)
-                        .addComponent(rightFileLabel)
-                        .addComponent(runButton)
-                        .addComponent(jSeparator3)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator2))
+                    .addComponent(selectFilesLabel)
+                    .addComponent(leftFileLabel)
+                    .addComponent(rightFileLabel)
+                    .addComponent(runButton)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(pathfileLeft, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
@@ -213,39 +207,34 @@ public class newDraftGUISelector extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(browseButtonLeft)
                             .addComponent(browseButtonRight))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(checkBoxIgnoreWhitespaceOnlyText, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                        .addComponent(checkBoxIgnoreProcessingInstructions)
+                        .addComponent(checkBoxIgnoreText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(checkBoxIgnoreComments)
+                        .addComponent(checkBoxCoalesceCDATA)
+                        .addComponent(checkBoxExpandEntityRefs)
+                        .addComponent(checkBoxIgnoreCDATA)
+                        .addComponent(checkBoxTrimWhiteSpace)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(jLabePreproOptions)))
+                    .addComponent(checkBoxIgnoreNamespaceURI, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(checkBoxIgnoreAttrInSimilar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(checkBoxIgnoreWhitespaceOnlyText, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                                .addComponent(checkBoxIgnoreProcessingInstructions)
-                                .addComponent(checkBoxIgnoreText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(checkBoxIgnoreComments)
-                                .addComponent(checkBoxCoalesceCDATA)
-                                .addComponent(checkBoxExpandEntityRefs)
-                                .addComponent(checkBoxIgnoreCDATA)
-                                .addComponent(checkBoxTrimWhiteSpace)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(jLabePreproOptions)))
-                            .addComponent(checkBoxIgnoreNamespaceURI, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(checkBoxIgnoreAttrInSimilar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(checkBoxIgnorePrefix, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(checkBoxIgnoreElNameInSimilarity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(checkBoxIgnoreElementOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(optionsLabel))))
+                                .addComponent(checkBoxIgnorePrefix, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(checkBoxIgnoreElNameInSimilarity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(checkBoxIgnoreElementOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addGap(8, 8, 8)
+                        .addComponent(optionsLabel)))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,8 +242,6 @@ public class newDraftGUISelector extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(selectFilesLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -269,9 +256,7 @@ public class newDraftGUISelector extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(pathfileRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(browseButtonRight))
-                        .addGap(63, 63, 63)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(79, 79, 79)
                         .addComponent(runButton))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -289,9 +274,7 @@ public class newDraftGUISelector extends javax.swing.JFrame {
                                 .addComponent(checkBoxIgnoreNamespaceURI)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(checkBoxIgnorePrefix)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabePreproOptions)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(checkBoxTrimWhiteSpace)
@@ -429,9 +412,6 @@ public class newDraftGUISelector extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JLabel jLabePreproOptions;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel leftFileLabel;
     private javax.swing.JLabel optionsLabel;
