@@ -15,6 +15,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -248,7 +249,7 @@
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreWhitespaceOnlyText">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
-        <Property name="toolTipText" type="java.lang.String" value="Whether to exclude whitespace-only text nodes from comparison"/>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to exclude whitespace-only text nodes from comparison (doesn&apos;t apply to attribute values)"/>
         <Property name="label" type="java.lang.String" value="Ignore whitespace-only text"/>
       </Properties>
     </Component>
@@ -260,7 +261,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxTrimWhiteSpace">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Whether to trim whitespace in text nodes like in HTML (leading/trailing ws removed, internal ws collapsed into one space)"/>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to trim whitespace in text nodes like in HTML (leading/trailing ws removed, internal ws collapsed into one space; doesn&apos;t apply to attribute values)"/>
         <Property name="label" type="java.lang.String" value="Trim whitespace in text"/>
       </Properties>
     </Component>
@@ -296,11 +297,13 @@
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreCDATA">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ignore CDATA"/>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to exclude CDATA sections from comparison"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxIgnoreProcessingInstructions">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ignore processing instructions"/>
+        <Property name="toolTipText" type="java.lang.String" value="Whether to exclude processing instructions from comparison"/>
       </Properties>
     </Component>
   </SubComponents>

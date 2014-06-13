@@ -158,13 +158,13 @@ public class GUISelector extends javax.swing.JFrame {
         checkBoxIgnoreElNameInSimilarity.setLabel("Ignore element name in similarity");
 
         checkBoxIgnoreWhitespaceOnlyText.setSelected(true);
-        checkBoxIgnoreWhitespaceOnlyText.setToolTipText("Whether to exclude whitespace-only text nodes from comparison");
+        checkBoxIgnoreWhitespaceOnlyText.setToolTipText("Whether to exclude whitespace-only text nodes from comparison (doesn't apply to attribute values)");
         checkBoxIgnoreWhitespaceOnlyText.setLabel("Ignore whitespace-only text");
 
         checkBoxIgnoreText.setToolTipText("Whether to exclude text nodes from comparison");
         checkBoxIgnoreText.setLabel("Ignore text nodes");
 
-        checkBoxTrimWhiteSpace.setToolTipText("Whether to trim whitespace in text nodes like in HTML (leading/trailing ws removed, internal ws collapsed into one space)");
+        checkBoxTrimWhiteSpace.setToolTipText("Whether to trim whitespace in text nodes like in HTML (leading/trailing ws removed, internal ws collapsed into one space; doesn't apply to attribute values)");
         checkBoxTrimWhiteSpace.setLabel("Trim whitespace in text");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cz/muni/fi/courses/pb138/j2014/projects/soxc/GUI/img/SOXC.png"))); // NOI18N
@@ -181,8 +181,10 @@ public class GUISelector extends javax.swing.JFrame {
         checkBoxExpandEntityRefs.setToolTipText("Whether to expand entity references before comparison");
 
         checkBoxIgnoreCDATA.setText("Ignore CDATA");
+        checkBoxIgnoreCDATA.setToolTipText("Whether to exclude CDATA sections from comparison");
 
         checkBoxIgnoreProcessingInstructions.setText("Ignore processing instructions");
+        checkBoxIgnoreProcessingInstructions.setToolTipText("Whether to exclude processing instructions from comparison");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
