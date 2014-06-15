@@ -21,7 +21,7 @@ https://is.muni.cz/auth/www/410131/49250063/SOXC_Selector.png?studium=614144
 
 Additional options can be selected in the right side of the Selector window.
 
-Both pathfiles have to be set, if either is missing a error will show up.
+Both pathfiles have to be set, if either is missing an error will show up.
 
 https://is.muni.cz/auth/www/410131/49250063/SOXC_Error.png?studium=614144
 
