@@ -19,6 +19,7 @@ import cz.muni.fi.courses.pb138.j2014.projects.soxc.consumers.TextNodeDiffConsum
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
@@ -227,6 +228,23 @@ public class Soxc {
                 Utils.autoWrapSimilarity(Utils.asConsumer(unorderedRight), options),
                 Utils.autoWrapSimilarity(Utils.asConsumer(orderedRight), options),
                 options);
+        
+        // a hack to ignore xmlns: attrs when ingoring namespaceURI/prefix:
+        if(options.ignorePrefix() || options.ignoreNamespaceURI()) {
+            Iterator<NodeSimilarityWrapper> itLeft = unorderedLeft.iterator();
+            while(itLeft.hasNext()) {
+                Node node = itLeft.next().getNode();
+                if("xmlns".equals(node.getPrefix()) || "xmlns".equals(node.getLocalName()))
+                    itLeft.remove();
+            }
+            
+            Iterator<NodeSimilarityWrapper> itRight = unorderedRight.iterator();
+            while(itRight.hasNext()) {
+                Node node = itRight.next().getNode();
+                if("xmlns".equals(node.getPrefix()) || "xmlns".equals(node.getLocalName()))
+                    itRight.remove();
+            }
+        }
         
         // COMPARE UNORDERED:
         // Take one node at a time from the left side,

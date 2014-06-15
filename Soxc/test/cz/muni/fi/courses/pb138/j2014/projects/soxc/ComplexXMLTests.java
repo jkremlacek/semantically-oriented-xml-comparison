@@ -83,9 +83,9 @@ public class ComplexXMLTests {
         Document doc1 = builder.parse(new File("../testdata/difElementOrder.xml"));
         Document doc2 = builder.parse(new File("../testdata/model.xml"));
 
-        assertFalse(Soxc.diffDocuments(doc1, doc2, falseOptions, consumer));
+        assertFalse(Soxc.diffDocumentsPreprocess(doc1, doc2, falseOptions, new PreprocessingOptions(), consumer));
         // ignoreElementOrder = true
-        assertTrue(Soxc.diffDocuments(doc1, doc2, new Options(true, false, false, false, false), consumer));
+        assertTrue(Soxc.diffDocumentsPreprocess(doc1, doc2, new Options(true, false, false, false, false), new PreprocessingOptions(), consumer));
     }
     
     @Test
