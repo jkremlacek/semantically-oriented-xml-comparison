@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4//EN"
+    "http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
+<book lang="cz-CZ">
+    <article>
+        <title>Závěrečná zpráva</title>
+        <!--<subtitle>Ondřej Sobočík</subtitle>-->
+        <articleinfo>
+            <author>
+                <firstname>Ondřej</firstname>
+                <surname>Sobočík</surname>
+            </author>
+        </articleinfo>
+        <section>
+            <title>Vykonaná práce na řešení projektu</title>
+            <para>
+                Pro projekt jsem připravil knihovnu testovacích XML souborů a unit testy celkové funkcionality aplikace. Tedy porovnávání těchto komplexních xml souborů. Každý soubor obsahuje rozdíly oproti modelovému xml pokrývající jednu volbu porovnávání. Např.: ignorovat pořadí elementů, ignorovat atributy apod.
+            </para>
+            <para>
+                Dále jsem se podílel na návrhu a implementaci části voleb pro porovnávání.
+            </para>
+            <para>
+                Po kolegovi, který v průbehu semestru odpadl, jsem přebral a předělal command line interface. Interface požaduje 3 povinné atributy (uri porovnávaných xml souborů a metodu výstupu). Dále je možná řada nepovinných přepínačů pro jednotlivé možnosti porovnávání. Výstup porovnávání je možný buď do konzole nebo do xml souboru.
+            </para>   
+        </section>
+    </article>
+</book>
