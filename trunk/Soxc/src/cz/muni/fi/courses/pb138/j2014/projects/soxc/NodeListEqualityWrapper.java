@@ -8,6 +8,7 @@ package cz.muni.fi.courses.pb138.j2014.projects.soxc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Node;
@@ -52,6 +53,16 @@ public final class NodeListEqualityWrapper {
                 Utils.autoWrapEquality(Utils.asMultiSetConsumer(elsOrAttrs), options),
                 Utils.autoWrapEquality(Utils.asConsumer(otherNodes), options),
                 options);
+        
+        // a hack to ignore xmlns: attrs when ingoring namespaceURI/prefix:
+        if(options.ignorePrefix() || options.ignoreNamespaceURI()) {
+            Iterator<Map.Entry<NodeEqualityWrapper, Integer>> it = elsOrAttrs.entrySet().iterator();
+            while(it.hasNext()) {
+                Node node = it.next().getKey().getNode();
+                if("xmlns".equals(node.getPrefix()) || "xmlns".equals(node.getLocalName()))
+                    it.remove();
+            }
+        }
         
         hashCodeCached = calculateHashCode();
     }
