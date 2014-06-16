@@ -20,7 +20,7 @@
                 Dále jsem se podílel na návrhu a implementaci části voleb pro porovnávání.
             </para>
             <para>
-                Po kolegovi, který v průbehu semestru odpadl, jsem přebral a předělal command line interface. Interface požaduje 3 povinné atributy (uri porovnávaných xml souborů a metodu výstupu). Dále je možná řada nepovinných přepínačů pro jednotlivé možnosti porovnávání. Výstup porovnávání je možný buď do konzole nebo do xml souboru.
+                Po kolegovi, který v průbehu semestru odpadl, jsem přebral a předělal command line interface. Interface požaduje 3 povinné atributy (uri porovnávaných xml souborů a metodu výstupu). Dále je možná řada nepovinných přepínačů pro jednotlivé možnosti porovnávání. Výstup porovnávání je možný buď do konzole nebo do xml souboru. Na wiki stránky projektu jsem přidal krátký článek o použití tohoto interfacu.
             </para>   
         </section>
     </article>
